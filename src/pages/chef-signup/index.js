@@ -9,13 +9,13 @@ import FormGroup from '@material-ui/core/FormGroup';
 import "./index.css"
 
 export default function ChefSignup() {
-  let [info, setInfo] = useState({ name: "", email: "", bio: "", zip: "" })
-  let [highlights, setHighlights] = useState({ workPlace: "", jobTitle: "", duration: "" })
-  let [highlightStore, setHighlightStore] = useState([])
+  let [info, setInfo] = useState({ name: "", email: "", bio: "", zip: "" });
+  let [highlights, setHighlights] = useState({ workPlace: "", jobTitle: "", duration: "" });
+  let [highlightStore, setHighlightStore] = useState([]);
   const cusines = ["mexican", "japanese", "indian", "ethiopian", "french", "italian", "korean"];
   const diets = ["gluten-free", "vegan", 'vegetarian', "desert"];
-  const cusinesObject = new checkboxObject(cusines)
-  const dietObject = new checkboxObject(diets)
+  const cusinesObject = new checkboxObject(cusines);
+  const dietObject = new checkboxObject(diets);
   let [cusinesState, setCusinesState] = useState(cusinesObject.generateObject());
   let [dietState, setDietState] = useState(dietObject.generateObject());
 
@@ -42,17 +42,17 @@ export default function ChefSignup() {
 
   function onInfoChange(event) {
     const { name, value } = event.target;
-    setInfo({ ...info, [name]: value })
+    setInfo({ ...info, [name]: value });
   }
   function onHightlightsChange(event) {
     const { name, value } = event.target;
-    setHighlights({ ...highlights, [name]: value })
+    setHighlights({ ...highlights, [name]: value });
   }
   function onAddHighlight(event) {
     event.preventDefault();
     if (highlights.workPlace) {
-      setHighlightStore([...highlightStore, highlights])
-      setHighlights({ workPlace: "", jobTitle: "", duration: "" })
+      setHighlightStore([...highlightStore, highlights]);
+      setHighlights({ workPlace: "", jobTitle: "", duration: "" });
     } else {
       return
     }
@@ -60,21 +60,19 @@ export default function ChefSignup() {
 
   function onSubmit(event) {
     event.preventDefault();
-    console.log(info, highlightStore)
+    console.log(info, highlightStore);
     setHighlights({ workPlace: "", jobTitle: "", duration: "" });
     setHighlightStore([]);
     setInfo({ name: "", email: "", bio: "", zip: "" });
   }
 
   function onDietChange(event) {
-    console.log(event)
     const { name, checked } = event.target;
-    setDietState({ ...dietState, [name]: checked })
+    setDietState({ ...dietState, [name]: checked });
 
   } function onCusinesChange(event) {
-    console.log(event)
     const { name, checked } = event.target;
-    setCusinesState({ ...cusinesState, [name]: checked })
+    setCusinesState({ ...cusinesState, [name]: checked });
 
   }
 
@@ -92,7 +90,7 @@ export default function ChefSignup() {
       marginLeft: "auto",
       borderRadius: 7
     }
-  }
+  };
 
   return (
 
@@ -153,7 +151,6 @@ export default function ChefSignup() {
 
         </Grid>
       </Grid>
-      <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
 
     </form>
   );
