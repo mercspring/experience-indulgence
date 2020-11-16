@@ -1,16 +1,13 @@
 import axios from "axios";
 
 const API = {
-    api : "http://localhost:8080",
-    getAllCuisines: function() {
-        return axios.get(this.api + "/api/cuisine");
-    },
-    getAllSpecialties: function() {
-        return axios.get(this.api + "/api/specialty");
-    },
-    getAllServices: function() {
-        return axios.get(this.api + "/api/servicetype")
-    }
+    api : "https://fast-waters-05843.herokuapp.com/",
+    getAllCuisines: () => axios.get(this.api + "/api/cuisine"),
+    getAllSpecialties: () => axios.get(this.api + "/api/specialty"),
+    getAllServices: () => axios.get(this.api + "/api/servicetype"),
+    createProfile: () => axios.post(this.api + "/api/chef"),
+    login: () => axios.post(this.api + "/api/chef/login")
+
 }
 
 export default API;
