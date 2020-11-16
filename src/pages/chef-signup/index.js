@@ -7,17 +7,18 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import "./index.css"
+import API from "../../utils/API"
 
 export default function ChefSignup() {
   let [info, setInfo] = useState({ name: "", email: "", bio: "", zip: "" });
   let [highlights, setHighlights] = useState({ workPlace: "", jobTitle: "", duration: "" });
   let [highlightStore, setHighlightStore] = useState([]);
-  const cusines = ["mexican", "japanese", "indian", "ethiopian", "french", "italian", "korean"];
-  const diets = ["gluten-free", "vegan", 'vegetarian', "desert"];
+  let cusines = ["mexican", "japanese", "indian", "ethiopian", "french", "italian", "korean"];
+  let specialities= ["gluten-free", "vegan", 'vegetarian', "desert"];
   const cusinesObject = new checkboxObject(cusines);
-  const dietObject = new checkboxObject(diets);
+  const specialitiesObject = new checkboxObject(specialities);
   let [cusinesState, setCusinesState] = useState(cusinesObject.generateObject());
-  let [dietState, setDietState] = useState(dietObject.generateObject());
+  let [specialitiesState, setSpecialitiesState] = useState(specialitiesObject.generateObject());
 
   const widget = cloudinary.createUploadWidget({
     cloudName: 'mercspring',
@@ -39,6 +40,23 @@ export default function ChefSignup() {
       return obj;
     }
   }
+
+  let [services, setServicesState] = useState([]);
+
+  useEffect(() => {
+    API.getAllCuisines()
+      .then(res => {cuisines = res.map(elm => elm.name)}
+      )
+      .catch(err => console.log(err));
+    API.getAllSpecialties()
+      .then(res => {specialities = res.map(elm => elm.name)}
+      )
+      .catch(err => console.log(err));
+    API.getAllServices()
+      .then(res => setServicesState(res.data)
+      )
+      .catch(err => console.log(err));
+  }, [])
 
   function onInfoChange(event) {
     const { name, value } = event.target;
@@ -66,9 +84,9 @@ export default function ChefSignup() {
     setInfo({ name: "", email: "", bio: "", zip: "" });
   }
 
-  function onDietChange(event) {
+  function onSpecialityChange(event) {
     const { name, checked } = event.target;
-    setDietState({ ...dietState, [name]: checked });
+    setSpecialitiesState({ ...dietState, [name]: checked });
 
   } function onCusinesChange(event) {
     const { name, checked } = event.target;
@@ -128,10 +146,9 @@ export default function ChefSignup() {
           <Button onClick={widget.open}> Upload Image </Button>
           <h2>Dietary Specialties</h2>
           <FormGroup>
-            {dietObject.arr.map(diet => {
+            {specialitiesObject.arr.map(speciality  => {
               return (<FormControlLabel
-                control={<Checkbox name={diet} checked={dietState[diet]} onChange={onDietChange} />}
-
+                control={<Checkbox name={speciality} checked={specialitiesState[speciality]} onChange={onSpecialityChange} />}
                 label={diet}
               />)
             })}
@@ -141,7 +158,6 @@ export default function ChefSignup() {
             {cusinesObject.arr.map(cusine => {
               return (<FormControlLabel
                 control={<Checkbox name={cusine} checked={cusinesState[cusine]} onChange={onCusinesChange} />}
-
                 label={cusine}
               />)
             })}
