@@ -4,11 +4,30 @@ import TextField from '@material-ui/core/TextField';
 // import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
 import "./index.css"
+import API from "../../utils/API"
 
 export default function ChefSignup() {
-  let [info, setInfo] = useState({ name: "", email: "", bio: "", cusines: "" })
-  let [highlights, setHighlights] = useState({ workPlace: "", highlights: "", duration: "" })
-  let [highlightStore, setHighlightStore] = useState([])
+  let [info, setInfo] = useState({ name: "", email: "", bio: "", cusines: "" });
+  let [highlights, setHighlights] = useState({ workPlace: "", highlights: "", duration: "" });
+  let [highlightStore, setHighlightStore] = useState([]);
+  let [cuisines, setCuisinesState] = useState([]);
+  let [specialties, setSpecialtiesState] = useState([]);
+  let [services, setServicesState] = useState([]);
+
+  useEffect(() => {
+    API.getAllCuisines()
+      .then(res => setCuisinesState(res.data)
+      )
+      .catch(err => console.log(err));
+    API.getAllSpecialties()
+      .then(res => setSpecialtiesState(res.data)
+      )
+      .catch(err => console.log(err));
+    API.getAllServices()
+      .then(res => setServicesState(res.data)
+      )
+      .catch(err => console.log(err));
+  }, [])
 
   function onInfoChange(event) {
     const { name, value } = event.target;
