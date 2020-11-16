@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = {
-    api : "http://localhost:8080",
+    api : "https://fast-waters-05843.herokuapp.com",
     getAllCuisines: function() {
         return axios.get(this.api + "/api/cuisine");
     },
@@ -10,7 +10,14 @@ const API = {
     },
     getAllServices: function() {
         return axios.get(this.api + "/api/servicetype")
+    },
+    createProfile: function() {
+        return axios.post(this.api + "/api/chef")
+    },
+    login: function() {
+        return axios.post(this.api + "/api/chef/login")
     }
+
 }
 
 export default API;
