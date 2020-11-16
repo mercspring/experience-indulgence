@@ -19,6 +19,16 @@ export default function ChefSignup() {
   let [cusinesState, setCusinesState] = useState(cusinesObject.generateObject());
   let [dietState, setDietState] = useState(dietObject.generateObject());
 
+  const widget = cloudinary.createUploadWidget({
+    cloudName: 'mercspring',
+    uploadPreset: 'ml_default', folder: 'widgetUpload', cropping: true, sources: ['local', 'url', 'image_search', 'camera', 'google_drive', 'facebook', 'instagram'], googleApiKey: 'AIzaSyDkWnsHj5yjXat0zVLA9cyISwhn1F5sq0E'
+  }, (error, result) => {
+    if (!error && result && result.event === "success") {
+      console.log('Done! Here is the image info: ', result.info);
+    }
+  }
+  );
+
   function checkboxObject(typeArr) {
     this.arr = typeArr;
     this.generateObject = () => {
@@ -86,8 +96,8 @@ export default function ChefSignup() {
 
   return (
 
-    <form noValidate autoComplete="off">
-      <Grid container spacing={2}>
+    <form sytle={{width:"80%", margin:"auto"}}noValidate autoComplete="off">
+      <Grid style={{width:"80%", margin:"auto"}}container spacing={2}>
         <Grid item s={4}>
           <h2>Profile</h2>
           <TextField style={styles.input} label="Name" name="name" value={info.name} onChange={onInfoChange} /><br />
@@ -95,6 +105,7 @@ export default function ChefSignup() {
           <TextField style={styles.input} label="zip" name="zip" value={info.zip} onChange={onInfoChange} /><br />
           {/* <TextField style={styles.input} label="Best Cusines" name="cusines" value={info.cusines} onChange={onInfoChange} /><br /> */}
           <TextField style={styles.input} label="Bio" name="bio" multiline rows={4} value={info.bio} onChange={onInfoChange} /><br />
+          <Button onClick={widget.open}> Upload Profile Pic </Button>
           <Button onClick={onSubmit}> Submit </Button>
         </Grid>
 
@@ -114,7 +125,9 @@ export default function ChefSignup() {
           <Button onClick={onAddHighlight}> Add Highlight </Button>
         </Grid>
         <Grid item s={4}>
+          
           <h2>Food Photos</h2>
+          <Button onClick={widget.open}> Upload Image </Button>
           <h2>Dietary Specialties</h2>
           <FormGroup>
             {dietObject.arr.map(diet => {
@@ -140,6 +153,8 @@ export default function ChefSignup() {
 
         </Grid>
       </Grid>
+      <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+
     </form>
   );
 }
