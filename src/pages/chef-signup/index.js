@@ -10,19 +10,15 @@ import "./index.css"
 import API from "../../utils/API"
 
 export default function ChefSignup() {
-  let [info, setInfo] = useState({ name: "", email: "", bio: "", zip: "" });
+  let [info, setInfo] = useState({ name: "", email: "", bio: "", zip: "", password:"", username:""});
   let [highlights, setHighlights] = useState({ workPlace: "", jobTitle: "", duration: "" });
   let [highlightStore, setHighlightStore] = useState([]);
-  let cusines = ["mexican", "japanese", "indian", "ethiopian", "french", "italian", "korean"];
-  let specialities= ["gluten-free", "vegan", 'vegetarian', "desert"];
-  const cusinesObject = new checkboxObject(cusines);
-  const specialitiesObject = new checkboxObject(specialities);
-  let [cusinesState, setCusinesState] = useState(cusinesObject.generateObject());
-  let [specialitiesState, setSpecialitiesState] = useState(specialitiesObject.generateObject());
+  let [cuisinesState, setCuisinesState] = useState({});
+  let [specialitiesState, setSpecialitiesState] = useState({});
 
   const widget = cloudinary.createUploadWidget({
     cloudName: 'mercspring',
-    uploadPreset: 'ml_default', folder: 'widgetUpload', cropping: true, sources: ['local', 'url', 'image_search', 'camera', 'google_drive', 'facebook', 'instagram'], googleApiKey: 'AIzaSyDkWnsHj5yjXat0zVLA9cyISwhn1F5sq0E'
+    uploadPreset: 'ml_default', folder: 'widgetUpload', cropping: true, sources: ['local', 'url', 'image_search', 'camera', 'google_drive'], googleApiKey: 'AIzaSyDkWnsHj5yjXat0zVLA9cyISwhn1F5sq0E'
   }, (error, result) => {
     if (!error && result && result.event === "success") {
       console.log('Done! Here is the image info: ', result.info);
@@ -30,26 +26,31 @@ export default function ChefSignup() {
   }
   );
 
-  function checkboxObject(typeArr) {
-    this.arr = typeArr;
-    this.generateObject = () => {
-      let obj = {};
-      for (let i = 0; i < this.arr.length; i++) {
-        obj[this.arr[i]] = false;
-      }
-      return obj;
+  const generateObject = (typeArr) => {
+    let obj = {};
+    for (let i = 0; i < typeArr.length; i++) {
+      obj[typeArr[i]] = false;
     }
+    console.log(obj);
+    return obj;
   }
 
   let [services, setServicesState] = useState([]);
 
   useEffect(() => {
     API.getAllCuisines()
-      .then(res => {cuisines = res.map(elm => elm.name)}
+      .then(res => {
+        const cuisines = res.data.map(elm => elm.name)
+        setCuisinesState(generateObject(cuisines));
+
+      }
       )
       .catch(err => console.log(err));
     API.getAllSpecialties()
-      .then(res => {specialities = res.map(elm => elm.name)}
+      .then(res => {
+        const specialities = res.data.map(elm => elm.name)
+        setSpecialitiesState(generateObject(specialities));
+      }
       )
       .catch(err => console.log(err));
     API.getAllServices()
@@ -81,16 +82,41 @@ export default function ChefSignup() {
     console.log(info, highlightStore);
     setHighlights({ workPlace: "", jobTitle: "", duration: "" });
     setHighlightStore([]);
-    setInfo({ name: "", email: "", bio: "", zip: "" });
+    setInfo({ name: "", email: "", bio: "", zip: "", password:"", username:""});
   }
 
   function onSpecialityChange(event) {
     const { name, checked } = event.target;
-    setSpecialitiesState({ ...dietState, [name]: checked });
+    setSpecialitiesState({ ...specialitiesState, [name]: checked });
 
-  } function onCusinesChange(event) {
+  } function onCuisinesChange(event) {
     const { name, checked } = event.target;
-    setCusinesState({ ...cusinesState, [name]: checked });
+    setCuisinesState({ ...cuisinesState, [name]: checked });
+  }
+  function generateSpecialitiesCheckBoxes() {
+
+    const keys = Object.keys(specialitiesState)
+
+    return keys.map((speciality,index) => {
+      return (<FormControlLabel
+        control={<Checkbox name={speciality} checked={specialitiesState[speciality]} onChange={onSpecialityChange} />}
+        label={speciality}
+        key = {index}
+      />)
+    })
+  }
+
+  function generateCuisinesCheckBoxes() {
+
+    const keys = Object.keys(cuisinesState)
+    return keys.map((cuisine,index) => {
+      return(<FormControlLabel
+        control={<Checkbox name={cuisine} checked={cuisinesState[cuisine]} onChange={onCuisinesChange} />}
+        label={cuisine}
+        key={index}
+      />)
+    })
+
 
   }
 
@@ -112,15 +138,16 @@ export default function ChefSignup() {
 
   return (
 
-    <form sytle={{width:"80%", margin:"auto"}}noValidate autoComplete="off">
-      <Grid style={{width:"80%", margin:"auto"}}container spacing={2}>
+    <form sytle={{ width: "80%", margin: "auto" }} noValidate autoComplete="off">
+      <Grid style={{ width: "80%", margin: "auto" }} container spacing={2}>
         <Grid item s={4}>
           <h2>Profile</h2>
           <TextField style={styles.input} label="Name" name="name" value={info.name} onChange={onInfoChange} /><br />
           <TextField style={styles.input} label="Email" name="email" value={info.email} onChange={onInfoChange} /><br />
           <TextField style={styles.input} label="zip" name="zip" value={info.zip} onChange={onInfoChange} /><br />
-          {/* <TextField style={styles.input} label="Best Cusines" name="cusines" value={info.cusines} onChange={onInfoChange} /><br /> */}
           <TextField style={styles.input} label="Bio" name="bio" multiline rows={4} value={info.bio} onChange={onInfoChange} /><br />
+          <TextField style={styles.input} label="username" name="username" value={info.username} onChange={onInfoChange} /><br />
+          <TextField style={styles.input} label="password" name="password" value={info.password} onChange={onInfoChange} /><br />
           <Button onClick={widget.open}> Upload Profile Pic </Button>
           <Button onClick={onSubmit}> Submit </Button>
         </Grid>
@@ -136,32 +163,22 @@ export default function ChefSignup() {
           })}
           <TextField style={styles.input} label="Job title" name="jobTitle" onChange={onHightlightsChange} value={highlights.jobTitle} /><br />
           <TextField style={styles.input} label="Place of Work" name="workPlace" onChange={onHightlightsChange} value={highlights.workPlace} /><br />
-          {/* <TextField style={styles.input} label="Highlights" name="highlights" onChange={onHightlightsChange} multiline rows={4} value={highlights.highlights} /><br /> */}
           <TextField style={styles.input} label="Duration" name="duration" onChange={onHightlightsChange} value={highlights.duration} /><br />
           <Button onClick={onAddHighlight}> Add Highlight </Button>
         </Grid>
         <Grid item s={4}>
-          
+
           <h2>Food Photos</h2>
           <Button onClick={widget.open}> Upload Image </Button>
           <h2>Dietary Specialties</h2>
           <FormGroup>
-            {specialitiesObject.arr.map(speciality  => {
-              return (<FormControlLabel
-                control={<Checkbox name={speciality} checked={specialitiesState[speciality]} onChange={onSpecialityChange} />}
-                label={diet}
-              />)
-            })}
+            {generateSpecialitiesCheckBoxes()}
           </FormGroup>
           <h2>Cusines</h2>
           <FormGroup>
-            {cusinesObject.arr.map(cusine => {
-              return (<FormControlLabel
-                control={<Checkbox name={cusine} checked={cusinesState[cusine]} onChange={onCusinesChange} />}
-                label={cusine}
-              />)
-            })}
+            {generateCuisinesCheckBoxes()}
           </FormGroup>
+
 
 
 
