@@ -12,7 +12,12 @@ export default function ChefSignin() {
     }
 
     function onClick(event){
-        setUserInfo({ username: "", password: "" });
+        event.preventDefault()
+        API.login(userInfo).then(newToken=> {
+            console.log(newToken.data.token);
+            localStorage.setItem("token", newToken.data.token)
+            setUserInfo({ username: "", password: "" });
+        })
     }
 
     return (
@@ -20,8 +25,6 @@ export default function ChefSignin() {
             <TextField style={{width:300}} label="username" name="username" value={userInfo.username} onChange={onInfoChange} /><br />
             <TextField style={{width:300}} label="password" name="password" value={userInfo.password} onChange={onInfoChange} /><br />
             <Button onClick={onClick}>Login</Button>
-
-
         </div>
     )
 }

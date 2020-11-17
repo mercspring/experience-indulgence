@@ -5,6 +5,7 @@ import ChefSignin from "./components/chef-signin"
 function App() {
   return (
     <div className="App">
+      <ChefSignup/>
      <ChefSignin/> 
     </div>
   );
