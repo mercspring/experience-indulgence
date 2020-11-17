@@ -1,7 +1,6 @@
 import React from "react";
 import Home from "./pages/Home"
 import ChefSignup from "./pages/chef-signup"
-<<<<<<< HEAD
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -50,16 +49,6 @@ function App() {
       </div>
     </Router>
     </ThemeProvider>
-=======
-import ChefSignin from "./components/chef-signin"
-
-function App() {
-  return (
-    <div className="App">
-      <ChefSignup/>
-     <ChefSignin/> 
-    </div>
->>>>>>> dev
   );
 }
 
