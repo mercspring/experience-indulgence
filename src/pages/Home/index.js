@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-
 import TextField from '@material-ui/core/TextField';
 import { createMuiTheme } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button"
 import "./style.css";
-import NavBar from "../../NavBar";
+import NavBar from "../../components/navbar";
 import {useTheme} from '@material-ui/core/styles';
-
 
 export default function Home() {
   const theme = createMuiTheme();
