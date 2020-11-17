@@ -10,21 +10,22 @@ import "./index.css"
 import API from "../../utils/API"
 
 export default function ChefSignup() {
-  let [info, setInfo] = useState({ name: "", email: "", bio: "", zip: "", password:"", username:""});
+  let [info, setInfo] = useState({ first: "", last: "", email: "", bio: "", zip: "", password: "", username: "" });
   let [highlights, setHighlights] = useState({ workPlace: "", jobTitle: "", duration: "" });
   let [highlightStore, setHighlightStore] = useState([]);
   let [cuisinesState, setCuisinesState] = useState({});
   let [specialitiesState, setSpecialitiesState] = useState({});
+  let [cloud, setCloud] = useState({});
 
-  const widget = cloudinary.createUploadWidget({
-    cloudName: 'mercspring',
-    uploadPreset: 'ml_default', folder: 'widgetUpload', cropping: true, sources: ['local', 'url', 'image_search', 'camera', 'google_drive'], googleApiKey: 'AIzaSyDkWnsHj5yjXat0zVLA9cyISwhn1F5sq0E'
-  }, (error, result) => {
-    if (!error && result && result.event === "success") {
-      console.log('Done! Here is the image info: ', result.info);
-    }
-  }
-  );
+  // const widget = cloudinary.createUploadWidget({
+  //   cloudName: 'mercspring',
+  //   uploadPreset: 'ml_default', folder: 'widgetUpload', cropping: true, sources: ['local', 'url', 'image_search', 'camera', 'google_drive'], googleApiKey: 'AIzaSyDkWnsHj5yjXat0zVLA9cyISwhn1F5sq0E'
+  // }, (error, result) => {
+  //   if (!error && result && result.event === "success") {
+  //     console.log('Done! Here is the image info: ', result.info);
+  //   }
+  // }
+  // );
 
   const generateObject = (typeArr) => {
     let obj = {};
@@ -34,10 +35,26 @@ export default function ChefSignup() {
     console.log(obj);
     return obj;
   }
+  function newCloudWidget() {
+    setCloud(cloudinary.createUploadWidget({
+      cloudName: 'mercspring',
+      uploadPreset: 'ml_default', folder: 'widgetUpload', cropping: true, sources: ['local', 'url', 'image_search', 'camera', 'google_drive'], googleApiKey: 'AIzaSyDkWnsHj5yjXat0zVLA9cyISwhn1F5sq0E'
+    }, (error, result) => {
+      if (!error && result && result.event === "success") {
+        console.log('Done! Here is the image info: ', result.info);
+        newCloudWidget()
+      }
 
+    }
+    ))
+
+  }
   let [services, setServicesState] = useState([]);
 
   useEffect(() => {
+
+    newCloudWidget()
+
     API.getAllCuisines()
       .then(res => {
         const cuisines = res.data.map(elm => elm.name)
@@ -79,10 +96,16 @@ export default function ChefSignup() {
 
   function onSubmit(event) {
     event.preventDefault();
-    console.log(info, highlightStore);
+    const payload = Object.assign(info, highlightStore)
+    API.createProfile(payload).then(result => {
+      console.log(result)
+
+    });
+
+    //Empty Forms
     setHighlights({ workPlace: "", jobTitle: "", duration: "" });
     setHighlightStore([]);
-    setInfo({ name: "", email: "", bio: "", zip: "", password:"", username:""});
+    setInfo({ first: "", last: "", email: "", bio: "", zip: "", password: "", username: "" });
   }
 
   function onSpecialityChange(event) {
@@ -97,11 +120,11 @@ export default function ChefSignup() {
 
     const keys = Object.keys(specialitiesState)
 
-    return keys.map((speciality,index) => {
+    return keys.map((speciality, index) => {
       return (<FormControlLabel
         control={<Checkbox name={speciality} checked={specialitiesState[speciality]} onChange={onSpecialityChange} />}
         label={speciality}
-        key = {index}
+        key={index}
       />)
     })
   }
@@ -109,8 +132,8 @@ export default function ChefSignup() {
   function generateCuisinesCheckBoxes() {
 
     const keys = Object.keys(cuisinesState)
-    return keys.map((cuisine,index) => {
-      return(<FormControlLabel
+    return keys.map((cuisine, index) => {
+      return (<FormControlLabel
         control={<Checkbox name={cuisine} checked={cuisinesState[cuisine]} onChange={onCuisinesChange} />}
         label={cuisine}
         key={index}
@@ -142,13 +165,14 @@ export default function ChefSignup() {
       <Grid style={{ width: "80%", margin: "auto" }} container spacing={2}>
         <Grid item s={4}>
           <h2>Profile</h2>
-          <TextField style={styles.input} label="Name" name="name" value={info.name} onChange={onInfoChange} /><br />
+          <TextField style={styles.input} label="First Name" name="first" value={info.first} onChange={onInfoChange} /><br />
+          <TextField style={styles.input} label="Last Name" name="last" value={info.last} onChange={onInfoChange} /><br />
           <TextField style={styles.input} label="Email" name="email" value={info.email} onChange={onInfoChange} /><br />
           <TextField style={styles.input} label="zip" name="zip" value={info.zip} onChange={onInfoChange} /><br />
           <TextField style={styles.input} label="Bio" name="bio" multiline rows={4} value={info.bio} onChange={onInfoChange} /><br />
           <TextField style={styles.input} label="username" name="username" value={info.username} onChange={onInfoChange} /><br />
           <TextField style={styles.input} label="password" name="password" value={info.password} onChange={onInfoChange} /><br />
-          <Button onClick={widget.open}> Upload Profile Pic </Button>
+          <Button onClick={cloud.open}> Upload Profile Pic </Button>
           <Button onClick={onSubmit}> Submit </Button>
         </Grid>
 
@@ -169,7 +193,7 @@ export default function ChefSignup() {
         <Grid item s={4}>
 
           <h2>Food Photos</h2>
-          <Button onClick={widget.open}> Upload Image </Button>
+          <Button onClick={cloud.open}> Upload Image </Button>
           <h2>Dietary Specialties</h2>
           <FormGroup>
             {generateSpecialitiesCheckBoxes()}

@@ -11,11 +11,11 @@ const API = {
     getAllServices: function() {
         return axios.get(this.api + "/api/servicetype")
     },
-    createProfile: function() {
-        return axios.post(this.api + "/api/chef")
+    createProfile: function(payload) {
+        return axios.post(this.api + "/api/chef", payload)
     },
-    login: function() {
-        return axios.post(this.api + "/api/chef/login")
+    login: function(payload) {
+        return axios.post(this.api + "/api/chef/login", payload)
     }
 
 }
