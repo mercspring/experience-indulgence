@@ -1,5 +1,6 @@
 import React from "react";
 import Home from "./pages/Home"
+import Search from "./pages/search"
 import ChefSignup from "./pages/chef-signup"
 import ChefProfile from "./pages/chef-profile"
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -42,6 +43,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/home" component={Home} />
+            <Route exact path="/search" component={Search} />
             <Route exact path="/signup" component={ChefSignup} />
             <Route exact path="/profile" component={ChefProfile} />
             {/* <Route exact path="/posts/:id" component={Detail} />
