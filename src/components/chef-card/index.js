@@ -21,8 +21,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ChefCard() {
+export default function ChefCard(props) {
     const classes = useStyles();
+    console.log(props)
     return (
       <Card className={classes.card}>
         <CardMedia
@@ -32,7 +33,7 @@ export default function ChefCard() {
         />
         <CardContent className={classes.cardContent}>
           <Typography gutterBottom variant="h5" component="h2">
-            Heading
+            {props.chef.first}
           </Typography>
           <Typography>
             This is a media card. You can use this section to describe the content.

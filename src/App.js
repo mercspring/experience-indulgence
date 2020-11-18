@@ -43,7 +43,7 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/home" component={Home} />
             <Route exact path="/signup" component={ChefSignup} />
-            <Route exact path="/profile" component={ChefProfile} />
+            <Route exact path="/profile/:id" component={ChefProfile} />
             {/* <Route exact path="/posts/:id" component={Detail} />
             <Route component={NoMatch} /> */}
           </Switch>
