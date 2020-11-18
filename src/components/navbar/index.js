@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./style.css";
 
 function NavBar() {
@@ -6,7 +7,7 @@ function NavBar() {
   return (
     <div>
       <nav>
-        <div className="logo">Logo</div>
+        <Link to={"/search"}><div className="logo">Logo</div></Link>
         <div className="header">indulge
         {/* <p className="tagLine">Savour Opulance</p> */}
         </div>
@@ -16,13 +17,13 @@ function NavBar() {
             <a>Home</a>
           </li> */}
           <li>
-            <a>Guest</a>
+          <Link to={"/signup"}>Chef Sign-up</Link>
           </li>
           <li>
-            <a>Chef</a>
+            <a href="#">Chef Sign-in</a>
           </li>
           <li>
-            <a>Search</a>
+            <Link to={"/search"}>Search</Link>
           </li>
         </ul>
         <i onClick = {() => setOpen(!open)} className="fas fa-bars burgerMenu"></i>
