@@ -1,0 +1,12 @@
+.search-card-name{
+    text-align: center;
+    font-size: 15pt;
+    align-self: center;
+    
+}
+.search-card-last-name{
+    padding-left: 40px;
+}
+.search-card-first-name{
+    padding-right: 40px;
+}
