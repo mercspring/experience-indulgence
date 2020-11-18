@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
@@ -8,6 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import "./index.css"
 import API from "../../utils/API"
+import axios from "axios";
 
 export default function ChefSignup() {
   let [info, setInfo] = useState({ first: "", last: "", email: "", bio: "", zip: "", password: "", username: "" });
@@ -15,10 +15,12 @@ export default function ChefSignup() {
   let [highlightStore, setHighlightStore] = useState([]);
   let [cuisinesState, setCuisinesState] = useState({});
   let [specialitiesState, setSpecialitiesState] = useState({});
-  let [cloud, setCloud] = useState({});
+  let [profilePicture, setProfilePicture] = useState('');
   let [services, setServicesState] = useState([]);
+  let [file, setFile] = useState("");
 
 
+ 
   const generateObject = (typeArr) => {
     let obj = {};
     for (let i = 0; i < typeArr.length; i++) {
@@ -27,24 +29,8 @@ export default function ChefSignup() {
     }
     return obj;
   }
-  function newCloudWidget() {
-    setCloud(cloudinary.createUploadWidget({
-      cloudName: 'mercspring',
-      uploadPreset: 'ml_default', folder: 'widgetUpload', cropping: true, sources: ['local', 'url', 'image_search', 'camera', 'google_drive'], googleApiKey: 'AIzaSyDkWnsHj5yjXat0zVLA9cyISwhn1F5sq0E'
-    }, (error, result) => {
-      if (!error && result && result.event === "success") {
-        console.log('Done! Here is the image info: ', result.info);
-        newCloudWidget()
-      }
-
-    }
-    ))
-
-  }
 
   useEffect(() => {
-
-    newCloudWidget()
 
     API.getAllCuisines()
       .then(res => {
@@ -91,21 +77,21 @@ export default function ChefSignup() {
     console.log(Object.keys(cuisinesState));
     let chefsCuisines = [];
     let chefsSpecialities = [];
-    
-     Object.keys(cuisinesState).forEach(key => {
-       if(cuisinesState[key].checked){
-         chefsCuisines.push(cuisinesState[key].id)
-       }
-     })
 
-     Object.keys(specialitiesState).forEach(key => {
-       if(specialitiesState[key].checked){
-         chefsSpecialities.push(specialitiesState[key].id)
-       }
-     })
+    Object.keys(cuisinesState).forEach(key => {
+      if (cuisinesState[key].checked) {
+        chefsCuisines.push(cuisinesState[key].id)
+      }
+    })
 
-    
-    const payload = Object.assign(info, {restaurant: JSON.stringify(highlightStore)}, {cusines: chefsCuisines, speciality: chefsSpecialities})
+    Object.keys(specialitiesState).forEach(key => {
+      if (specialitiesState[key].checked) {
+        chefsSpecialities.push(specialitiesState[key].id)
+      }
+    })
+
+
+    const payload = Object.assign(info, { restaurant: JSON.stringify(highlightStore) }, { cusines: chefsCuisines, speciality: chefsSpecialities, profilePic: profilePicture })
     console.log(payload)
     API.createProfile(payload)
       .then(result => {
@@ -119,6 +105,7 @@ export default function ChefSignup() {
     setHighlights({ workPlace: "", jobTitle: "", duration: "" });
     setHighlightStore([]);
     setInfo({ first: "", last: "", email: "", bio: "", zip: "", password: "", username: "" });
+    setProfilePicture("")
     setCuisinesState({});
     setSpecialitiesState({});
     setServicesState([]);
@@ -158,6 +145,29 @@ export default function ChefSignup() {
 
 
   }
+  function uploadToCloudinary() {
+    console.log(file);
+
+    reader(file).then( result => {
+      axios.post("https://api.cloudinary.com/v1_1/mercspring/upload", { upload_preset: 'ml_default', file: result })
+        .then(result => {
+          console.log(result.data)
+          setProfilePicture(result.data.secure_url);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      })
+  }
+
+  const reader = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.onload = () => resolve(fileReader.result);
+      fileReader.readAsDataURL(file);
+    });
+  }
+
 
   const styles = {
     input: {
@@ -174,11 +184,11 @@ export default function ChefSignup() {
       borderRadius: 7
     }
   };
-
   return (
 
-    <form sytle={{ width: "80%", margin: "auto" }} noValidate autoComplete="off">
-      <Grid style={{ width: "80%", margin: "auto" }} container spacing={2}>
+
+    <form style={{ width: "95%", margin: "auto" }} noValidate autoComplete="off">
+      <Grid style={{ width: "95%", margin: "auto" }} container spacing={2}>
         <Grid item s={4}>
           <h2>Profile</h2>
           <TextField style={styles.input} label="First Name" name="first" value={info.first} onChange={onInfoChange} /><br />
@@ -188,7 +198,8 @@ export default function ChefSignup() {
           <TextField style={styles.input} label="Bio" name="bio" multiline rows={4} value={info.bio} onChange={onInfoChange} /><br />
           <TextField style={styles.input} label="username" name="username" value={info.username} onChange={onInfoChange} /><br />
           <TextField style={styles.input} label="password" name="password" value={info.password} onChange={onInfoChange} /><br />
-          <Button id='profilePic' onClick={cloud.open}> Upload Profile Pic </Button>
+          <input style={{marginTop: "5px"}}onChange={(event) => setFile(event.target.files[0])} type="file" val={file} /> <br />
+          <Button onClick={() => uploadToCloudinary(file)}> Upload Profile Pic </Button> <br />
           <Button onClick={onSubmit}> Submit </Button>
         </Grid>
 
@@ -209,7 +220,7 @@ export default function ChefSignup() {
         <Grid item s={4}>
 
           <h2>Food Photos</h2>
-          <Button id="food" onClick={cloud.open}> Upload Image </Button>
+
           <h2>Dietary Specialties</h2>
           <FormGroup>
             {generateSpecialitiesCheckBoxes()}
