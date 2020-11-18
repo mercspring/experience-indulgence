@@ -14,26 +14,33 @@ import "./index.css"
 export default function Search() {
 
     const [searchTerm, setSearchTerm] = useState();
+    const [zipCode, setZipCode] = useState();
     const [typeOfSearch, setTypeOfSearch] = useState();
 
 
     function onSearchSubmit(event) {
         setSearchTerm("")
     }
+    function onZipChange(event) {
+        setZipCode(event.target.value);
+    }
     function onSearchChange(event) {
         setSearchTerm(event.target.value);
+    }
+    function onTypeChange(event) {
+        setTypeOfSearch(event.target.value);
     }
 
     return (
         <div>
             <Navbar />
             <div style={{ display: "flex", justifyContent: "center" }}>
-                <InputLabel htmlFor="age-native-simple">Age</InputLabel>
+                {/* <InputLabel>Search Type</InputLabel> */}
                 <Select
                     style={{width: "20%"}}
                     native
                     value={typeOfSearch}
-                    onChange={setTypeOfSearch}
+                    onChange={onTypeChange}
                     inputProps={{
                         name: 'age',
                         id: 'age-native-simple',
@@ -44,7 +51,8 @@ export default function Search() {
                     <option value={20}>Restaurant</option>
                     <option value={30}>Chef</option>
                 </Select>
-                <TextField style={{ width: "60%" }} label="Search for a chef, restarunt or cuisine" name="search" value={searchTerm} onChange={onSearchChange} />
+                <TextField style={{ width: "20%" }} label="Zip Code" name="zipcode" value={zipCode} onChange={onZipChange} />
+                <TextField style={{ width: "45%" }} label="Search for a chef, restarunt or cuisine" name="search" value={searchTerm} onChange={onSearchChange} />
 
                 <Button style={{ padding: 0 }} size="small" onSubmit={onSearchSubmit}> Search </Button> <br />
             </div>
