@@ -1,6 +1,7 @@
 import React from "react";
 import Home from "./pages/Home"
 import ChefSignup from "./pages/chef-signup"
+import ChefProfile from "./pages/chef-profile"
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -41,11 +42,11 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/home" component={Home} />
-            <Route exact path="/signUp" component={ChefSignup} />
+            <Route exact path="/signup" component={ChefSignup} />
+            <Route exact path="/profile" component={ChefProfile} />
             {/* <Route exact path="/posts/:id" component={Detail} />
             <Route component={NoMatch} /> */}
           </Switch>
-       
       </div>
     </Router>
     </ThemeProvider>
