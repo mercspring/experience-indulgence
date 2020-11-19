@@ -1,9 +1,12 @@
+// React
 import React, { useState } from 'react'
+// Styles
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+// API
 import API from '../../utils/API.js'
 
-export default function ChefSignin() {
+function SigninModal() {
     const [userInfo, setUserInfo] = useState({ username: "", password: "" });
 
     function onInfoChange(event) {
@@ -22,9 +25,11 @@ export default function ChefSignin() {
 
     return (
         <div>
-            <TextField style={{width:300}} label="username" name="username" value={userInfo.username} onChange={onInfoChange} /><br />
-            <TextField style={{width:300}} label="password" name="password" value={userInfo.password} onChange={onInfoChange} /><br />
+            <TextField fullWidth label="username" name="username" value={userInfo.username} onChange={onInfoChange} />
+            <TextField fullWidth label="password" name="password" value={userInfo.password} onChange={onInfoChange} />
             <Button onClick={onClick}>Login</Button>
         </div>
     )
 }
+
+export default SigninModal;

@@ -1,35 +1,72 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import "./style.css";
+// React
+import React from 'react';
+// Styles
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
+import SigninModal from "../SigninModal";
+import Modal from '@material-ui/core/Modal';
 
-function NavBar() {
-  const [open, setOpen] = useState(false);
-  return (
-    <div>
-      <nav>
-        <Link to={"/search"}><div className="logo">Logo</div></Link>
-        <div className="header">indulge
-        {/* <p className="tagLine">Savour Opulance</p> */}
-        </div>
-        
-        <ul className="nav-links" style ={{transform: open ? "translateX(0px)" : ""}}>
-          {/* <li>
-            <a>Home</a>
-          </li> */}
-          <li>
-          <Link to={"/signup"}>Chef Sign-up</Link>
-          </li>
-          <li>
-            <a href="#">Chef Sign-in</a>
-          </li>
-          <li>
-            <Link to={"/search"}>Search</Link>
-          </li>
-        </ul>
-        <i onClick = {() => setOpen(!open)} className="fas fa-bars burgerMenu"></i>
-      </nav>
-    </div>
-  );
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  title: {
+    flexGrow: 1,
+  },
+  paper: {
+	position: 'absolute',
+	backgroundColor: theme.palette.background.paper,
+	boxShadow: theme.shadows[5],
+	padding: theme.spacing(2),
+	top: "40%",
+	left: "50%",
+	transform: "translate(-50%, -40%)",
+  },
+}));
+
+function Navbar() {
+	const [open, setOpen] = React.useState(false);
+	const handleOpen = () => {
+	  setOpen(true);
+	};
+	const handleClose = () => {
+	  setOpen(false);
+	};
+
+	const classes = useStyles();
+	return (
+		<div>
+			<div className={classes.root}>
+				<AppBar color="transparent" position="fixed" elevation="0">
+					<Container maxWidth="lg">
+						<Toolbar>
+							<Link underline="none" color="inherit" variant="h6" href="/" className={classes.title}>
+								Indulge
+							</Link>
+							<Button href="/search" color="inherit">Search</Button>
+							<Button onClick={handleOpen} color="inherit">Login</Button>
+							<Button href="/signup" color="inherit">Signup</Button>
+						</Toolbar>
+					</Container>
+				</AppBar>
+			</div>
+			<Modal
+				open={open}
+				onClose={handleClose}
+				aria-labelledby="simple-modal-title"
+				aria-describedby="simple-modal-description"
+			>
+				<div className={classes.paper}>
+					<SigninModal />
+				</div>
+			</Modal>
+		</div>
+	);
 }
 
-export default NavBar;
+export default Navbar;

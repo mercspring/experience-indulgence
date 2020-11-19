@@ -2,8 +2,8 @@ import axios from "axios";
 
 const API = {
     api : "https://fast-waters-05843.herokuapp.com",
-    getChef: function(id) {
-        return axios.get(this.api + "/api/chef/" + id);
+    getChef: function(username) {
+        return axios.get(this.api + "/api/chef/" + username);
     },
     getAllCuisines: function() {
         return axios.get(this.api + "/api/cuisine");
