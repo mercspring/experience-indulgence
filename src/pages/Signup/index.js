@@ -17,7 +17,7 @@ import API from "../../utils/API"
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		margin: "20px",
+		margin: "20px 0",
 		padding: "20px"
 	},
 	button:{
@@ -175,12 +175,16 @@ function Signup() {
 	const classes = useStyles();
 	return (
 		<Paper className={classes.root}>
+				<Grid container spacing={2}>
+					<Grid item lg={12}>
+						<Typography variant="h3" gutterBottom>
+							Sign Up
+						</Typography>
+					</Grid>
+				</Grid>
 			<form noValidate autoComplete="off">
 				<Grid container spacing={2}>
 					<Grid item lg={6}>
-						<Typography variant="h4" gutterBottom>
-							Sign Up
-						</Typography>
 						<Grid container className={classes.grid}>
 							<Grid item lg={12}>
 								<Typography variant="h5">

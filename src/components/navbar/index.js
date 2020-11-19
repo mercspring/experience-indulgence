@@ -27,6 +27,11 @@ const useStyles = makeStyles((theme) => ({
 	left: "50%",
 	transform: "translate(-50%, -40%)",
   },
+  toolbar:{
+	width: "1280px",
+	margin: "0 auto",
+	padding:"0 60px"
+  }
 }));
 
 function Navbar() {
@@ -42,17 +47,15 @@ function Navbar() {
 	return (
 		<div>
 			<div className={classes.root}>
-				<AppBar color="transparent" position="fixed" elevation="0">
-					<Container maxWidth="lg">
-						<Toolbar>
-							<Link underline="none" color="inherit" variant="h6" href="/" className={classes.title}>
+				<AppBar position="fixed" elevation="1">
+						<Toolbar className={classes.toolbar}>
+							<Link underline="none" color="inherit" variant="h5" href="/" className={classes.title}>
 								Indulge
 							</Link>
 							<Button href="/search" color="inherit">Search</Button>
-							<Button onClick={handleOpen} color="inherit">Login</Button>
 							<Button href="/signup" color="inherit">Signup</Button>
+							<Button onClick={handleOpen} color="inherit">Login</Button>
 						</Toolbar>
-					</Container>
 				</AppBar>
 			</div>
 			<Modal

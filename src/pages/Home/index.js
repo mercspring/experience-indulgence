@@ -1,33 +1,38 @@
 // React
 import React, { useState, useEffect } from "react";
+// Styles
+import Container from '@material-ui/core/Container';
 // Componants
-import Cover from "../../components/Cover";
+import Header from "../../components/Header";
+import Feature from "../../components/Feature";
 
 const content =  [
 	{
-		title: "",
-		description: "",
-		imageUrl: "",
+		title: "Feature 1",
+		description: "Something nice",
+		imageUrl: "https://source.unsplash.com/random",
 	},
 	{
-		title: "",
-		description: "",
-		imageUrl: "",
+		title: "Feature 2",
+		description: "Multiple nice things",
+		imageUrl: "https://source.unsplash.com/random",
 	},
 	{
-		title: "",
-		description: "",
-		imageUrl: "",
+		title: "Feature 3",
+		description: "The best things",
+		imageUrl: "https://source.unsplash.com/random",
 	}
 ]
 
 function Home() {
 	return (
 		<div>
-			<Cover />
-		{/*content.map((content) => (
-			<Feature props={content} />
-		))*/}
+			<Header />
+			<Container maxWidth="lg">
+				{content.map((content) => (
+					<Feature props={content} />
+				))}
+			</Container>
 		</div>
 	);
 }

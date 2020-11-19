@@ -2,7 +2,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // Styles
-import { ThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
+import { ThemeProvider, createMuiTheme, makeStyles, responsiveFontSizes } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 // Components
@@ -11,9 +11,13 @@ import Home from "./pages/Home"
 import Search from "./pages/Search"
 import Signup from "./pages/Signup"
 import ProfileChef from "./pages/ProfileChef"
+import Footer from "./components/Footer"
+
+let theme = createMuiTheme();
+theme = responsiveFontSizes(theme);
 
 // Base Theme Customization
-const theme = createMuiTheme({
+theme = createMuiTheme({
 	palette: {
 		primary: {
 			light: '#757ce8',
@@ -51,6 +55,24 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+const content =  [
+	{
+		title: "Feature 1",
+		description: "Something nice",
+		imageUrl: "https://source.unsplash.com/random",
+	},
+	{
+		title: "Feature 2",
+		description: "Multiple nice things",
+		imageUrl: "https://source.unsplash.com/random",
+	},
+	{
+		title: "Feature 3",
+		description: "The best things",
+		imageUrl: "https://source.unsplash.com/random",
+	}
+]
+
 function App() {
 	const classes = useStyles();
 	return (
@@ -68,6 +90,7 @@ function App() {
 						</Container>
 					</Switch>
 				</Router>
+			<Footer />
 		</ThemeProvider>
 	);
 }

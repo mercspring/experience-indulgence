@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 		backgroundSize: 'cover',
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center',
-		height: '600px'
+		height: '540px'
 	},
 	overlay: {
 		position: 'absolute',
@@ -30,15 +30,19 @@ const useStyles = makeStyles((theme) => ({
 	},
 	mainFeaturedPostContent: {
 		position: 'relative',
-		padding: theme.spacing(4),
+		paddingTop: theme.spacing(4),
+		paddingLeft: theme.spacing(3),
 		[theme.breakpoints.up('md')]: {
-			padding: theme.spacing(10),
+			paddingTop: theme.spacing(10),
+			paddingLeft: theme.spacing(6),
 		},
-		textAlign: "center",
 	},
+	box:{
+		marginTop: "20px"
+	}
 }));
 
-function Cover() {
+function Header() {
 	const classes = useStyles();
 	return (
 		<Box
@@ -51,7 +55,12 @@ function Cover() {
 						<Typography component="h1" variant="h2" color="inherit" gutterBottom>
 						Experience Elegance at Home
 						</Typography>
-						<Button href="/signup" variant="contained" color="primary">Signup</Button>
+						<Typography component="h2" variant="h5" color="inherit" gutterBottom>
+						Find your perfect date night
+						</Typography>
+						<Box className={classes.box}>
+							<Button href="/signup" size="large" variant="contained" color="primary">Signup</Button>
+						</Box>
 					</div>
 				</Grid>
 			</Grid>
@@ -59,4 +68,4 @@ function Cover() {
 	);
 }
 
-export default Cover;
+export default Header;
