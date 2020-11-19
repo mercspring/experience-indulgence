@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import API from '../../utils/API.js'
 
-export default function ChefSignin() {
+export default function ChefSignin(props) {
     const [userInfo, setUserInfo] = useState({ username: "", password: "" });
 
     function onInfoChange(event) {
@@ -11,20 +11,21 @@ export default function ChefSignin() {
         setUserInfo({ ...userInfo, [name]: value });
     }
 
-    function onClick(event){
-        event.preventDefault()
-        API.login(userInfo).then(newToken=> {
+    function onClick(event) {
+        event.preventDefault();
+        API.login(userInfo).then(newToken => {
             console.log(newToken.data.token);
             localStorage.setItem("token", newToken.data.token)
             setUserInfo({ username: "", password: "" });
+            props.handleClose();
         })
     }
 
     return (
-        <div>
-            <TextField style={{width:300}} label="username" name="username" value={userInfo.username} onChange={onInfoChange} /><br />
-            <TextField style={{width:300}} label="password" name="password" value={userInfo.password} onChange={onInfoChange} /><br />
-            <Button onClick={onClick}>Login</Button>
-        </div>
+            <div style={{ width: 320, height: 150, backgroundColor:"gray", padding:"10px", borderRadius:"5px"}}>
+                <TextField style={{ width: 300 }} label="username" name="username" value={userInfo.username} onChange={onInfoChange} /><br />
+                <TextField style={{ width: 300 }} label="password" name="password" value={userInfo.password} onChange={onInfoChange} /><br />
+                <Button style={{marginTop:"5px"}}onClick={onClick}>Login</Button>
+            </div>
     )
 }
