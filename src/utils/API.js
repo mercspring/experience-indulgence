@@ -22,6 +22,9 @@ const API = {
     },
     getCurrentChef: function(token) {
         return axios.get(this.api + "/api/chef/profile", {}, { headers: { Authorization : `Bearer ${token}`}})
+    },
+    getChefsByZip: function(zip){
+        return axios.get(this.api + "/api/chef/zip/" + zip)
     }
 }
 

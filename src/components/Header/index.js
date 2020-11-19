@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
+import hero from  "../../assets/hero.png"
 
 const useStyles = makeStyles((theme) => ({
 	mainFeaturedPost: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.grey[800],
 		color: theme.palette.common.white,
 		marginBottom: theme.spacing(4),
-		backgroundImage: 'url(https://source.unsplash.com/random)',
+		backgroundImage: `url(${hero})`,
 		backgroundSize: 'cover',
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center',
