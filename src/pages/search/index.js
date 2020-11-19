@@ -19,7 +19,10 @@ export default function Search() {
 
 
     function onSearchSubmit(event) {
-        setSearchTerm("")
+        console.log(searchTerm, zipCode, typeOfSearch);
+
+        setZipCode("");
+        setSearchTerm("");
     }
     function onZipChange(event) {
         setZipCode(event.target.value);
@@ -34,31 +37,51 @@ export default function Search() {
     return (
         <div>
             <Navbar />
-            <div style={{ display: "flex", justifyContent: "center" }}>
-                {/* <InputLabel>Search Type</InputLabel> */}
-                <Select
-                    style={{width: "20%"}}
-                    native
-                    value={typeOfSearch}
-                    onChange={onTypeChange}
-                    inputProps={{
-                        name: 'age',
-                        id: 'age-native-simple',
-                    }}
-                >
-                    <option aria-label="None" value="" />
-                    <option value={10}>Cusine</option>
-                    <option value={20}>Restaurant</option>
-                    <option value={30}>Chef</option>
-                </Select>
-                <TextField style={{ width: "20%" }} label="Zip Code" name="zipcode" value={zipCode} onChange={onZipChange} />
-                <TextField style={{ width: "45%" }} label="Search for a chef, restarunt or cuisine" name="search" value={searchTerm} onChange={onSearchChange} />
+            {/* <div style={{ display: "flex", justifyContent: "center" }}> */}
+            <Grid container spacing={1} style={{ width: "100%"}} justify="center">
+                <Grid item md={2} xs={12} style={{ display: "flex", width: "100%", alignItems: "center" }}>
+                    {/* style={{position:"relative"}} */}
+                    {/* <InputLabel id="search-type-label" >Search Type</InputLabel> */}
+                    <div style={{width:"100%", paddingTop:"15.5px"}}>
+                        <Select
+                            style={{width:"100%"}}
+                            native
+                            labelId="search-type-label"
+                            value={typeOfSearch}
+                            onChange={onTypeChange}
+                        // inputProps={{
+                        //     name: 'age',
+                        //     id: 'age-native-simple',
+                        // }}
+                        >
+                            {/* <option aria-label="Type" value="" /> */}
+                            <option value="restaurant">Restaurant</option>
+                            <option value="cuisine">Cusine</option>
+                            <option value="chef">Chef</option>
 
-                <Button style={{ padding: 0 }} size="small" onSubmit={onSearchSubmit}> Search </Button> <br />
-            </div>
+                        </Select>
+                    </div>
+                </Grid>
+                <Grid item md={4} xs={12} style={{ marginLeft: "0px" }} >
+                    <TextField style={{ width: "100%" }} label="Zip Code" name="zipcode" value={zipCode} onChange={onZipChange} />
+                </Grid>
+                <Grid item md={4} xs={12} >
+                    <TextField style={{ width: "100%", overflow: "hidden" }} label="Search for a chef, restarunt or cuisine" name="search" value={searchTerm} onChange={onSearchChange} />
+                </Grid>
+                {/* <span id="search-button">Search</span> */}
+                <Grid item sm={1} xs={12} style={{ display: "flex", alignItems: "center", justifyContent: "center", paddingBottom: "0px" }}>
+                    <Button style={{}} size="large" onSubmit={onSearchSubmit}> Search </Button> <br />
+                </Grid>
+            </Grid>
+            {/* </div> */}
             <hr style={{ marginTop: "10px" }} />
             <div className="search-result-gallery">
                 <Grid container spacing={2}>
+                    {/* {searchResults.map(elm =>{
+                        return(
+                            <SearchCard foodpic={elm.foodPic || "placeholder"} profilePic={elm.profilePic || "placeholder"} name={elm.name}/>
+                        )
+                    })} */}
                     <SearchCard />
                     <SearchCard />
                     <SearchCard />
