@@ -34,28 +34,39 @@ export default function Search() {
     return (
         <div>
             <Navbar />
-            <div style={{ display: "flex", justifyContent: "center" }}>
-                {/* <InputLabel>Search Type</InputLabel> */}
-                <Select
-                    style={{width: "20%"}}
-                    native
-                    value={typeOfSearch}
-                    onChange={onTypeChange}
-                    inputProps={{
-                        name: 'age',
-                        id: 'age-native-simple',
-                    }}
-                >
-                    <option aria-label="None" value="" />
-                    <option value={10}>Cusine</option>
-                    <option value={20}>Restaurant</option>
-                    <option value={30}>Chef</option>
-                </Select>
-                <TextField style={{ width: "20%" }} label="Zip Code" name="zipcode" value={zipCode} onChange={onZipChange} />
-                <TextField style={{ width: "45%" }} label="Search for a chef, restarunt or cuisine" name="search" value={searchTerm} onChange={onSearchChange} />
-
-                <Button style={{ padding: 0 }} size="small" onSubmit={onSearchSubmit}> Search </Button> <br />
-            </div>
+            {/* <div style={{ display: "flex", justifyContent: "center" }}> */}
+                <Grid container spacing={1} style={{width:"100%"}} justify="center">
+                    <Grid item md={3} style={{position:"relative"}}>
+                    {/* <InputLabel id="search-type-label" >Search Type</InputLabel> */}
+                        <Select
+                            style={{ width: "100%" ,position:"absolute", bottom:"4px"}}
+                            native
+                            labelId="search-type-label"
+                            value={typeOfSearch}
+                            onChange={onTypeChange}
+                            // inputProps={{
+                            //     name: 'age',
+                            //     id: 'age-native-simple',
+                            // }}
+                        >
+                            {/* <option aria-label="Type" value="" /> */}
+                            <option value="restaurant">Restaurant</option>
+                            <option value="cuisine">Cusine</option>
+                            <option value="chef">Chef</option>
+                        </Select>
+                    </Grid>
+                    <Grid item md={3} style={{marginLeft:"8px"}} >
+                        <TextField style={{ width: "100%" }} label="Zip Code" name="zipcode" value={zipCode} onChange={onZipChange} />
+                    </Grid>
+                    <Grid item md={4} >
+                        <TextField style={{ width: "100%" }} label="Search for a chef, restarunt or cuisine" name="search" value={searchTerm} onChange={onSearchChange} />
+                    </Grid>
+                    {/* <span id="search-button">Search</span> */}
+                    <Grid item md={1} style={{display:"flex", alignItems:"center", justifyContent:"center", paddingBottom:"0px"}}>
+                        <Button style={{}} size="large" onSubmit={onSearchSubmit}> Search </Button> <br />
+                    </Grid>
+                </Grid>
+            {/* </div> */}
             <hr style={{ marginTop: "10px" }} />
             <div className="search-result-gallery">
                 <Grid container spacing={2}>
