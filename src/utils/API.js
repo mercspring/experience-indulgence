@@ -19,6 +19,9 @@ const API = {
     },
     login: function(payload) {
         return axios.post(this.api + "/api/chef/login", payload)
+    },
+    getChefsByZip: function(zip){
+        return axios.get(this.api + "/api/chef/zip/" + zip)
     }
 }
 
