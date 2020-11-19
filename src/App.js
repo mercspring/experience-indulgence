@@ -78,8 +78,8 @@ function App() {
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
-			<NavBar />
 				<Router>
+					<NavBar/>
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Container className={classes.root} maxWidth="lg">

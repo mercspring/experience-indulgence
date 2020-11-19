@@ -1,6 +1,5 @@
 // React
 import React, { useState } from 'react'
-import { useHistory } from "react-router-dom"
 // Styles
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -16,9 +15,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SigninModal(props) {
-    const [userInfo, setUserInfo] = useState({ username: "", password: "" });
-
-    const history = useHistory();
+    const [userInfo, setUserInfo] = useState({ username: "", password: "", _id:"" });
 
     function onInfoChange(event) {
         const { name, value } = event.target;
@@ -28,11 +25,13 @@ function SigninModal(props) {
     function onClick(event) {
         event.preventDefault();
         API.login(userInfo).then(newToken => {
-            console.log(newToken.data.token);
             localStorage.setItem("token", newToken.data.token)
-            setUserInfo({ username: "", password: "", id:"" });
+            setUserInfo({ username: "", password: "", _id:"" });
             console.log(newToken.data);
-            history.push(`/profile/${newToken.data.id}`)
+            console.log(newToken.data._id);
+            let userData = newToken.data._id
+            props.history.push(`/profile/${userData}`);
+            props.handleClose(false);
         })
     }
     
