@@ -84,6 +84,7 @@ function SearchBar( props ) {
                 searchResults = data;
 
             }
+            console.log(searchResults)
                 props.setSearchResults(searchResults);
         }).catch(err=>console.log(err))
     }
