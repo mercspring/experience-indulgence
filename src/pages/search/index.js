@@ -17,19 +17,20 @@ import SearchCard from '../../components/SearchCard'
 import SearchBar from '../../components/SearchBar'
 
 function Search() {
+    const [searchResults, setSearchResults] = useState();
     return (
         <div>
-            <SearchBar />
+            <SearchBar setSearchResults={setSearchResults}/>
             <Grid container spacing={1}>
-                <Grid item xs={4}>
+                {/* <Grid item xs={4}>
                     <SearchCard />
                 </Grid>
                 <Grid item xs={4}>
                     <SearchCard />
                 </Grid>
                 <Grid item xs={4}>
-                    <SearchCard />
-                </Grid>
+                    <SearchCard /> */}
+                {/* </Grid> */}
             </Grid>
         </div>
     )

@@ -18,34 +18,67 @@ const useStyles = makeStyles((theme) => ({
 function SearchCard() {
     const classes = useStyles();
     return (
-        <Card>
+        <Grid item m={4}>
+        <Card style={{ maxWidth: "300px" }}>
             <CardActionArea>
-            <CardMedia
-                component="img"
-                alt="Contemplative Reptile"
-                height="140"
-                image="https://www.cookingschool.org/img/head-chef.jpeg"
-                title="Contemplative Reptile"
-            />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                Lizard
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                across all continents except Antarctica
-                </Typography>
-            </CardContent>
+                <CardMedia
+                    component="img"
+                    alt="chef signiture dish"
+                    style={{ width: "300px" }}
+                    image="https://static.twentytwowords.com/wp-content/uploads/BadFoodHallOfFame_AD.jpg"
+                    title="Contemplative Reptile"
+                />
+                <CardContent>
+                    <Grid container>
+                        <Grid item xs={5}>
+                            <CardMedia
+                                component="img"
+                                alt="Chef profile pic"
+                                style={{ width: "100px", display: 'inline-block' }}
+                                image="https://www.cookingschool.org/img/head-chef.jpeg"
+                                title="Contemplative Reptile"
+                            />
+                        </Grid>
+                        <Grid style={{ display: "flex" }} item xs={7} alignItems='center' justify="center">
+                            <div className="search-card-name">
+                                <span className="search-card-first-name">Maxwell</span>
+                                <br />
+                                <span className="search-card-last-name">Jones</span>
+                            </div>
+                        </Grid>
+                    </Grid>
+                </CardContent>
             </CardActionArea>
-            <CardActions>
-            <Button size="small" color="primary">
-                Share
-            </Button>
-            <Button size="small" color="primary">
-                Learn More
-            </Button>
-            </CardActions>
         </Card>
+    </Grid>
+        // <Card>
+        //     <CardActionArea>
+        //     <CardMedia
+        //         component="img"
+        //         alt="Contemplative Reptile"
+        //         height="140"
+        //         image="https://www.cookingschool.org/img/head-chef.jpeg"
+        //         title="Contemplative Reptile"
+        //     />
+        //     <CardContent>
+        //         <Typography gutterBottom variant="h5" component="h2">
+        //         Lizard
+        //         </Typography>
+        //         <Typography variant="body2" color="textSecondary" component="p">
+        //         Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+        //         across all continents except Antarctica
+        //         </Typography>
+        //     </CardContent>
+        //     </CardActionArea>
+        //     <CardActions>
+        //     <Button size="small" color="primary">
+        //         Share
+        //     </Button>
+        //     <Button size="small" color="primary">
+        //         Learn More
+        //     </Button>
+        //     </CardActions>
+        // </Card>
     )
 }
 
