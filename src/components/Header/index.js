@@ -2,6 +2,7 @@
 import React from 'react';
 // Styles
 import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -9,16 +10,17 @@ import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
-	mainFeaturedPost: {
+	hero: {
 		position: 'relative',
 		backgroundColor: theme.palette.grey[800],
-		color: theme.palette.common.white,
+		color: theme.palette.primary.contrastText,
 		marginBottom: theme.spacing(4),
 		backgroundImage: 'url(https://source.unsplash.com/random)',
 		backgroundSize: 'cover',
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center',
-		height: '540px'
+		height: '540px',
+		zIndex: "1"
 	},
 	overlay: {
 		position: 'absolute',
@@ -27,15 +29,10 @@ const useStyles = makeStyles((theme) => ({
 		right: 0,
 		left: 0,
 		backgroundColor: 'rgba(0,0,0,.3)',
+		zIndex: "-1"
 	},
-	mainFeaturedPostContent: {
-		position: 'relative',
-		paddingTop: theme.spacing(4),
-		paddingLeft: theme.spacing(3),
-		[theme.breakpoints.up('md')]: {
-			paddingTop: theme.spacing(10),
-			paddingLeft: theme.spacing(6),
-		},
+	heroInner:{
+		padding: "160px 0"
 	},
 	box:{
 		marginTop: "20px"
@@ -45,13 +42,11 @@ const useStyles = makeStyles((theme) => ({
 function Header() {
 	const classes = useStyles();
 	return (
-		<Box
-		className={classes.mainFeaturedPost}
-		>
-			<div className={classes.overlay} />
-			<Grid container>
-				<Grid item md={12}>
-					<div className={classes.mainFeaturedPostContent}>
+		<Box className={classes.hero}>
+			<Container maxWidth="lg">
+				<div className={classes.overlay} />
+				<Grid container className={classes.heroInner}>
+					<Grid item md={12}>
 						<Typography component="h1" variant="h2" color="inherit" gutterBottom>
 						Experience Elegance at Home
 						</Typography>
@@ -61,9 +56,9 @@ function Header() {
 						<Box className={classes.box}>
 							<Button href="/signup" size="large" variant="contained" color="primary">Signup</Button>
 						</Box>
-					</div>
+					</Grid>
 				</Grid>
-			</Grid>
+			</Container>
 		</Box>
 	);
 }
