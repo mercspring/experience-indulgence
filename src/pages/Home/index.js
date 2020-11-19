@@ -5,22 +5,27 @@ import Container from '@material-ui/core/Container';
 // Componants
 import Header from "../../components/Header";
 import Feature from "../../components/Feature";
+import hero from  "../../assets/hero.png"
+import trupp from  "../../assets/trupp.jpg"
+import spoons from  "../../assets/spoons.jpg"
+import timeout from  "../../assets/timeout.jpg"
+
 
 const content =  [
 	{
 		title: "Feature 1",
 		description: "Something nice",
-		imageUrl: "https://source.unsplash.com/random",
+		imageUrl: trupp,
 	},
 	{
 		title: "Feature 2",
 		description: "Multiple nice things",
-		imageUrl: "https://source.unsplash.com/random",
+		imageUrl: spoons,
 	},
 	{
 		title: "Feature 3",
 		description: "The best things",
-		imageUrl: "https://source.unsplash.com/random",
+		imageUrl: timeout,
 	}
 ]
 
