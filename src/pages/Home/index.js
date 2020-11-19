@@ -1,22 +1,40 @@
+// React
 import React, { useState, useEffect } from "react";
-import TextField from '@material-ui/core/TextField';
-import { createMuiTheme } from '@material-ui/core/styles';
-import Button from "@material-ui/core/Button"
-import "./style.css";
-import NavBar from "../../components/navbar";
-import {useTheme} from '@material-ui/core/styles';
+// Styles
+import Container from '@material-ui/core/Container';
+// Componants
+import Header from "../../components/Header";
+import Feature from "../../components/Feature";
 
-export default function Home() {
-  const theme = createMuiTheme();
-  return (
-    <div className="Home">
-      <NavBar />
+const content =  [
+	{
+		title: "Feature 1",
+		description: "Something nice",
+		imageUrl: "https://source.unsplash.com/random",
+	},
+	{
+		title: "Feature 2",
+		description: "Multiple nice things",
+		imageUrl: "https://source.unsplash.com/random",
+	},
+	{
+		title: "Feature 3",
+		description: "The best things",
+		imageUrl: "https://source.unsplash.com/random",
+	}
+]
 
-      <h1 style={{ color: `${theme.palette.secondary.dark}` }}>
-        {/* Hello, welcome to Idulge Home Page! */}
-      </h1>
-     
-    
-    </div>
-  );
+function Home() {
+	return (
+		<div>
+			<Header />
+			<Container maxWidth="lg">
+				{content.map((content) => (
+					<Feature props={content} />
+				))}
+			</Container>
+		</div>
+	);
 }
+
+export default Home;

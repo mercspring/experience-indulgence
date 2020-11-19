@@ -1,61 +1,98 @@
+// React
 import React from "react";
-import Home from "./pages/Home"
-import Search from "./pages/search"
-import ChefSignup from "./pages/chef-signup"
-import ChefProfile from "./pages/chef-profile"
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+// Styles
+import { ThemeProvider, createMuiTheme, makeStyles, responsiveFontSizes } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
+// Components
+import NavBar from "./components/Navbar";
+import Home from "./pages/Home"
+import Search from "./pages/Search"
+import Signup from "./pages/Signup"
+import ProfileChef from "./pages/ProfileChef"
+import Footer from "./components/Footer"
 
-// function App() {
-//   return (
-//     <div className="App">
-//      <ChefSignup/> 
-//     </div>
-//   );
-// }
-const theme = createMuiTheme ({
-  palette: {
-    primary: {
-      light: '#62727b',
-      main: '#37474f',
-      dark: '#102027',
-      contrastText: '#fafafa',
-    },
-    secondary: {
-      light: '#4f5b62',
-      main: '#263238',
-      dark: '#000a12',
-      contrastText: '#dda300',
-    },
-    contrastThreshold: 3,
-    tonalOffset: 2,
-  },
+let theme = createMuiTheme();
+theme = responsiveFontSizes(theme);
+
+// Base Theme Customization
+theme = createMuiTheme({
+	palette: {
+		primary: {
+			light: '#757ce8',
+			main: '#3f50b5',
+			dark: '#002884',
+			contrastText: '#fff',
+		},
+		secondary: {
+			light: '#ff7961',
+			main: '#FFFFFF',
+			dark: '#ba000d',
+			contrastText: '#000',
+		},
+	},
+	typography: {
+		fontFamily: [
+		  '-apple-system',
+		  'BlinkMacSystemFont',
+		  '"Segoe UI"',
+		  'Roboto',
+		  '"Helvetica Neue"',
+		  'Arial',
+		  'sans-serif',
+		  '"Apple Color Emoji"',
+		  '"Segoe UI Emoji"',
+		  '"Segoe UI Symbol"',
+		].join(','),
+	},
+	spacing: 20,
 });
 
+const useStyles = makeStyles((theme) => ({
+	root: {
+		marginTop: "120px",
+	},
+}));
 
+const content =  [
+	{
+		title: "Feature 1",
+		description: "Something nice",
+		imageUrl: "https://source.unsplash.com/random",
+	},
+	{
+		title: "Feature 2",
+		description: "Multiple nice things",
+		imageUrl: "https://source.unsplash.com/random",
+	},
+	{
+		title: "Feature 3",
+		description: "The best things",
+		imageUrl: "https://source.unsplash.com/random",
+	}
+]
 
 function App() {
-  return (
-    <ThemeProvider theme={theme}>
-    <Router>
-      <div>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/search" component={Search} />
-            <Route exact path="/signup" component={ChefSignup} />
-            <Route exact path="/profile" component={ChefProfile} />
-            {/* <Route exact path="/posts/:id" component={Detail} />
-            <Route component={NoMatch} /> */}
-          </Switch>
-      </div>
-    </Router>
-    </ThemeProvider>
-  );
+	const classes = useStyles();
+	return (
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+			<NavBar />
+				<Router>
+					<Switch>
+						<Route exact path="/" component={Home} />
+						<Container className={classes.root} maxWidth="lg">
+							<Route exact path="/search" component={Search} />
+							<Route exact path="/signup" component={Signup} />
+							<Route exact path="/signin" component={Signup} />
+							<Route exact path="/profile/:chef" component={ProfileChef} />
+						</Container>
+					</Switch>
+				</Router>
+			<Footer />
+		</ThemeProvider>
+	);
 }
-
-
-
 
 export default App;

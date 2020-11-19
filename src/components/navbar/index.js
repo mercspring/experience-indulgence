@@ -1,54 +1,75 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import ChefSignin from "../chef-signin"
+// React
+import React from 'react';
+// Styles
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
+import SigninModal from "../SigninModal";
 import Modal from '@material-ui/core/Modal';
-import "./style.css";
 
-function NavBar() {
-  const [open, setOpen] = useState(false);
-  const [openSignin, setSigninOpen] = useState(false);
-
-  const handleOpen = () => {
-    setSigninOpen(true);
-
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  title: {
+    flexGrow: 1,
+  },
+  paper: {
+	position: 'absolute',
+	backgroundColor: theme.palette.background.paper,
+	boxShadow: theme.shadows[5],
+	padding: theme.spacing(2),
+	top: "40%",
+	left: "50%",
+	transform: "translate(-50%, -40%)",
+  },
+  toolbar:{
+	width: "1280px",
+	margin: "0 auto",
+	padding:"0 60px"
   }
-  const handleClose = () => {
-    setSigninOpen(false);
-  }
+}));
 
-  return (
-    <div>
-      <nav>
-        <Link to={"/search"}><div className="logo">Logo</div></Link>
-        <div className="header">indulge
-        {/* <p className="tagLine">Savour Opulance</p> */}
-        </div>
+function Navbar() {
+	const [open, setOpen] = React.useState(false);
+	const handleOpen = () => {
+	  setOpen(true);
+	};
+	const handleClose = () => {
+	  setOpen(false);
+	};
 
-        <ul className="nav-links" style={{ transform: open ? "translateX(0px)" : "" }}>
-          {/* <li>
-            <a>Home</a>
-          </li> */}
-          <li>
-            <Link to={"/signup"}>Chef Sign-up</Link>
-          </li>
-          <li>
-            <span onClick={handleOpen}>Chef Sign-in</span>
-            <Modal
-              open={openSignin}
-              onClose={handleClose}
-              style={{alignItems: "center", justifyContent: "center", display:"flex"}}
-            >
-              <ChefSignin handleClose={handleClose}/>
-            </Modal>
-          </li>
-          <li>
-            <Link to={"/search"}>Search</Link>
-          </li>
-        </ul>
-        <i onClick={() => setOpen(!open)} className="fas fa-bars burgerMenu"></i>
-      </nav>
-    </div>
-  );
+	const classes = useStyles();
+	return (
+		<div>
+			<div className={classes.root}>
+				<AppBar position="fixed" elevation="1">
+						<Toolbar className={classes.toolbar}>
+							<Link underline="none" color="inherit" variant="h5" href="/" className={classes.title}>
+								Indulge
+							</Link>
+							<Button href="/search" color="inherit">Search</Button>
+							<Button href="/signup" color="inherit">Signup</Button>
+							<Button onClick={handleOpen} color="inherit">Login</Button>
+						</Toolbar>
+				</AppBar>
+			</div>
+			<Modal
+				open={open}
+				onClose={handleClose}
+				aria-labelledby="simple-modal-title"
+				aria-describedby="simple-modal-description"
+			>
+				<div className={classes.paper}>
+					<SigninModal />
+				</div>
+			</Modal>
+		</div>
+	);
 }
 
-export default NavBar;
+export default Navbar;
