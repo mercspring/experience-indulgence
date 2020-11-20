@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Navbar(props) {
+
+  let history = useHistory();
+	console.log(history);
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => {
 	  setOpen(true);
@@ -55,7 +58,7 @@ function Navbar(props) {
 							{
 								props.loggedIn ?
 								
-									<Button href="/profile" color="inherit">Hello {JSON.parse(localStorage.getItem("userData")).username}!</Button>
+									<Button href="/profile" color="inherit">Hello {JSON.parse(localStorage.getItem("userData")).first}!</Button>
 			 :
 								<React.Fragment>
 									<Button href="/signup" color="inherit">Signup</Button>
@@ -72,7 +75,7 @@ function Navbar(props) {
 				aria-describedby="simple-modal-description"
 			>
 				<div className={classes.paper}>
-					<SigninModal />
+					<SigninModal handleClose={setOpen} history={history}/>
 				</div>
 			</Modal>
 		</div>

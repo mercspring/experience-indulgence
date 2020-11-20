@@ -21,16 +21,14 @@ function ProfileChef() {
 		.catch(err => console.log(err));
 	}, [])
 	return (
-		<Container maxWidth="lg" fixed>
-			<Grid container xs={12}>
-				<Grid item xs={3}>
-					<ChefCard chef={chef}/>
-				</Grid>
-				<Grid item xs={9}>
-					<ChefImages />
-				</Grid>
+		<Grid container xs={12}>
+			<Grid item xs={3}>
+				<ChefCard chef={chef}/>
 			</Grid>
-		</Container>
+			<Grid item xs={9}>
+				<ChefImages chef={chef}/>
+			</Grid>
+		</Grid>
 	);
 }
 

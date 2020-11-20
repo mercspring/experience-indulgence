@@ -70,7 +70,7 @@ function Signup() {
 		const keys = Object.keys(specialitiesState)
 		return keys.map((speciality, index) => {
 			return (<FormControlLabel
-				control={<Checkbox name={speciality} checked={specialitiesState[speciality].checked} onChange={onSpecialityChange} />}
+				control={<Checkbox name={speciality} checked={specialitiesState[speciality].checked} onChange={onSpecialityChange} inputProps={{ 'aria-label': 'primary checkbox' }}/>}
 				label={speciality}
 				key={index}
 			/>)
@@ -80,7 +80,7 @@ function Signup() {
 		const keys = Object.keys(cuisinesState)
 		return keys.map((cuisine, index) => {
 		return (<FormControlLabel
-			control={<Checkbox name={cuisine} checked={cuisinesState[cuisine].checked} onChange={onCuisinesChange} />}
+			control={<Checkbox name={cuisine} checked={cuisinesState[cuisine].checked} onChange={onCuisinesChange} inputProps={{ 'aria-label': 'primary checkbox' }}/>}
 			label={cuisine}
 			key={index}
 		/>)
@@ -199,7 +199,9 @@ function Signup() {
 								<Typography variant="h5" gutterBottom>
 									Photo
 								</Typography>
-								<Button variant="contained" component="label" startIcon={<CloudUploadIcon />} onChange={(event) => setFile(event.target.files[0])} val={file}>Upload <input type="file" hidden /></Button>
+
+								<Button variant="contained" component="label" startIcon={<CloudUploadIcon />} onChange={(event) => setFile(event.target.files[0])} val={file}>Upload<input type="file" hidden /></Button>
+
 								<Button className={classes.button} variant="contained" color="secondary" onClick={() => uploadToCloudinary(file)}>Save Profile Pic</Button>
 							</Grid>
 						</Grid>

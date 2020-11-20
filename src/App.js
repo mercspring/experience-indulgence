@@ -29,10 +29,10 @@ theme = createMuiTheme({
 		},
 		secondary: {
 			light: '#ff7961',
-			main: '#FFFFFF',
+			main: '#ffa500',
 			dark: '#ba000d',
 			contrastText: '#000',
-		},
+		}
 	},
 	typography: {
 		fontFamily: [
@@ -53,7 +53,7 @@ theme = createMuiTheme({
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		marginTop: "120px",
+		marginTop: "100px",
 	},
 }));
 
@@ -69,15 +69,15 @@ function App() {
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
-			<NavBar loggedIn={loggedUser}/>
 				<Router>
+					<NavBar loggedIn={loggedUser}/>
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Container className={classes.root} maxWidth="lg">
 							<Route exact path="/search" component={Search} />
 							<Route exact path="/signup" component={Signup} />
 							<Route exact path="/signin" component={Signup} />
-							<Route exact path="/profile/:chef" component={ProfileChef} />
+							<Route exact path="/profile/:id" component={ProfileChef} />
 						</Container>
 					</Switch>
 				</Router>
