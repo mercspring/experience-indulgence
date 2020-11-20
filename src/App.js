@@ -20,16 +20,16 @@ theme = responsiveFontSizes(theme);
 theme = createMuiTheme({
 	palette: {
 		primary: {
-			light: '#757ce8',
-			main: '#3f50b5',
-			dark: '#002884',
-			contrastText: '#fff',
+			light: '#ae895d',
+			main: '#292C30',
+			dark: '#3b4045',
+			contrastText: '#ae895d',
 		},
 		secondary: {
-			light: '#ff7961',
-			main: '#FFFFFF',
-			dark: '#ba000d',
-			contrastText: '#000',
+			light: '#b3b4b5',
+			main: '#24292d',
+			dark: '#5d646b',
+			contrastText: '#ae895d',
 		},
 	},
 	typography: {
@@ -51,7 +51,7 @@ theme = createMuiTheme({
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		marginTop: "120px",
+    marginTop: "120px",
 	},
 }));
 
@@ -76,6 +76,7 @@ const content =  [
 function App() {
 	const classes = useStyles();
 	return (
+		<div style={{background: "#b3b4b5"}}>
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
 			<NavBar />
@@ -92,7 +93,8 @@ function App() {
 				</Router>
 			<Footer />
 		</ThemeProvider>
+		</div>
 	);
-}
+} 
 
 export default App;
