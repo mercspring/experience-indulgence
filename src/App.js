@@ -1,17 +1,19 @@
 // React
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // Styles
 import { ThemeProvider, createMuiTheme, makeStyles, responsiveFontSizes } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 // Components
-import NavBar from "./components/Navbar";
-import Home from "./pages/Home"
-import Search from "./pages/Search"
-import Signup from "./pages/Signup"
-import ProfileChef from "./pages/ProfileChef"
-import Footer from "./components/Footer"
+
+import NavBar from "./components/navbar";
+import Home from "./pages/Home";
+import Search from "./pages/search";
+import Signup from "./pages/Signup";
+import ProfileChef from "./pages/ProfileChef";
+import Footer from "./components/Footer";
+
 
 let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
@@ -55,31 +57,20 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const content =  [
-	{
-		title: "Feature 1",
-		description: "Something nice",
-		imageUrl: "https://source.unsplash.com/random",
-	},
-	{
-		title: "Feature 2",
-		description: "Multiple nice things",
-		imageUrl: "https://source.unsplash.com/random",
-	},
-	{
-		title: "Feature 3",
-		description: "The best things",
-		imageUrl: "https://source.unsplash.com/random",
-	}
-]
-
 function App() {
+	const [loggedUser, setLoggedUser] = useState(false);
+
+	useEffect(() => {
+		if (localStorage.getItem("userData")) {
+			setLoggedUser(true);
+		}
+	}, [])
 	const classes = useStyles();
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
 				<Router>
-					<NavBar/>
+					<NavBar loggedIn={loggedUser}/>
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Container className={classes.root} maxWidth="lg">

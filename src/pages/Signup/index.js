@@ -153,7 +153,7 @@ function Signup() {
 			}
 		})
 
-		const payload = Object.assign(info, { restaurant: JSON.stringify(highlightStore) }, { cusines: chefsCuisines, speciality: chefsSpecialities, profilePic: profilePicture })
+		const payload = Object.assign(info, { restaurants: JSON.stringify(highlightStore) }, { cuisine: chefsCuisines, specialty: chefsSpecialities, profilePic: profilePicture })
 		console.log(payload)
 		API.createProfile(payload)
 		.then(result => {
@@ -199,7 +199,9 @@ function Signup() {
 								<Typography variant="h5" gutterBottom>
 									Photo
 								</Typography>
+
 								<Button variant="contained" component="label" startIcon={<CloudUploadIcon />} onChange={(event) => setFile(event.target.files[0])} val={file}>Upload<input type="file" hidden /></Button>
+
 								<Button className={classes.button} variant="contained" color="secondary" onClick={() => uploadToCloudinary(file)}>Save Profile Pic</Button>
 							</Grid>
 						</Grid>

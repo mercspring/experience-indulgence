@@ -12,6 +12,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Box from '@material-ui/core/Box';
 import InputLabel from '@material-ui/core/InputLabel';
+import API from '../../utils/API.js';
 
 const useStyles = makeStyles((theme) => ({
     card:{
@@ -27,12 +28,65 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function SearchBar() {
+function isJson(arr) {
+    try {
+        console.log(arr[0])
+        JSON.parse(arr[0]);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
+function SearchBar( props ) {
     const [searchTerm, setSearchTerm] = useState();
     const [zipCode, setZipCode] = useState();
     const [typeOfSearch, setTypeOfSearch] = useState();
     function onSearchSubmit(event) {
-        setSearchTerm("")
+        event.preventDefault();
+        API.getChefsByZip(zipCode.trim()).then(result => {
+            const { data } = result;
+            let searchResults, matches;
+            const re = new RegExp(searchTerm, "i");
+            
+            if(typeOfSearch === "cuisine"){
+                searchResults = data.filter(elm => {
+                    matches = elm.cuisine.filter( cuisine => {
+                        return re.test(cuisine.name)
+                    })
+
+                    if (matches.length > 0){
+                        return true
+                    } else {
+                        return false
+                    }
+                })
+            } else if(typeOfSearch === "restaurant"){
+
+                searchResults = data.filter(elm => {
+                    const restaurants = isJson(elm.restaurants) ? JSON.parse(elm.restaurants) : []
+                    matches = restaurants.filter(elm => {
+                        return re.test(elm.workPlace);
+                    })
+
+                    if (matches.length > 0){
+                        return true
+                    } else {
+                        return false
+                    }
+                })
+
+            } else if(typeOfSearch === "chef"){
+                
+                searchResults = data.filter(elm => { return re.test(elm.first + elm.last)})
+
+            } else{
+                searchResults = data;
+
+            }
+            console.log(searchResults)
+                props.setSearchResults(searchResults);
+        }).catch(err=>console.log(err))
     }
     function onZipChange(event) {
         setZipCode(event.target.value);
@@ -60,9 +114,9 @@ function SearchBar() {
                                 id: 'age-native-simple',
                             }}
                         >
-                            <MenuItem value={10}>Cusine</MenuItem>
-                            <MenuItem value={20}>Restaurant</MenuItem>
-                            <MenuItem value={30}>Chef</MenuItem>
+                            <MenuItem value={"cuisine"}>Cuisine</MenuItem>
+                            <MenuItem value={"restaurant"}>Restaurant</MenuItem>
+                            <MenuItem value={"chef"}>Chef</MenuItem>
                         </Select>
                     </FormControl>
                 </Grid>
@@ -77,7 +131,7 @@ function SearchBar() {
                     </FormControl>
                 </Grid>
                 <Grid item xs={3}>
-                    <Button  className={classes.button} fullWidth color="primary" variant="contained" size="large" onSubmit={onSearchSubmit}> Search </Button>
+                    <Button  className={classes.button} fullWidth color="primary" variant="contained" size="large" onClick={onSearchSubmit}> Search </Button>
                 </Grid>
             </Grid>
         </Paper>
