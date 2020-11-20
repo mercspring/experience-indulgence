@@ -17,19 +17,34 @@ import SearchCard from '../../components/SearchCard'
 import SearchBar from '../../components/SearchBar'
 
 function Search() {
+    const [searchResults, setSearchResults] = useState([]);
+    const [searched, setSearched] = useState()
+
     return (
         <div>
-            <SearchBar />
+            <SearchBar setSearched = {setSearched} setSearchResults={setSearchResults} />
+                            
             <Grid container spacing={1}>
-                <Grid item xs={4}>
+                { (searchResults.length > 0) ?
+                    searchResults.map(elm => {
+                        return (<SearchCard 
+                            first={elm.first} 
+                            last={elm.last}
+                            sigDishImage={elm.photos[0] ? elm.photos[0].url : "http://www.dirtyapronrecipes.com/wp-content/uploads/2015/10/food-placeholder.png"}
+                            profilePic={elm.profilePic || "https://www.svgrepo.com/show/41193/chef-hat.svg"} 
+                            key={elm._id}
+                            id={elm._id}
+                            />)
+                    }) : searched ? <h2>No Results</h2> : <h2>Search for a chef by chef name, restaurant or cusine</h2>}
+                {/* <Grid item xs={4}>
                     <SearchCard />
                 </Grid>
                 <Grid item xs={4}>
                     <SearchCard />
                 </Grid>
                 <Grid item xs={4}>
-                    <SearchCard />
-                </Grid>
+                    <SearchCard /> */}
+                {/* </Grid> */}
             </Grid>
         </div>
     )

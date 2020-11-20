@@ -14,25 +14,28 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function SigninModal() {
-    const classes = useStyles();
-
-    const [userInfo, setUserInfo] = useState({ username: "", password: "" });
+function SigninModal(props) {
+    const [userInfo, setUserInfo] = useState({ username: "", password: "", _id:"" });
 
     function onInfoChange(event) {
         const { name, value } = event.target;
         setUserInfo({ ...userInfo, [name]: value });
     }
 
-    function onClick(event){
-        event.preventDefault()
-        API.login(userInfo).then(newToken=> {
-            console.log(newToken.data.token);
+    function onClick(event) {
+        event.preventDefault();
+        API.login(userInfo).then(newToken => {
             localStorage.setItem("token", newToken.data.token)
-            setUserInfo({ username: "", password: "" });
+            setUserInfo({ username: "", password: "", _id:"" });
+            console.log(newToken.data);
+            console.log(newToken.data._id);
+            let userData = newToken.data._id
+            props.history.push(`/profile/${userData}`);
+            props.handleClose(false);
         })
     }
-
+    
+    const classes = useStyles();
     return (
         <div>
             <Typography variant="h4">

@@ -80,15 +80,15 @@ function ChefCard(props) {
 		<Card className={classes.card}>
 			<CardMedia
 			className={classes.cardMedia}
-			image="https://source.unsplash.com/random"
+			image={props.chef.bioPic}
 			title="Image title"
 			/>
 			<CardContent className={classes.cardContent}>
 				<Typography gutterBottom variant="h5" component="h2">
-					{props.chef.first}
+					{props.chef.first} {props.chef.last}
 				</Typography>
 				<Typography>
-					This is a media card. You can use this section to describe the content.
+					{props.chef.bio}
 				</Typography>
 			</CardContent>
 			<CardActions>

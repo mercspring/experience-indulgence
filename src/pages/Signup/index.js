@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Signup() {
-	let [info, setInfo] = useState({ first: "", last: "", email: "", bio: "", zip: "", password: "", username: "" });
+	let [info, setInfo] = useState({ first: "", last: "", email: "", bio: "", zipcode: "", password: "", username: "" });
 	let [highlights, setHighlights] = useState({ workPlace: "", jobTitle: "", duration: "" });
 	let [highlightStore, setHighlightStore] = useState([]);
 	let [cuisinesState, setCuisinesState] = useState({});
@@ -70,7 +70,7 @@ function Signup() {
 		const keys = Object.keys(specialitiesState)
 		return keys.map((speciality, index) => {
 			return (<FormControlLabel
-				control={<Checkbox name={speciality} checked={specialitiesState[speciality].checked} onChange={onSpecialityChange} />}
+				control={<Checkbox name={speciality} checked={specialitiesState[speciality].checked} onChange={onSpecialityChange} inputProps={{ 'aria-label': 'primary checkbox' }}/>}
 				label={speciality}
 				key={index}
 			/>)
@@ -80,7 +80,7 @@ function Signup() {
 		const keys = Object.keys(cuisinesState)
 		return keys.map((cuisine, index) => {
 		return (<FormControlLabel
-			control={<Checkbox name={cuisine} checked={cuisinesState[cuisine].checked} onChange={onCuisinesChange} />}
+			control={<Checkbox name={cuisine} checked={cuisinesState[cuisine].checked} onChange={onCuisinesChange} inputProps={{ 'aria-label': 'primary checkbox' }}/>}
 			label={cuisine}
 			key={index}
 		/>)
@@ -153,7 +153,7 @@ function Signup() {
 			}
 		})
 
-		const payload = Object.assign(info, { restaurant: JSON.stringify(highlightStore) }, { cusines: chefsCuisines, speciality: chefsSpecialities, profilePic: profilePicture })
+		const payload = Object.assign(info, { restaurants: JSON.stringify(highlightStore) }, { cuisine: chefsCuisines, specialty: chefsSpecialities, profilePic: profilePicture , contactInfo:{email: info.email}},)
 		console.log(payload)
 		API.createProfile(payload)
 		.then(result => {
@@ -165,7 +165,7 @@ function Signup() {
 		// Empty Forms
 		setHighlights({ workPlace: "", jobTitle: "", duration: "" });
 		setHighlightStore([]);
-		setInfo({ first: "", last: "", email: "", bio: "", zip: "", password: "", username: "" });
+		setInfo({ first: "", last: "", email: "", bio: "", zipcode: "", password: "", username: "" });
 		setProfilePicture("")
 		setCuisinesState({});
 		setSpecialitiesState({});
@@ -191,7 +191,7 @@ function Signup() {
 									Account
 								</Typography>
 								<TextField fullWidth label="Username" name="username" value={info.username} onChange={onInfoChange} />
-								<TextField fullWidth label="Password" name="password" value={info.password} onChange={onInfoChange} />
+								<TextField fullWidth type="password" label="Password" name="password" value={info.password} onChange={onInfoChange} />
 							</Grid>
 						</Grid>
 						<Grid container className={classes.grid}>
@@ -199,7 +199,9 @@ function Signup() {
 								<Typography variant="h5" gutterBottom>
 									Photo
 								</Typography>
-								<Button variant="contained" component="div" startIcon={<CloudUploadIcon />} onChange={(event) => setFile(event.target.files[0])} val={file}>Upload <input type="file" hidden /></Button>
+
+								<Button variant="contained" component="label" startIcon={<CloudUploadIcon />} onChange={(event) => setFile(event.target.files[0])} val={file}>Upload<input type="file" hidden /></Button>
+
 								<Button className={classes.button} variant="contained" color="secondary" onClick={() => uploadToCloudinary(file)}>Save Profile Pic</Button>
 							</Grid>
 						</Grid>
@@ -211,7 +213,7 @@ function Signup() {
 								<TextField fullWidth label="First Name" name="first" value={info.first} onChange={onInfoChange} />
 								<TextField fullWidth label="Last Name" name="last" value={info.last} onChange={onInfoChange} />
 								<TextField fullWidth label="Email" name="email" value={info.email} onChange={onInfoChange} />
-								<TextField fullWidth label="Zip Code" name="zip" value={info.zip} onChange={onInfoChange} />
+								<TextField fullWidth label="Zip Code" name="zipcode" value={info.zipcode} onChange={onInfoChange} />
 								<TextField fullWidth label="Bio" name="bio" multiline rows={4} value={info.bio} onChange={onInfoChange} />
 							</Grid>
 						</Grid>

@@ -5,8 +5,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid"
 import { Typography } from "@material-ui/core";
 import { Palette } from "@material-ui/icons";
+import { FilterNone, HowToVote, ViewHeadline } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
+        // background: {
+        // background: theme.palette.secondary.light,
+        // width: '100%',
+        // height: "100%",
+        
+        //  },
         image: {
               width: '100%',
               height: "480px"
@@ -21,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 function Feature(props) {
         const classes = useStyles();
 	return (
+                <Grid container className={classes.background}>
                 <Grid container className={classes.container}>
                         <Grid item xs={6}>
                                 <Typography variant="h3" gutterBottom>
@@ -33,6 +41,7 @@ function Feature(props) {
                         <Grid item xs={6}>
                                 <img className={classes.image}src={props.props.imageUrl} alt={props.props.title}/>
                         </Grid>
+                </Grid>
                 </Grid>
 	);
 }
