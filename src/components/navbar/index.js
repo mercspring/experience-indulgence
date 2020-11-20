@@ -1,15 +1,17 @@
 // React
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom"
+
 // Styles
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import SigninModal from "../SigninModal";
 import Modal from '@material-ui/core/Modal';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +36,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function Navbar() {
+function Navbar(props) {
+
+  let history = useHistory();
+	console.log(history);
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => {
 	  setOpen(true);
@@ -53,8 +58,14 @@ function Navbar() {
 								Indulge
 							</Link>
 							<Button href="/search" color="inherit">Search</Button>
-							<Button href="/signup" color="inherit">Signup</Button>
-							<Button onClick={handleOpen} color="inherit">Login</Button>
+							{
+								!props.loggedIn ?
+								<React.Fragment>
+									<Button href="/signup" color="inherit">Signup</Button>
+									<Button onClick={handleOpen} color="inherit">Login</Button>
+								</React.Fragment> :
+								<Button href="/signup" color="inherit">Hello {localStorage.getItem("userData").username}!</Button>
+							}
 						</Toolbar>
 				</AppBar>
 			</div>
@@ -65,7 +76,7 @@ function Navbar() {
 				aria-describedby="simple-modal-description"
 			>
 				<div className={classes.paper}>
-					<SigninModal />
+					<SigninModal handleClose={setOpen} history={history}/>
 				</div>
 			</Modal>
 		</div>
