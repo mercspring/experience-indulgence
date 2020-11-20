@@ -153,7 +153,7 @@ function Signup() {
 			}
 		})
 
-		const payload = Object.assign(info, { restaurants: JSON.stringify(highlightStore) }, { cuisine: chefsCuisines, specialty: chefsSpecialities, profilePic: profilePicture })
+		const payload = Object.assign(info, { restaurants: JSON.stringify(highlightStore) }, { cuisine: chefsCuisines, specialty: chefsSpecialities, profilePic: profilePicture , contactInfo:{email: info.email}},)
 		console.log(payload)
 		API.createProfile(payload)
 		.then(result => {
@@ -191,7 +191,7 @@ function Signup() {
 									Account
 								</Typography>
 								<TextField fullWidth label="Username" name="username" value={info.username} onChange={onInfoChange} />
-								<TextField fullWidth label="Password" name="password" value={info.password} onChange={onInfoChange} />
+								<TextField fullWidth type="password" label="Password" name="password" value={info.password} onChange={onInfoChange} />
 							</Grid>
 						</Grid>
 						<Grid container className={classes.grid}>
