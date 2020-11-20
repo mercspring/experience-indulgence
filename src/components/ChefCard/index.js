@@ -58,7 +58,7 @@ function ChefCard(props) {
                 last:chefData.last,
             })
         })
-    },[])
+	},[])
 
     const handleInputChange = event=>{
         const {name,value}=event.target;
