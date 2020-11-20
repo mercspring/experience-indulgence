@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Signup() {
-	let [info, setInfo] = useState({ first: "", last: "", email: "", bio: "", zip: "", password: "", username: "" });
+	let [info, setInfo] = useState({ first: "", last: "", email: "", bio: "", zipcode: "", password: "", username: "" });
 	let [highlights, setHighlights] = useState({ workPlace: "", jobTitle: "", duration: "" });
 	let [highlightStore, setHighlightStore] = useState([]);
 	let [cuisinesState, setCuisinesState] = useState({});
@@ -165,7 +165,7 @@ function Signup() {
 		// Empty Forms
 		setHighlights({ workPlace: "", jobTitle: "", duration: "" });
 		setHighlightStore([]);
-		setInfo({ first: "", last: "", email: "", bio: "", zip: "", password: "", username: "" });
+		setInfo({ first: "", last: "", email: "", bio: "", zipcode: "", password: "", username: "" });
 		setProfilePicture("")
 		setCuisinesState({});
 		setSpecialitiesState({});
@@ -213,7 +213,7 @@ function Signup() {
 								<TextField fullWidth label="First Name" name="first" value={info.first} onChange={onInfoChange} />
 								<TextField fullWidth label="Last Name" name="last" value={info.last} onChange={onInfoChange} />
 								<TextField fullWidth label="Email" name="email" value={info.email} onChange={onInfoChange} />
-								<TextField fullWidth label="Zip Code" name="zip" value={info.zip} onChange={onInfoChange} />
+								<TextField fullWidth label="Zip Code" name="zipcode" value={info.zipcode} onChange={onInfoChange} />
 								<TextField fullWidth label="Bio" name="bio" multiline rows={4} value={info.bio} onChange={onInfoChange} />
 							</Grid>
 						</Grid>

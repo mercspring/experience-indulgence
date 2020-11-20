@@ -26,6 +26,9 @@ const API = {
     },
     getChefsByZip: function(zip){
         return axios.get(this.api + "/api/chef/zip/" + zip)
+    },
+    getAllChefs: function(){
+        return axios.get(this.api + "/api/chef")
     }
 }
 

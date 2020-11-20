@@ -15,16 +15,16 @@ import InputLabel from '@material-ui/core/InputLabel';
 import API from '../../utils/API.js';
 
 const useStyles = makeStyles((theme) => ({
-    card:{
-        marginTop:"20px",
-        marginBottom:"20px",
-        padding:"10px"
+    card: {
+        marginTop: "20px",
+        marginBottom: "20px",
+        padding: "10px"
     },
-    flex:{
+    flex: {
         width: "100%"
     },
-    button:{
-        height:"100%"
+    button: {
+        height: "100%"
     }
 }));
 
@@ -38,55 +38,25 @@ function isJson(arr) {
     return true;
 }
 
-function SearchBar( props ) {
+
+function SearchBar(props) {
     const [searchTerm, setSearchTerm] = useState();
     const [zipCode, setZipCode] = useState();
     const [typeOfSearch, setTypeOfSearch] = useState();
+
     function onSearchSubmit(event) {
+        props.setSearched(true);
         event.preventDefault();
-        API.getChefsByZip(zipCode.trim()).then(result => {
-            const { data } = result;
-            let searchResults, matches;
-            const re = new RegExp(searchTerm, "i");
-            
-            if(typeOfSearch === "cuisine"){
-                searchResults = data.filter(elm => {
-                    matches = elm.cuisine.filter( cuisine => {
-                        return re.test(cuisine.name)
-                    })
+        if (zipCode) {
+            API.getChefsByZip(zipCode.trim()).then(result => {
+                processResults(result)
+            }).catch(err => console.log(err))
+        } else {
+            API.getAllChefs().then(result => {
+                processResults(result)
+            })
 
-                    if (matches.length > 0){
-                        return true
-                    } else {
-                        return false
-                    }
-                })
-            } else if(typeOfSearch === "restaurant"){
-
-                searchResults = data.filter(elm => {
-                    const restaurants = isJson(elm.restaurants) ? JSON.parse(elm.restaurants) : []
-                    matches = restaurants.filter(elm => {
-                        return re.test(elm.workPlace);
-                    })
-
-                    if (matches.length > 0){
-                        return true
-                    } else {
-                        return false
-                    }
-                })
-
-            } else if(typeOfSearch === "chef"){
-                
-                searchResults = data.filter(elm => { return re.test(elm.first + elm.last)})
-
-            } else{
-                searchResults = data;
-
-            }
-            console.log(searchResults)
-                props.setSearchResults(searchResults);
-        }).catch(err=>console.log(err))
+        }
     }
     function onZipChange(event) {
         setZipCode(event.target.value);
@@ -97,6 +67,60 @@ function SearchBar( props ) {
     function onTypeChange(event) {
         setTypeOfSearch(event.target.value);
     }
+    function processResults(result) {
+        const { data } = result;
+        let searchResults, matches;
+
+        if(!searchTerm){
+            searchResults = data
+            console.log(searchResults)
+            props.setSearchResults(searchResults); 
+            return
+        }
+
+        const re = new RegExp(searchTerm, "i");
+
+        if (typeOfSearch === "cuisine") {
+            searchResults = data.filter(elm => {
+                matches = elm.cuisine.filter(cuisine => {
+                    return re.test(cuisine.name)
+                })
+
+                if (matches.length > 0) {
+                    return true
+                } else {
+                    return false
+                }
+            })
+        } else if (typeOfSearch === "restaurant") {
+
+            searchResults = data.filter(elm => {
+                const restaurants = isJson(elm.restaurants) ? JSON.parse(elm.restaurants) : []
+                matches = restaurants.filter(elm => {
+                    return re.test(elm.workPlace);
+                })
+
+                if (matches.length > 0) {
+                    return true
+                } else {
+                    return false
+                }
+            })
+
+        } else if (typeOfSearch === "chef") {
+
+            searchResults = data.filter(elm => { return re.test(elm.first + elm.last) })
+
+        } else {
+            searchResults = data;
+
+        }
+
+        console.log(searchResults)
+        props.setSearchResults(searchResults);
+    }
+
+
 
     const classes = useStyles();
     return (
@@ -131,7 +155,7 @@ function SearchBar( props ) {
                     </FormControl>
                 </Grid>
                 <Grid item xs={3}>
-                    <Button  className={classes.button} fullWidth color="primary" variant="contained" size="large" onClick={onSearchSubmit}> Search </Button>
+                    <Button className={classes.button} fullWidth color="primary" variant="contained" size="large" onClick={onSearchSubmit}> Search </Button>
                 </Grid>
             </Grid>
         </Paper>
