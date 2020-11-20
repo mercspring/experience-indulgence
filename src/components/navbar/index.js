@@ -59,7 +59,7 @@ function Navbar(props) {
 							</Link>
 							<Button href="/search" color="inherit">Search</Button>
 							{
-								props.loggedIn ?
+								!props.loggedIn ?
 								<React.Fragment>
 									<Button href="/signup" color="inherit">Signup</Button>
 									<Button onClick={handleOpen} color="inherit">Login</Button>
