@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid"
 import { Typography } from "@material-ui/core";
+import { Palette } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
         image: {
@@ -11,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
               height: "480px"
         },
         container:{
+                // Palette:  theme.palette.primary.light,
                 height:"480px",
                 margin: "60px 0"
         }
