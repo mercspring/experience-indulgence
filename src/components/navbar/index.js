@@ -1,5 +1,5 @@
 // React
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 // Styles
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -54,11 +54,13 @@ function Navbar(props) {
 							<Button href="/search" color="inherit">Search</Button>
 							{
 								props.loggedIn ?
+								
+									<Button href="/profile" color="inherit">Hello {JSON.parse(localStorage.getItem("userData")).username}!</Button>
+			 :
 								<React.Fragment>
 									<Button href="/signup" color="inherit">Signup</Button>
 									<Button onClick={handleOpen} color="inherit">Login</Button>
-								</React.Fragment> :
-								<Button href="/signup" color="inherit">Hello {localStorage.getItem("userData").username}!</Button>
+								</React.Fragment>
 							}
 						</Toolbar>
 				</AppBar>

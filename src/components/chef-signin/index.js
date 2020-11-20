@@ -13,9 +13,9 @@ export default function ChefSignin(props) {
 
     function onClick(event) {
         event.preventDefault();
-        API.login(userInfo).then(newToken => {
-            console.log(newToken.data.token);
-            localStorage.setItem("token", newToken.data.token)
+        API.login(userInfo).then(res => {
+            console.log(res.data);
+            localStorage.setItem("userData", JSON.stringfiy(res.data));
             setUserInfo({ username: "", password: "" });
             props.handleClose();
         })
