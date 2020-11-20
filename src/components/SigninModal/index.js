@@ -4,9 +4,9 @@ import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 // API
 import API from '../../utils/API.js'
-import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     button:{
@@ -41,9 +41,11 @@ function SigninModal(props) {
             <Typography variant="h4">
                 Login
             </Typography>
-            <TextField fullWidth label="username" name="username" value={userInfo.username} onChange={onInfoChange} />
-            <TextField fullWidth label="password" name="password" value={userInfo.password} onChange={onInfoChange} />
-            <Button className={classes.button} variant="contained" color="secondary" onClick={onClick}>Login</Button>
+            <form noValidate autoComplete="off">
+                <TextField fullWidth label="username" name="username" value={userInfo.username} onChange={onInfoChange} />
+                <TextField fullWidth label="password" name="password" value={userInfo.password} onChange={onInfoChange} />
+                <Button className={classes.button} variant="contained" color="secondary" onClick={onClick}>Login</Button>
+            </form>
         </div>
     )
 }

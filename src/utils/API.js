@@ -26,7 +26,10 @@ const API = {
     },
     getChefsByZip: function(zip){
         return axios.get(this.api + "/api/chef/zip/" + zip)
-    }
+    },
+    editChef: function(data,token) {
+        return axios.put(this.api + "/api/chef/update/", data, { headers: { Authorization : `Bearer ${token}`}});
+    },
 }
 
 export default API;
