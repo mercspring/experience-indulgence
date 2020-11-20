@@ -1,5 +1,5 @@
 // React
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // Styles
 import { ThemeProvider, createMuiTheme, makeStyles, responsiveFontSizes } from '@material-ui/core/styles';
@@ -58,19 +58,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
-	const [loggedUser, setLoggedUser] = useState(false);
-
-	useEffect(() => {
-		if (localStorage.getItem("userData")) {
-			setLoggedUser(true);
-		}
-	}, [])
 	const classes = useStyles();
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
 				<Router>
-					<NavBar loggedIn={loggedUser}/>
+					<NavBar />
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Container className={classes.root} maxWidth="lg">
