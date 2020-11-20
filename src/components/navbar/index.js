@@ -1,5 +1,8 @@
 // React
+
 import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom"
+
 // Styles
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -34,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Navbar(props) {
+
+  let history = useHistory();
+	console.log(history);
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => {
 	  setOpen(true);
@@ -70,7 +76,7 @@ function Navbar(props) {
 				aria-describedby="simple-modal-description"
 			>
 				<div className={classes.paper}>
-					<SigninModal />
+					<SigninModal handleClose={setOpen} history={history}/>
 				</div>
 			</Modal>
 		</div>
