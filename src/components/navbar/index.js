@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import SigninModal from "../SigninModal";
 import Modal from '@material-ui/core/Modal';
+import "../Navbar/style.css"
 
 
 const useStyles = makeStyles((theme) => ({
