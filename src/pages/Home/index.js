@@ -1,5 +1,5 @@
 // React
-import React, { useState, useEffect } from "react";
+import React from "react";
 // Styles
 import Container from "@material-ui/core/Container";
 // Componants
