@@ -11,6 +11,7 @@ import SigninModal from "../SigninModal";
 import Modal from '@material-ui/core/Modal';
 import { Slide, useScrollTrigger } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
+import "../Navbar/style.css"
 
 
 const useStyles = makeStyles((theme) => ({
