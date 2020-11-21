@@ -1,17 +1,8 @@
 // React
 import React, { useEffect, useState } from 'react';
 // Styles
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import Grid from "@material-ui/core/Grid"
-import Paper from '@material-ui/core/Paper';
-import Button from "@material-ui/core/Button"
-import Checkbox from '@material-ui/core/Checkbox';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Box from '@material-ui/core/Box';
-import InputLabel from '@material-ui/core/InputLabel';
+import Typography from '@material-ui/core/Typography';
 // Components
 import SearchCard from '../../components/SearchCard'
 import SearchBar from '../../components/SearchBar'
@@ -19,7 +10,6 @@ import SearchBar from '../../components/SearchBar'
 function Search() {
     const [searchResults, setSearchResults] = useState([]);
     const [searched, setSearched] = useState()
-
     return (
         <div>
             <SearchBar setSearched = {setSearched} setSearchResults={setSearchResults} />
@@ -35,7 +25,7 @@ function Search() {
                             key={elm._id}
                             id={elm._id}
                             />)
-                    }) : searched ? <h2>No Results</h2> : <h2>Search for a chef by chef name, restaurant or cusine</h2>}
+                    }) : searched ? <Grid item xs={12}><Typography variant="h5">No Results</Typography></Grid> : <Grid item xs={12}><Typography variant="h5">Search for a chef by chef name, restaurant or cusine</Typography></Grid>}
                 {/* <Grid item xs={4}>
                     <SearchCard />
                 </Grid>
