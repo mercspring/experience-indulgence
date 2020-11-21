@@ -48,14 +48,14 @@ function Header() {
 				<div className={classes.overlay} />
 				<Grid container className={classes.heroInner}>
 					<Grid item md={12}>
-						<Typography component="h1" variant="h2" color="inherit" gutterBottom>
+						<Typography component="h1" variant="h2" color="" gutterBottom>
 						Experience Elegance at Home
 						</Typography>
 						<Typography component="h2" variant="h5" color="inherit" gutterBottom>
 						Find your perfect date night
 						</Typography>
 						<Box className={classes.box}>
-							<Button href="/signup" size="large" variant="contained" color="primary">Signup</Button>
+							<Button href="/signup" size="large" variant="inherit" color="primary">Signup</Button>
 						</Box>
 					</Grid>
 				</Grid>

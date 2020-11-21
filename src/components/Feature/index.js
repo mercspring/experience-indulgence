@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
               height: "480px"
         },
         container:{
-                // Palette:  theme.palette.primary.light,
+                // Palette: {{theme.palette.primary.light}},
                 height:"480px",
                 margin: "60px 0"
         }
