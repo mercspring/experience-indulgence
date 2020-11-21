@@ -1,11 +1,10 @@
 // React
-import React, { useState, useEffect } from "react";
+import React from "react";
 // Styles
 import Container from "@material-ui/core/Container";
 // Componants
 import Header from "../../components/Header";
 import Feature from "../../components/Feature";
-import hero from "../../assets/hero.png";
 import trupp from "../../assets/trupp.jpg";
 import spoons from "../../assets/spoons.jpg";
 import timeout from "../../assets/timeout.jpg";
@@ -13,17 +12,13 @@ import timeout from "../../assets/timeout.jpg";
 const content = [
   {
     title: "Our Values",
-    description:
-      "As part of our mission to make America’s new food landscape culture safe, diverse, and sustainable for everyone, Indulge is dedicated to cultivating excellence, and producing extrodinary meals in the comfort of our client's home. Guided by the values of respect, transparency, diversity, sustainability, and equality. We believe that in order to achieve our mission, it is expected that everyone who works in and with our organization shares similar values and operates with integrity.",
+    description: "As part of our mission to make America’s new food landscape culture safe, diverse, and sustainable for everyone, Indulge is dedicated to cultivating excellence, and producing extrodinary meals in the comfort of our client's home. Guided by the values of respect, transparency, diversity, sustainability, and equality. We believe that in order to achieve our mission, it is expected that everyone who works in and with our organization shares similar values and operates with integrity.",
     imageUrl: trupp,
   },
   {
 		imageUrl: spoons,
 		title: "Ingredients",
-		
-		description:
-		
-      "Nothing gives more flavor to your food than fresh ingredients. As time goes on, preserved food loses its taste, but ingredients that are fresh with no preservatives provide the authentic taste that every single ingredient has.  'Cooking is an art and patience a virtue. Careful shopping, fresh ingredients and an unhurried approach are nearly all you need. There is one more thing - love. Love for food and love for those you invite to your table. With a combination of these things you can be an artist.' -Keith Floyd",
+		description: "Nothing gives more flavor to your food than fresh ingredients. As time goes on, preserved food loses its taste, but ingredients that are fresh with no preservatives provide the authentic taste that every single ingredient has.  'Cooking is an art and patience a virtue. Careful shopping, fresh ingredients and an unhurried approach are nearly all you need. There is one more thing - love. Love for food and love for those you invite to your table. With a combination of these things you can be an artist.' -Keith Floyd",
   
   },
   {

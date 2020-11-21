@@ -3,8 +3,8 @@ import axios from "axios";
 const API = {
     api : "https://fast-waters-05843.herokuapp.com",
     //api : "http://localhost:8080",
-    getChef: function(username) {
-        return axios.get(this.api + "/api/chef/" + username);
+    getChef: function(id) {
+        return axios.get(this.api + "/api/chef/" + id);
     },
     getAllCuisines: function() {
         return axios.get(this.api + "/api/cuisine");
@@ -26,6 +26,9 @@ const API = {
     },
     getChefsByZip: function(zip){
         return axios.get(this.api + "/api/chef/zip/" + zip)
+    },
+    editChef: function(data,token) {
+        return axios.put(this.api + "/api/chef/update/", data, { headers: { Authorization : `Bearer ${token}`}});
     },
     getAllChefs: function(){
         return axios.get(this.api + "/api/chef")

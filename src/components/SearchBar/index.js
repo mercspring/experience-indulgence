@@ -16,7 +16,6 @@ import API from '../../utils/API.js';
 
 const useStyles = makeStyles((theme) => ({
     card: {
-        marginTop: "20px",
         marginBottom: "20px",
         padding: "10px"
     },

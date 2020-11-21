@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 		bottom: 0,
 		right: 0,
 		left: 0,
-		backgroundColor: 'rgba(0,0,0,.3)',
+		backgroundColor: 'rgba(0,0,0,.6)',
 		zIndex: "-1"
 	},
 	heroInner:{
