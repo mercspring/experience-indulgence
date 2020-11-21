@@ -80,7 +80,7 @@ function ChefCard(props) {
 		<Card className={classes.card}>
 			<CardMedia
 			className={classes.cardMedia}
-			image={props.chef.bioPic}
+			image={props.chef.profilePic}
 			title="Image title"
 			/>
 			<CardContent className={classes.cardContent}>
