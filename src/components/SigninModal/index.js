@@ -38,6 +38,7 @@ function SigninModal(props) {
             props.history.push(`/profile/${userId}`);
             props.setLoggedUser(true);
             props.handleClose(false);
+            props.setDrawerOpen(false);
         }).catch(err => {
             setValidUser(false)
         })

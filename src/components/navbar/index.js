@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 // Styles
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, IconButton, Drawer, Typography } from '@material-ui/core/';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
@@ -10,19 +10,23 @@ import Link from '@material-ui/core/Link';
 import SigninModal from "../SigninModal";
 import Modal from '@material-ui/core/Modal';
 import { Slide, useScrollTrigger } from '@material-ui/core'
+import MenuIcon from '@material-ui/icons/Menu';
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  title: {
+  space: {
     flexGrow: 1,
   },
   modal: {
 	display: 'flex', 
 	alignItems: 'center',
 	justifyContent:'center',
+  },
+  barBtn: {
+	float: "right"
   },
   paper: {
 	outline: 'none',
@@ -32,11 +36,24 @@ const useStyles = makeStyles((theme) => ({
 	padding: theme.spacing(2),
 	maxWidth: "90vw"
   },
-  toolbar:{
+  toolbar: {
 	width: "100%",
 	margin: "0 auto",
-	paddingLeft: "5vw",
-	paddingRight: "5vw"
+	padding: "1vh 5vw"
+  },
+  drawerItem: {
+	margin: "1vh 5vw"
+  },
+  mobileHidden: {
+	[theme.breakpoints.down('sm')]: {
+		display: "none"
+	}
+  },
+  mobileMenu: {
+	display: "none",
+	[theme.breakpoints.down('sm')]: {
+		display: "block"
+	}
   }
 }));
 
@@ -53,9 +70,17 @@ function HideOnScroll(props) {
 
 function Navbar(props) {
 
-	
+	const [drawerOpen, setDrawerOpen] = React.useState(false);
 
-  let history = useHistory();
+	const handleDrawerOpen = () => {
+		setDrawerOpen(true);
+	}
+
+	const handleDrawerClose = () => {
+		setDrawerOpen(false);
+	}
+
+  	let history = useHistory();
 
 	const [loggedUser, setLoggedUser] = useState(false);
 
@@ -76,6 +101,8 @@ function Navbar(props) {
 
 	const handleSignout = () => {
 		localStorage.removeItem("userData");
+		history.push("/");
+		setDrawerOpen(false);
 		setLoggedUser(false);
 	}
 
@@ -85,27 +112,62 @@ function Navbar(props) {
 			<div className={classes.root}>
 				<HideOnScroll {...props}>
 					<AppBar position="fixed" elevation={1}>
-							<Toolbar className={classes.toolbar}>
-								<Link underline="none" color="inherit" variant="h5" href="/" className={classes.title}>
-									Indulge
+						<Toolbar className={classes.toolbar}>
+								<Link underline="none" color="inherit" href="/" >
+									<Typography variant="h5">
+										Indulge
+									</Typography>
 								</Link>
-								<Button href="/search" color="inherit">Search</Button>
-								{
-									loggedUser ?
-									
-									<React.Fragment>
-										<Button href="/profile" color="inherit">Hello {JSON.parse(localStorage.getItem("userData")).first}!</Button>
-										<Button href="/" color="inherit" onClick={handleSignout}>Signout</Button>
-									</React.Fragment>
-									:
-									<React.Fragment>
-										<Button href="/signup" color="inherit">Signup</Button>
-										<Button onClick={handleOpen} color="inherit">Login</Button>
-									</React.Fragment>
-								}
-							</Toolbar>
+								<div className={classes.space}></div>
+							<span className={classes.mobileHidden}>
+							<Button href="/search" color="inherit">Search</Button>
+							{
+								loggedUser ?
+								
+								<React.Fragment>
+									<Button href={`/profile/${JSON.parse(localStorage.getItem("userData"))._id}`} color="inherit">Profile</Button>
+									<Button href="/" color="inherit" onClick={handleSignout}>Signout</Button>
+								</React.Fragment>
+								:
+								<React.Fragment>
+									<Button href="/signup" color="inherit">Signup</Button>
+									<Button onClick={handleOpen} color="inherit">Login</Button>
+								</React.Fragment>
+							}
+							</span>
+								<IconButton
+									color="inherit"
+									edge="end"
+									onClick={handleDrawerOpen}
+									className={classes.mobileMenu}
+								>
+									<MenuIcon />
+								</IconButton>
+						</Toolbar>
 					</AppBar>
 				</HideOnScroll>
+				<Drawer
+					px={10}
+					anchor="right"
+					open={drawerOpen}
+					onClose={handleDrawerClose}
+				>
+					{
+						loggedUser ?
+						
+						<React.Fragment>
+							<Button className={classes.drawerItem} href="/search" color="inherit">Search</Button>
+							<Button className={classes.drawerItem} href={`/profile/${JSON.parse(localStorage.getItem("userData"))._id}`} color="inherit">Profile</Button>
+							<Button className={classes.drawerItem} color="inherit" onClick={handleSignout}>Signout</Button>
+						</React.Fragment>
+						:
+						<React.Fragment>
+							<Button className={classes.drawerItem} href="/search" color="inherit">Search</Button>
+							<Button className={classes.drawerItem} onClick={handleOpen} color="inherit">Login</Button>
+							<Button className={classes.drawerItem} href="/signup" color="inherit">Signup</Button>
+						</React.Fragment>
+					}
+				</Drawer>
 			</div>
 				<Modal
 					className={classes.modal}
@@ -114,13 +176,11 @@ function Navbar(props) {
 					closeAfterTransition
 				>
 
-					<Slide direction="down" in={open}>
-						
-						<div className={classes.paper}>
-							<SigninModal handleClose={setOpen} history={history} setLoggedUser={setLoggedUser} />
-						</div>
-
-					</Slide>
+				<Slide direction="down" in={open}>
+					<div className={classes.paper}>
+						<SigninModal handleClose={setOpen} setDrawerOpen={setDrawerOpen} history={history} setLoggedUser={setLoggedUser} />
+					</div>
+				</Slide>
 
 				</Modal>
 		</div>
