@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
-import hero from  "../../assets/hero.png"
+import hero from  "../../assets/herothree.jpg"
 
 const useStyles = makeStyles((theme) => ({
 	hero: {
