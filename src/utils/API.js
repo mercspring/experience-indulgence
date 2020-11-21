@@ -31,8 +31,18 @@ const API = {
         return axios.put(this.api + "/api/chef/update/", data, { headers: { Authorization : `Bearer ${token}`}});
     },
     getAllChefs: function(){
-        return axios.get(this.api + "/api/chef")
-    }
+        return axios.get(this.api + "/api/chef");
+    },
+    uploadPhoto: function(data, token) {
+        return axios.post(this.api + "/api/photo/", data, { headers: { Authorization : `Bearer ${token}`}});
+    },
+    // id is PHOTO ID not CHEF ID for api/photo routes
+    deletePhoto: function(id, token) {
+        return axios.post(this.api + "/api/photo/" + id, {}, { headers: { Authorization : `Bearer ${token}`}});
+    },
+    updatePhoto: function(id, data, token) {
+        return axios.post(this.api + "/api/photo/" + id, data, { headers: { Authorization : `Bearer ${token}`}});
+    },
 }
 
 export default API;
