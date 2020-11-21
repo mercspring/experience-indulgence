@@ -28,7 +28,7 @@ function ProfileChef() {
 		setOpenAdd(false);
 	};
 
-	const [chef, setChef] = useState({})
+	const [chef, setChef] = useState([])
 	const {id} = useParams();
 	function loadChef() {
 		API.getChef(id)
@@ -57,7 +57,7 @@ function ProfileChef() {
 		console.log(payload)
 		const userToken = JSON.parse(localStorage.getItem("userData")).token
 		API.editChef(payload, userToken).then(chefData=>{
-			//loadChef()
+			loadChef()
 		})
 	}
 	function loadCuisines() {
@@ -68,7 +68,6 @@ function ProfileChef() {
 		})
 		.catch(err => console.log(err));
 	}
-	
 
 	let [file, setFile] = useState("");
 	function uploadToCloudinary() {

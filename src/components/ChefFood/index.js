@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 function ChefFood(props) {
 	let chefFoods
 	if(props.chef.photos){
-		chefFoods = props.chef.photos.map((photo) => (<GridListTile cols={1} rows={1}><img src={photo.url} /></GridListTile>))
+		chefFoods = props.chef.photos.map((photo) => (<GridListTile cols={1} rows={1}><img src={photo.url} alt={photo.title}/></GridListTile>))
 	}
 	const classes = useStyles();
 	return (

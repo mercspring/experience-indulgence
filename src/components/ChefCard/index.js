@@ -16,6 +16,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Modal from '@material-ui/core/Modal';
 // Components
 import EditChefModal from "../EditChefModal";
+// API
+import API from '../../utils/API.js';
 
 const useStyles = makeStyles((theme) => ({
 	card: {
@@ -57,13 +59,22 @@ function ChefCard(props) {
 		chefCuisine = props.chef.cuisine.map((cuisine) => (<FormControlLabel control={<Checkbox checked={true} onChange={props.handleInputChange} name="checkedA" />} label={cuisine.name} />))
 	}
 	let chefSpecialty
+	console.log(props.chef.specialty)
 	if(props.chef.specialty){
-		chefSpecialty = props.chef.specialty.map((specialty) => (
-			<FormControlLabel
-			control={<Checkbox checked={true} onChange={props.handleInputChange} name="checkedA" />}
-			label={specialty.name}
-			/>
-		))
+		console.log(props.chef.specialty)
+		props.chef.specialty.map((hasSpecialty) => {
+			API.getAllSpecialties()
+			.then(res => {
+				chefSpecialty = res.data.map((specialty) => {
+						if(specialty.name === hasSpecialty.name){
+							<FormControlLabel control={<Checkbox checked={true} onChange={props.handleInputChange} name="checkedA" />} label={specialty.name} />
+						} else {
+							<FormControlLabel control={<Checkbox checked={false} onChange={props.handleInputChange} name="checkedA" />} label={specialty.name} />
+						}
+				})
+			}).catch(err => console.log(err));
+		})
+
 	}
 	let chefRestaurant
 	if(props.chef.restaurants){
@@ -74,8 +85,8 @@ function ChefCard(props) {
 		))
 	}
 	let contact
-	if(props.chef.contactInfo.email != undefined){
-		contact = "href='mailto:" + props.chef.contactInfo.email + "'"
+	if(props.chef.contactInfo != undefined){
+		contact = "mailto:" + props.chef.contactInfo.email
 	}
 	return (
 		<div>
@@ -122,7 +133,7 @@ function ChefCard(props) {
 				</Typography>
 			</CardContent>
 			<CardActions>
-				<Button href={contact} color='primary'>
+				<Button href={contact}>
 					Book Chef
 				</Button>
 				{editBtn}
