@@ -11,7 +11,10 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "20px"
     },
     box: {
-        backgroundColor: "rgba(244, 143, 177, 0.2)"
+        backgroundColor: "rgba(244, 143, 177, 0.1)"
+    },
+    inputText: {
+        color: "#f5f5f5"
     }
 }));
 
@@ -62,7 +65,7 @@ function SigninModal(props) {
             </Grow>
             
             <form autoComplete="off" onSubmit={onSubmit}>
-                <TextField fullWidth error={!validUser} label="username" name="username" value={userInfo.username} onChange={onInfoChange} />
+                <TextField InputProps={{className : classes.inputText}} fullWidth error={!validUser} label="username" name="username" value={userInfo.username} onChange={onInfoChange} />
                 <TextField fullWidth error={!validUser} type="password" label="password" name="password" value={userInfo.password} onChange={onInfoChange} />
                 <Button className={classes.button} variant="contained" type="submit" color="secondary">Login</Button>
             </form>

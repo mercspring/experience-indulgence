@@ -11,8 +11,7 @@ import SigninModal from "../SigninModal";
 import Modal from '@material-ui/core/Modal';
 import { Slide, useScrollTrigger } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
-import "../Navbar/style.css"
-
+import "../navbar/style.css"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,15 +23,16 @@ const useStyles = makeStyles((theme) => ({
   modal: {
 	display: 'flex', 
 	alignItems: 'center',
-	justifyContent:'center',
+	justifyContent: 'center',
   },
   barBtn: {
 	float: "right"
   },
   paper: {
+	color: '#D4AF37',
 	outline: 'none',
 	position: 'absolute',
-	backgroundColor: theme.palette.background.paper,
+	backgroundColor: '#3b4045',
 	boxShadow: theme.shadows[5],
 	padding: theme.spacing(2),
 	maxWidth: "90vw"
@@ -43,7 +43,8 @@ const useStyles = makeStyles((theme) => ({
 	padding: "1vh 5vw"
   },
   drawerItem: {
-	margin: "1vh 5vw"
+	margin: "1vh 5vw",
+	color: "#D4AF37"
   },
   mobileHidden: {
 	[theme.breakpoints.down('sm')]: {
@@ -148,7 +149,6 @@ function Navbar(props) {
 					</AppBar>
 				</HideOnScroll>
 				<Drawer
-					px={10}
 					anchor="right"
 					open={drawerOpen}
 					onClose={handleDrawerClose}
