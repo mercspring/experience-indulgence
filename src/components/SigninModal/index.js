@@ -26,6 +26,8 @@ function SigninModal(props) {
         event.preventDefault();
         API.login(userInfo).then(newToken => {
             localStorage.setItem("token", newToken.data.token)
+            localStorage.setItem("id", newToken.data._id)
+            localStorage.setItem("username", newToken.data.username)
             setUserInfo({ username: "", password: "", _id:"" });
             console.log(newToken.data);
             console.log(newToken.data._id);

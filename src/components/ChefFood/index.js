@@ -22,8 +22,7 @@ function ChefFood(props) {
 		<div className={classes.root}>
 			<Paper elevation={1}>
 				<GridList cellHeight={160} cols={3}>
-					{
-					props.chef.photos != undefined ? (
+					{props.chef.photos != undefined ? (
 						props.chef.photos.map((photo) => (
 							<GridListTile cols={1} rows={1}>
 								<img src={photo.url} />

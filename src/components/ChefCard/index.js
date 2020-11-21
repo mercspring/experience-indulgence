@@ -36,6 +36,13 @@ const useStyles = makeStyles((theme) => ({
 
 function ChefCard(props) {
 	const classes = useStyles();
+	const {id} = useParams();
+	console.log(id)
+	let editBtn
+	if(localStorage.getItem("id")===id){
+		console.log("HELLO THERE")
+		editBtn = <Button size="large" onClick={props.handleOpenEdit}>Edit</Button>;
+	}
 	return (
 		<div>
 		<Card className={classes.card}>
@@ -56,9 +63,7 @@ function ChefCard(props) {
 				<Button size="large" color="primary">
 					Contact
 				</Button>
-				<Button size="large" onClick={props.handleOpenEdit}>
-					Edit
-				</Button>
+				{editBtn}
 			</CardActions>
 		</Card>
 		<Modal
@@ -68,7 +73,14 @@ function ChefCard(props) {
 		aria-describedby="simple-modal-description"
 		>
 			<div className={classes.paper}>
-				<EditChefModal handleInputChange={props.handleInputChange} handleFormSubmit={props.handleFormSubmit} chef={props.chef}/>
+				<EditChefModal 
+				handleInputChange={props.handleInputChange} 
+				handleFormSubmit={props.handleFormSubmit} 
+				chef={props.chef}
+				file={props.file}
+				fileChange={props.fileChange}
+				uploadToCloudinary={props.uploadToCloudinary}
+				/>
 			</div>
 		</Modal>
 		</div>

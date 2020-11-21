@@ -8,7 +8,8 @@ import ChefCard from "../../components/ChefCard"
 import ChefImages from "../../components/ChefFood"
 import { useParams } from "react-router-dom";
 // API
-import API from "../../utils/API";
+import axios from "axios";
+import API from "../../utils/API"
 
 function ProfileChef() {
 	const [openEdit, setOpenEdit] = React.useState(false);
@@ -43,8 +44,46 @@ function ProfileChef() {
         event.preventDefault();
 		console.log('Updating.....')
 		setOpenEdit(false);
-		API.editChef(chef,localStorage.getItem("token")).then(chefData=>{
-		}).then(() => loadChef())
+
+		const payload = Object.assign(chef, { photos: file });
+		console.log(payload)
+		API.editChef(payload,localStorage.getItem("token")).then(chefData=>{
+			loadChef()
+		})
+	}
+	function loadCuisines() {
+		API.getAllCuisines(id)
+		.then(res => {
+			setChef(res.data)
+			console.log(res.data)
+		})
+		.catch(err => console.log(err));
+	}
+	
+
+	let [file, setFile] = useState("");
+	function uploadToCloudinary() {
+		console.log(file);
+		reader(file).then( result => {
+		axios.post("https://api.cloudinary.com/v1_1/mercspring/upload", { upload_preset: 'ml_default', file: result })
+			.then(result => {
+			console.log(result.data)
+			console.log(result.data.secure_url)
+			let chefPhotos = [];
+			chefPhotos.push({ url: result.data.secure_url, title: file.name })
+			setFile(chefPhotos);
+			})
+			.catch(err => {
+			console.log(err);
+			})
+		})
+	}
+	const reader = (file) => {
+		return new Promise((resolve, reject) => {
+		const fileReader = new FileReader();
+		fileReader.onload = () => resolve(fileReader.result);
+		fileReader.readAsDataURL(file);
+		});
 	}
 	
 	return (
@@ -56,7 +95,11 @@ function ProfileChef() {
 				handleCloseEdit={handleCloseEdit}
 				handleInputChange={handleInputChange} 
 				handleFormSubmit={handleFormSubmit} 
-				chef={chef}/>
+				chef={chef}
+				file={file}
+				fileChange={(event) => setFile(event.target.files[0])}
+				uploadToCloudinary={uploadToCloudinary}
+				/>
 			</Grid>
 			<Grid item xs={9}>
 				<ChefImages chef={chef}/>

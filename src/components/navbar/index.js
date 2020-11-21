@@ -48,6 +48,19 @@ function Navbar(props) {
 	  setOpen(false);
 	};
 
+	let loginBtn;
+	let signupBtn;
+	let loggedIn;
+	let id = localStorage.getItem("id")
+	let username = localStorage.getItem("username")
+	let idUrl = "/profile/" + id
+	if(id){
+		loggedIn = 	<Button href={idUrl} color="inherit">{username}</Button>
+	} else {
+		signupBtn = <Button href="/signup" color="inherit">Signup</Button>;
+		loginBtn = <Button onClick={handleOpen} color="inherit">Login</Button>;
+	}
+
 	const classes = useStyles();
 	return (
 		<div>
@@ -58,14 +71,9 @@ function Navbar(props) {
 								Indulge
 							</Link>
 							<Button href="/search" color="inherit">Search</Button>
-							{
-								!props.loggedIn ?
-								<React.Fragment>
-									<Button href="/signup" color="inherit">Signup</Button>
-									<Button onClick={handleOpen} color="inherit">Login</Button>
-								</React.Fragment> :
-								<Button href="/signup" color="inherit">Hello {localStorage.getItem("userData").username}!</Button>
-							}
+							{loggedIn}
+							{loginBtn}
+							{signupBtn}
 						</Toolbar>
 				</AppBar>
 			</div>
