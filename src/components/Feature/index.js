@@ -14,10 +14,6 @@ const useStyles = makeStyles((theme) => ({
               borderRadius: "10px"
         },
         container:{
-<<<<<<< HEAD
-                // Palette: {{theme.palette.primary.light}},
-=======
->>>>>>> dev
                 height:"480px",
                 margin: "60px 0",
                 '&:nth-of-type(2)': {
