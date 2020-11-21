@@ -9,7 +9,12 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormGroup from '@material-ui/core/FormGroup';
+import Box from '@material-ui/core/Box';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Modal from '@material-ui/core/Modal';
+// Components
 import EditChefModal from "../EditChefModal";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,16 +37,45 @@ const useStyles = makeStyles((theme) => ({
 		left: "50%",
 		transform: "translate(-50%, -40%)",
 	},
+	pads:{
+		marginBottom: "10px"
+	}
 }));
 
 function ChefCard(props) {
 	const classes = useStyles();
-	const {id} = useParams();
-	console.log(id)
+	let {id} = useParams();
+	let userId = JSON.parse(localStorage.getItem("userData"))._id
 	let editBtn
-	if(localStorage.getItem("id")===id){
-		console.log("HELLO THERE")
-		editBtn = <Button size="large" onClick={props.handleOpenEdit}>Edit</Button>;
+	let addBtn
+	if(userId===id){
+		editBtn = <Button onClick={props.handleOpenEdit}>Edit Profile</Button>;
+		addBtn = <Button onClick={props.handleOpenAdd}>Add Food</Button>;
+	}
+	let chefCuisine
+	if(props.chef.cuisine){
+		chefCuisine = props.chef.cuisine.map((cuisine) => (<FormControlLabel control={<Checkbox checked={true} onChange={props.handleInputChange} name="checkedA" />} label={cuisine.name} />))
+	}
+	let chefSpecialty
+	if(props.chef.specialty){
+		chefSpecialty = props.chef.specialty.map((specialty) => (
+			<FormControlLabel
+			control={<Checkbox checked={true} onChange={props.handleInputChange} name="checkedA" />}
+			label={specialty.name}
+			/>
+		))
+	}
+	let chefRestaurant
+	if(props.chef.restaurants){
+		chefRestaurant = props.chef.restaurants.map((restaurant) => (
+			<Typography gutterBottom>
+				{props.chef.restaurants}
+			</Typography>
+		))
+	}
+	let contact
+	if(props.chef.contactInfo.email != undefined){
+		contact = "href='mailto:" + props.chef.contactInfo.email + "'"
 	}
 	return (
 		<div>
@@ -52,18 +86,47 @@ function ChefCard(props) {
 			title="Image title"
 			/>
 			<CardContent className={classes.cardContent}>
-				<Typography gutterBottom variant="h5" component="h2">
+				<Typography variant="h5" component="h2" gutterBottom>
 					{props.chef.first} {props.chef.last}
 				</Typography>
+				<Box className={classes.pads}>
+					<Typography variant="h6" gutterBottom>
+						Bio
+					</Typography>
+					<Typography>
+						{props.chef.bio}
+					</Typography>
+				</Box>
+				<Box className={classes.pads}>
+					<Typography variant="h6" gutterBottom>
+						Cuisine & Specialties
+					</Typography>
+					<FormGroup row>
+					{chefCuisine}
+					{chefSpecialty}
+					</FormGroup>
+				</Box>
+				<Box className={classes.pads}>
+					<Typography variant="h6" gutterBottom>
+						Restaurant Experience
+					</Typography>
+					<FormGroup row>
+					{chefRestaurant}
+					</FormGroup>
+				</Box>
+				<Typography variant="h6" gutterBottom>
+					Zip Code
+				</Typography>
 				<Typography>
-					{props.chef.bio}
+					{props.chef.zipcode}
 				</Typography>
 			</CardContent>
 			<CardActions>
-				<Button size="large" color="primary">
-					Contact
+				<Button href={contact} color='primary'>
+					Book Chef
 				</Button>
 				{editBtn}
+				{addBtn}
 			</CardActions>
 		</Card>
 		<Modal
@@ -81,6 +144,16 @@ function ChefCard(props) {
 				fileChange={props.fileChange}
 				uploadToCloudinary={props.uploadToCloudinary}
 				/>
+			</div>
+		</Modal>
+		<Modal
+		open={props.openAdd}
+		onClose={props.handleCloseAdd}
+		aria-labelledby="simple-modal-title"
+		aria-describedby="simple-modal-description"
+		>
+			<div className={classes.paper}>
+				<h1>Add Photo</h1>
 			</div>
 		</Modal>
 		</div>

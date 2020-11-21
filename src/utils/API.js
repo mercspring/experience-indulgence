@@ -30,6 +30,9 @@ const API = {
     editChef: function(data,token) {
         return axios.put(this.api + "/api/chef/update/", data, { headers: { Authorization : `Bearer ${token}`}});
     },
+    getAllChefs: function(){
+        return axios.get(this.api + "/api/chef")
+    }
 }
 
 export default API;

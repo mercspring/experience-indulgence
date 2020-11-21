@@ -52,9 +52,3 @@ function EditChefModal(props) {
 }
 
 export default EditChefModal;
-
-// cuisine: Array(0)
-// photos: Array(0)
-// restaurants: Array(0)
-// servedLocations: Array(0)
-// specialty: Array(0)

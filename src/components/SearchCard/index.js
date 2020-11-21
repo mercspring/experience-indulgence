@@ -17,19 +17,25 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchCard(props) {
     const classes = useStyles();
+    function onChefClick(){
+
+    }
     return (
-        <Grid item m={4}>
-            <Card style={{ maxWidth: "300px" }}>
-                <CardActionArea>
+        <Grid item xs={4}>
+            <Card>
+                <CardActionArea 
+                href={"/profile/" + props.id}
+                // onClick={onChefClick}
+                >
                     <CardMedia
                         component="img"
                         alt="chef signiture dish"
-                        style={{ width: "300px" }}
+                        style={{ maxWidth:"300px", maxHeight: "200px" }}
                         image={props.sigDishImage}
                     />
                     <CardContent>
                         <Grid container>
-                            <Grid item xs={5}>
+                            <Grid item xs={5} style={{ width: "100px", height: "100px" }}>
                                 <CardMedia
                                     component="img"
                                     alt="Chef profile pic"
@@ -39,9 +45,9 @@ function SearchCard(props) {
                             </Grid>
                             <Grid style={{ display: "flex" }} item xs={7} alignItems='center' justify="center">
                                 <div className="search-card-name">
-                                    <span className="search-card-first-name">{props.first}</span>
-                                    <br />
-                                    <span className="search-card-last-name">{props.last}</span>
+                                        <span className="search-card-first-name" style={{fontSize: "15pt", paddingRight: "2ch"}}>{props.first} </span>
+                                        <br />
+                                    <span className="search-card-last-name" style={{fontSize: "15pt", paddingLeft: "2ch"}}>{props.last}</span>
                                 </div>
                             </Grid>
                         </Grid>

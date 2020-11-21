@@ -20,6 +20,14 @@ function ProfileChef() {
 		setOpenEdit(false);
 	};
 
+	const [openAdd, setOpenAdd] = React.useState(false);
+	const handleOpenAdd = () => {
+		setOpenAdd(true);
+	};
+	const handleCloseAdd = () => {
+		setOpenAdd(false);
+	};
+
 	const [chef, setChef] = useState({})
 	const {id} = useParams();
 	function loadChef() {
@@ -47,8 +55,9 @@ function ProfileChef() {
 
 		const payload = Object.assign(chef, { photos: file });
 		console.log(payload)
-		API.editChef(payload,localStorage.getItem("token")).then(chefData=>{
-			loadChef()
+		const userToken = JSON.parse(localStorage.getItem("userData")).token
+		API.editChef(payload, userToken).then(chefData=>{
+			//loadChef()
 		})
 	}
 	function loadCuisines() {
@@ -93,6 +102,9 @@ function ProfileChef() {
 				openEdit={openEdit}
 				handleOpenEdit={handleOpenEdit}
 				handleCloseEdit={handleCloseEdit}
+				openAdd={openAdd}
+				handleOpenAdd={handleOpenAdd}
+				handleCloseAdd={handleCloseAdd}
 				handleInputChange={handleInputChange} 
 				handleFormSubmit={handleFormSubmit} 
 				chef={chef}
