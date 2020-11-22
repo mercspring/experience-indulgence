@@ -8,40 +8,47 @@ import { Palette } from "@material-ui/icons";
 import { FilterNone, HowToVote, ViewHeadline } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
+        imageGrid: {
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                overflow: "hidden",
+                marginBottom: "20px"
+        },
         image: {
-              width: '100%',    
-              height: "480px",
-              borderRadius: "10px"
+                flexShrink: "0",
+                minWidth: '100%',    
+                minHeight: "100%",
+                borderRadius: "10px",
+                display: "inline",
+                alignItems: "center",
         },
         container:{
-                height:"480px",
                 margin: "60px 0",
+                width: "100%",
+                display: "flex",
                 '&:nth-of-type(2)': {
-                        display: "flex",
                         flexDirection: "row-reverse",
                 }
-        },
-        center:{
-                display: "flex",
-                alignItems: "center",
+                
         }
 }));
 
 function Feature(props) {
         const classes = useStyles();
 	return (
-                <Grid container spacing={2} className={classes.container}>
-                        <Grid className={classes.center} item xs={6}>
+                <Grid container spacing={2} justify="center" className={classes.container}>
+                        <Grid className={classes.center} item xs={12} s={12} md={6}>
                                 <Box>
-                                        <Typography variant="h3" gutterBottom>
+                                        <Typography variant="h3" align="center" gutterBottom>
                                                 {props.props.title}
                                         </Typography>
-                                        <Typography variant="subtitle1" gutterBottom>
+                                        <Typography variant="subtitle1" align="justify"  gutterBottom>
                                                 {props.props.description}
                                         </Typography> 
                                 </Box>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} s={12} md={6} className={classes.imageGrid}>
                                 <img className={classes.image}src={props.props.imageUrl} alt={props.props.title}/>
                         </Grid>
                 </Grid>

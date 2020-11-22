@@ -179,7 +179,11 @@ function ChefCard(props) {
 		))
 	}
 	let contact
+<<<<<<< HEAD
 	if (props.chef.contactInfo != undefined) {
+=======
+	if(!props.chef.contactInfo){
+>>>>>>> dev
 		contact = "mailto:" + props.chef.contactInfo.email
 	}
 	return (
