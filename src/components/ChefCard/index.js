@@ -63,9 +63,9 @@ function ChefCard(props) {
 	let [cuisinesState, setCuisinesState] = useState({});
 	const [specialtiesState, setSpecialtiesState] = useState({});
 	let { id } = useParams();
-	let userId = JSON.parse(localStorage.getItem("userData"))._id
-	let editBtn
-	let addBtn
+	let userId = (localStorage.getItem("userData") != null) ? JSON.parse(localStorage.getItem("userData"))._id : null;
+	let editBtn;
+	let addBtn;
 
 	const generateObject = (typeArr, type) => {
 		let obj = {};
