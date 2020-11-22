@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
-import hero from  "../../assets/hero.png"
+import hero from  "../../assets/herothree.jpg"
 
 const useStyles = makeStyles((theme) => ({
 	hero: {
@@ -48,14 +48,14 @@ function Header() {
 				<div className={classes.overlay} />
 				<Grid container className={classes.heroInner}>
 					<Grid item md={12}>
-						<Typography component="h1" variant="h2" color="inherit" gutterBottom>
+						<Typography component="h1" variant="h2" color="" gutterBottom>
 						Experience Elegance at Home
 						</Typography>
 						<Typography component="h2" variant="h5" color="inherit" gutterBottom>
 						Find your perfect date night
 						</Typography>
 						<Box className={classes.box}>
-							<Button href="/signup" size="large" variant="contained" color="primary">Signup</Button>
+							<Button href="/signup" size="large" variant="inherit" color="primary">Signup</Button>
 						</Box>
 					</Grid>
 				</Grid>
