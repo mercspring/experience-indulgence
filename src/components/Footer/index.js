@@ -18,6 +18,10 @@ const useStyles = makeStyles((theme) => ({
         },
         contrast:{
             paddingLeft: "0"
+        },
+        font:{
+            fontFamily: "'Italianno', cursive",
+            fontSize: "4em"
         }
 }));
 
@@ -32,7 +36,7 @@ function Feature() {
             <Container maxWidth="lg">
                     <Grid container spacing={1} className={classes.container}>
                             <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                                <Typography variant="h4">
+                                <Typography className={classes.font} variant="h4">
                                     Indulge
                                 </Typography>
                             </Grid>

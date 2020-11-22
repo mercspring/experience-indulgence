@@ -56,6 +56,10 @@ const useStyles = makeStyles((theme) => ({
 	[theme.breakpoints.down('sm')]: {
 		display: "block"
 	}
+  },
+  font:{
+	fontFamily: "'Italianno', cursive",
+	fontSize: "3em"
   }
 }));
 
@@ -116,7 +120,7 @@ function Navbar(props) {
 					<AppBar position="fixed" elevation={1}>
 						<Toolbar className={classes.toolbar}>
 								<Link underline="none" color="inherit" href="/" >
-									<Typography variant="h5">
+									<Typography className={classes.font} variant="h5">
 										Indulge
 									</Typography>
 								</Link>

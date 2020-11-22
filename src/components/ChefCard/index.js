@@ -15,8 +15,10 @@ import FormGroup from '@material-ui/core/FormGroup';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Modal from '@material-ui/core/Modal';
+import Link from '@material-ui/core/Link';
 // Components
 import EditChefModal from "../EditChefModal";
+import AddPhoto from "../AddPhoto";
 // API
 import API from '../../utils/API.js';
 
@@ -35,8 +37,8 @@ const useStyles = makeStyles((theme) => ({
 		position: 'absolute',
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
-		padding: theme.spacing(2),
-		width: "480px",
+		padding: theme.spacing(1),
+		width: "80%",
 		display: "inline-table",
 		top: "40%",
 		bottom: "60%",
@@ -52,9 +54,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 	jobTitle: {
 		fontWeight: "600"
+	},
+	colorBtn:{
+		background:"rgb(179, 180, 181)",
+		color: "black"
 	}
-
-
 }));
 
 function ChefCard(props) {
@@ -182,17 +186,20 @@ function ChefCard(props) {
 	if (props.chef.restaurants) {
 
 		chefRestaurant = JSON.parse(props.chef.restaurants).map((restaurant) => (
-			<Typography gutterBottom key={restaurant}>
-				<Typography className={classes.jobTitle} gutterBottom>
+			<Box key={restaurant}>
+				<Typography className={classes.jobTitle} variant="body1" gutterBottom>
 					{restaurant.jobTitle}
 				</Typography>
-				{restaurant.workPlace} - {restaurant.duration}
-			</Typography>
+				<Typography variant="subtitle1" gutterBottom>
+					{restaurant.workPlace} - {restaurant.duration} years
+				</Typography>
+			</Box>
 		))
 	}
 	let contact
-	if (!props.chef.contactInfo) {
-		contact = "mailto:" + props.chef.contactInfo.email
+	if (props.chef.contactInfo) {
+		contact = "mailto:" + props.chef.contactInfo.email + "?subject=Indulge%20Request&body=I'd%20like%20to%20book%20an%20appointment"
+
 	}
 	return (
 		<div>
@@ -225,9 +232,9 @@ function ChefCard(props) {
 					</Box>
 					<Box className={classes.pads}>
 						<Typography variant="h6" gutterBottom>
-							Restaurant Experience
+							Experience
 					</Typography>
-						<FormGroup row>
+						<FormGroup>
 							{chefRestaurant}
 						</FormGroup>
 					</Box>
@@ -239,9 +246,9 @@ function ChefCard(props) {
 					</Typography>
 				</CardContent>
 				<CardActions>
-					<Button href={contact}>
-						Book Chef
-				</Button>
+					<Button className={classes.colorBtn} variant="button" color="primary" href={contact}>
+						Contact Chef
+					</Button>
 					{editBtn}
 					{addBtn}
 				</CardActions>
@@ -272,7 +279,14 @@ function ChefCard(props) {
 				aria-describedby="simple-modal-description"
 			>
 				<div className={classes.paper}>
-					<h1>Add Photo</h1>
+					<AddPhoto
+						handleInputChange={props.handleInputChange}
+						handleFormSubmit={props.handleFormSubmit}
+						chef={props.chef}
+						file={props.file}
+						fileChange={props.fileChange}
+						uploadToCloudinary={props.uploadToCloudinary}
+					/>
 				</div>
 			</Modal>
 		</div>
