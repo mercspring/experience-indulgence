@@ -154,7 +154,7 @@ function ChefCard(props) {
 				return (<FormControlLabel
 					control={<Checkbox name={cuisine} checked={cuisinesState[cuisine].checked} onChange={onCuisinesChange} inputProps={{ 'aria-label': 'primary checkbox' }} />}
 					label={cuisine}
-					key={cuisinesState[cuisine].id}
+					key={index}
 				/>)
 			} else {
 				if (cuisinesState[cuisine].checked) {
@@ -185,8 +185,8 @@ function ChefCard(props) {
 	let chefRestaurant
 	if (props.chef.restaurants) {
 
-		chefRestaurant = JSON.parse(props.chef.restaurants).map((restaurant) => (
-			<Box key={restaurant}>
+		chefRestaurant = JSON.parse(props.chef.restaurants).map((restaurant, index) => (
+			<Box key={index}>
 				<Typography className={classes.jobTitle} variant="body1" gutterBottom>
 					{restaurant.jobTitle}
 				</Typography>
@@ -283,6 +283,7 @@ function ChefCard(props) {
 						handleInputChange={props.handleInputChange}
 						handleFormSubmit={props.handleFormSubmit}
 						chef={props.chef}
+						setChef={props.setChef}
 						file={props.file}
 						fileChange={props.fileChange}
 						uploadToCloudinary={props.uploadToCloudinary}
