@@ -35,8 +35,12 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
 		padding: theme.spacing(2),
+		width: "480px",
+		display: "inline-table",
 		top: "40%",
+		bottom: "60%",
 		left: "50%",
+		right: "50%",
 		transform: "translate(-50%, -40%)",
 	},
 	pads:{

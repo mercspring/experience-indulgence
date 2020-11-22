@@ -1,7 +1,6 @@
 // React
 import React, { useState, useEffect } from "react";
 // Styles
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 // Components
 import ChefCard from "../../components/ChefCard"
@@ -93,10 +92,10 @@ function ProfileChef() {
 		fileReader.readAsDataURL(file);
 		});
 	}
-	
+
 	return (
-		<Grid container xs={12}>
-			<Grid item xs={3}>
+		<Grid container spacing={1}>
+			<Grid item xs={12} sm={12} md={4} lg={3} xl={2}>
 				<ChefCard 
 				openEdit={openEdit}
 				handleOpenEdit={handleOpenEdit}
@@ -112,7 +111,7 @@ function ProfileChef() {
 				uploadToCloudinary={uploadToCloudinary}
 				/>
 			</Grid>
-			<Grid item xs={9}>
+			<Grid item xs={12} sm={12} md={8} lg={9} xl={10}>
 				<ChefImages chef={chef}/>
 			</Grid>
 		</Grid>
