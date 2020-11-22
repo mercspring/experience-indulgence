@@ -21,20 +21,18 @@ function SearchCard(props) {
 
     }
     return (
-        <Grid item m={4}>
-            <Card style={{ maxWidth: "300px" }}>
+        <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+            <Card>
                 <CardActionArea 
                 href={"/profile/" + props.id}
                 // onClick={onChefClick}
                 >
-                    <div style={{width:"300px", height:"200px"}}>
-                        <CardMedia
-                            component="img"
-                            alt="chef signiture dish"
-                            style={{ maxWidth:"300px", maxHeight: "200px" }}
-                            image={props.sigDishImage}
-                        />
-                    </div>
+                    <CardMedia
+                        component="img"
+                        alt="chef signiture dish"
+                        style={{ maxWidth:"300px", maxHeight: "200px" }}
+                        image={props.sigDishImage}
+                    />
                     <CardContent>
                         <Grid container>
                             <Grid item xs={5} style={{ width: "100px", height: "100px" }}>

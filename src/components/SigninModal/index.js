@@ -5,10 +5,9 @@ import { Box, Typography, makeStyles, TextField, Button, Grow } from '@material-
 // API
 import API from '../../utils/API.js'
 
-
 const useStyles = makeStyles((theme) => ({
     button:{
-        marginTop: "20px"
+        margin: "20px 0"
     },
     box: {
         backgroundColor: "rgba(244, 143, 177, 0.1)"
@@ -50,12 +49,17 @@ function SigninModal(props) {
     const classes = useStyles();
     return (
         <div>
-            <Box mb={1}>
-                <Typography variant="h4">
+            <Box>
+                <Typography variant="h4" gutterBottom>
                     Login
                 </Typography>
             </Box>
             
+            <form autoComplete="off" onSubmit={onSubmit}>
+                <TextField InputProps={{className : classes.inputText}} fullWidth error={!validUser} label="username" name="username" value={userInfo.username} onChange={onInfoChange} />
+                <TextField fullWidth error={!validUser} type="password" label="password" name="password" value={userInfo.password} onChange={onInfoChange} />
+                <Button className={classes.button} variant="contained" type="submit" color="secondary">Login</Button>
+            </form>
             <Grow in={!validUser}>
                 <Box p={0.15} mb={0.5} border={1} borderRadius={2} className={classes.box} borderColor="error.main" color="error.main">
                     <Typography variant="body2">
@@ -63,12 +67,6 @@ function SigninModal(props) {
                     </Typography>
                 </Box>
             </Grow>
-            
-            <form autoComplete="off" onSubmit={onSubmit}>
-                <TextField InputProps={{className : classes.inputText}} fullWidth error={!validUser} label="username" name="username" value={userInfo.username} onChange={onInfoChange} />
-                <TextField fullWidth error={!validUser} type="password" label="password" name="password" value={userInfo.password} onChange={onInfoChange} />
-                <Button className={classes.button} variant="contained" type="submit" color="secondary">Login</Button>
-            </form>
         </div>
     )
 }

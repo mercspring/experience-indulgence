@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
-import hero from  "../../assets/hero.png"
+import hero from  "../../assets/herothree.jpg"
 
 const useStyles = makeStyles((theme) => ({
 	hero: {
@@ -29,14 +29,16 @@ const useStyles = makeStyles((theme) => ({
 		bottom: 0,
 		right: 0,
 		left: 0,
-		backgroundColor: 'rgba(0,0,0,.3)',
+		backgroundColor: 'rgba(0,0,0,.6)',
 		zIndex: "-1"
 	},
 	heroInner:{
-		padding: "160px 0"
+		padding: "180px 0"
 	},
-	box:{
-		marginTop: "20px"
+	btn:{
+		marginTop: "20px",
+		background: "#b3b4b5",
+		color: "black"
 	}
 }));
 
@@ -47,16 +49,14 @@ function Header() {
 			<Container maxWidth="lg">
 				<div className={classes.overlay} />
 				<Grid container className={classes.heroInner}>
-					<Grid item md={12}>
-						<Typography component="h1" variant="h2" color="inherit" gutterBottom>
+					<Grid item xs={12}>
+						<Typography component="h1" variant="h2" color="" gutterBottom>
 						Experience Elegance at Home
 						</Typography>
 						<Typography component="h2" variant="h5" color="inherit" gutterBottom>
 						Find your perfect date night
 						</Typography>
-						<Box className={classes.box}>
-							<Button href="/signup" size="large" variant="contained" color="primary">Signup</Button>
-						</Box>
+						<Button className={classes.btn} href="/signup" size="large" color="inherit">Signup</Button>
 					</Grid>
 				</Grid>
 			</Container>

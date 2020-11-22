@@ -6,14 +6,12 @@ import { ThemeProvider, createMuiTheme, makeStyles, responsiveFontSizes } from '
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 // Components
-
-import NavBar from "./components/navbar";
+import NavBar from "./components/Navbar";
 import Home from "./pages/Home";
-import Search from "./pages/search";
+import Search from "./pages/Search";
 import Signup from "./pages/Signup";
 import ProfileChef from "./pages/ProfileChef";
 import Footer from "./components/Footer";
-
 
 let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
@@ -53,7 +51,7 @@ theme = createMuiTheme({
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-    marginTop: "120px",
+    paddingTop: "90px",
 	},
 }));
 
@@ -70,7 +68,6 @@ function App() {
 						<Container className={classes.root} maxWidth="lg">
 							<Route exact path="/search" component={Search} />
 							<Route exact path="/signup" component={Signup} />
-							<Route exact path="/signin" component={Signup} />
 							<Route exact path="/profile/:id" component={ProfileChef} />
 						</Container>
 					</Switch>

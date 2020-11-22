@@ -16,7 +16,6 @@ import API from '../../utils/API.js';
 
 const useStyles = makeStyles((theme) => ({
     card: {
-        marginTop: "20px",
         marginBottom: "20px",
         padding: "10px"
     },
@@ -126,7 +125,7 @@ function SearchBar(props) {
     return (
         <Paper className={classes.card} elevation={1}>
             <Grid container spacing={2}>
-                <Grid item xs={3}>
+                <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
                     <FormControl className={classes.flex}>
                         <InputLabel>Select Option</InputLabel>
                         <Select
@@ -144,17 +143,17 @@ function SearchBar(props) {
                         </Select>
                     </FormControl>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
                     <FormControl className={classes.flex}>
                         <TextField fullWidth label="Zip Code" name="zipcode" value={zipCode} onChange={onZipChange} />
                     </FormControl>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={12} sm={12} md={4} lg={3} xl={2}>
                     <FormControl className={classes.flex}>
                         <TextField fullWidth label="Search" name="search" value={searchTerm} onChange={onSearchChange} />
                     </FormControl>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={12} sm={12} md={12} lg={3} xl={2}>
                     <Button className={classes.button} fullWidth color="primary" variant="contained" size="large" onClick={onSearchSubmit}> Search </Button>
                 </Grid>
             </Grid>

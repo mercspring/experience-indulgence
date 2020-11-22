@@ -8,9 +8,9 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Grid from "@material-ui/core/Grid"
 import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button"
+import FormGroup from '@material-ui/core/FormGroup';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 // API
 import axios from "axios";
 import API from "../../utils/API"
@@ -34,9 +34,9 @@ function Signup() {
 	let [highlights, setHighlights] = useState({ workPlace: "", jobTitle: "", duration: "" });
 	let [highlightStore, setHighlightStore] = useState([]);
 	let [cuisinesState, setCuisinesState] = useState({});
-	let [specialitiesState, setSpecialitiesState] = useState({});
+	let [specialitiesState, setSpecialitiesState] = useState([]);
+	let [services, setServicesState] = useState({});
 	let [profilePicture, setProfilePicture] = useState('');
-	let [services, setServicesState] = useState([]);
 	let [file, setFile] = useState("");
 	const generateObject = (typeArr) => {
 		let obj = {};
@@ -47,25 +47,6 @@ function Signup() {
 		return obj;
 	}
 
-	useEffect(() => {
-		API.getAllCuisines()
-		.then(res => {
-			const cuisines = res.data.map(elm => { return { name: elm.name, id: elm._id } })
-			console.log(cuisines)
-			setCuisinesState(generateObject(cuisines));
-		}).catch(err => console.log(err));
-
-		API.getAllSpecialties()
-		.then(res => {
-			const specialities = res.data.map(elm => { return { name: elm.name, id: elm._id } })
-			console.log(specialities)
-			setSpecialitiesState(generateObject(specialities));
-		}).catch(err => console.log(err));
-
-		API.getAllServices()
-		.then(res => setServicesState(res.data)
-		).catch(err => console.log(err));
-	}, [])
 	function generateSpecialitiesCheckBoxes() {
 		const keys = Object.keys(specialitiesState)
 		return keys.map((speciality, index) => {
@@ -95,15 +76,6 @@ function Signup() {
 		const { name, value } = event.target;
 		setHighlights({ ...highlights, [name]: value });
 	}
-	function onSpecialityChange(event) {
-		const { name, checked } = event.target;
-		setSpecialitiesState({ ...specialitiesState, [name]: { checked: checked, id: specialitiesState[name].id } });
-	}
-	function onCuisinesChange(event) {
-		const { name, checked } = event.target;
-		setCuisinesState({ ...cuisinesState, [name]: { checked: checked, id: cuisinesState[name].id } });
-	}
-
 	function onAddHighlight(event) {
 		event.preventDefault();
 		if (highlights.workPlace) {
@@ -133,6 +105,35 @@ function Signup() {
 		fileReader.onload = () => resolve(fileReader.result);
 		fileReader.readAsDataURL(file);
 		});
+	}
+
+	useEffect(() => {
+		API.getAllCuisines()
+		.then(res => {
+			const cuisines = res.data.map(elm => { return { name: elm.name, id: elm._id } })
+			console.log(cuisines)
+			setCuisinesState(generateObject(cuisines));
+		}).catch(err => console.log(err));
+
+		API.getAllSpecialties()
+		.then(res => {
+			const specialities = res.data.map(elm => { return { name: elm.name, id: elm._id } })
+			console.log(specialities)
+			setSpecialitiesState(generateObject(specialities));
+		}).catch(err => console.log(err));
+
+		API.getAllServices()
+		.then(res => setServicesState(res.data)
+		).catch(err => console.log(err));
+	}, [])
+
+	function onSpecialityChange(event) {
+		const { name, checked } = event.target;
+		setSpecialitiesState({ ...specialitiesState, [name]: { checked: checked, id: specialitiesState[name].id } });
+	}
+	function onCuisinesChange(event) {
+		const { name, checked } = event.target;
+		setCuisinesState({ ...cuisinesState, [name]: { checked: checked, id: cuisinesState[name].id } });
 	}
 
 	function onSubmit(event) {
@@ -168,15 +169,14 @@ function Signup() {
 		setInfo({ first: "", last: "", email: "", bio: "", zipcode: "", password: "", username: "" });
 		setProfilePicture("")
 		setCuisinesState({});
-		setSpecialitiesState({});
-		setServicesState([]);
+		setSpecialitiesState([]);
+		setServicesState({});
 	}
-
 	const classes = useStyles();
 	return (
 		<Paper className={classes.root}>
 				<Grid container spacing={2}>
-					<Grid item lg={12}>
+					<Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
 						<Typography variant="h3" gutterBottom>
 							Sign Up
 						</Typography>
@@ -184,9 +184,9 @@ function Signup() {
 				</Grid>
 			<form noValidate autoComplete="off">
 				<Grid container spacing={2}>
-					<Grid item lg={6}>
+					<Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
 						<Grid container className={classes.grid}>
-							<Grid item lg={12}>
+							<Grid item xs={12} sm={12}>
 								<Typography variant="h5">
 									Account
 								</Typography>
@@ -195,18 +195,16 @@ function Signup() {
 							</Grid>
 						</Grid>
 						<Grid container className={classes.grid}>
-							<Grid item lg={12}>
+							<Grid item xs={12}>
 								<Typography variant="h5" gutterBottom>
 									Photo
 								</Typography>
-
 								<Button variant="contained" component="label" startIcon={<CloudUploadIcon />} onChange={(event) => setFile(event.target.files[0])} val={file}>Upload<input type="file" hidden /></Button>
-
 								<Button className={classes.button} variant="contained" color="secondary" onClick={() => uploadToCloudinary(file)}>Save Profile Pic</Button>
 							</Grid>
 						</Grid>
 						<Grid container className={classes.grid}>
-							<Grid item lg={12}>
+							<Grid item xs={12}>
 								<Typography variant="h5">
 									Profile
 								</Typography>
@@ -217,11 +215,10 @@ function Signup() {
 								<TextField fullWidth label="Bio" name="bio" multiline rows={4} value={info.bio} onChange={onInfoChange} />
 							</Grid>
 						</Grid>
-						<Button className={classes.button} variant="contained" color="primary" onClick={onSubmit}>Create Profile</Button>
 					</Grid>
-					<Grid item lg={6}>
+					<Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
 						<Grid container className={classes.grid}>
-							<Grid item lg={12}>
+							<Grid item xs={12}>
 								<Typography variant="h5">
 									Experience
 								</Typography>
@@ -239,7 +236,7 @@ function Signup() {
 							</Grid>
 						</Grid>
 						<Grid container className={classes.grid}>
-							<Grid item lg={12}>
+							<Grid item xs={12}>
 								<Typography variant="h5" gutterBottom>
 									Dietary Specialties
 								</Typography>
@@ -249,7 +246,7 @@ function Signup() {
 							</Grid>
 						</Grid>
 						<Grid container className={classes.grid}>
-							<Grid item lg={12}>
+							<Grid item xs={12}>
 								<Typography variant="h5" gutterBottom>
 									Cusines
 								</Typography>
@@ -258,6 +255,9 @@ function Signup() {
 								</FormGroup>
 							</Grid>
 						</Grid>
+					</Grid>
+					<Grid item xs={12}>
+						<Button className={classes.button} variant="contained" color="primary" onClick={onSubmit}>Create Profile</Button>
 					</Grid>
 				</Grid>
 			</form>
