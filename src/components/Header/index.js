@@ -37,8 +37,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	btn:{
 		marginTop: "20px",
-		background: "#b3b4b5",
-		color: "black"
+		background: "rgb(179, 180, 181)",
+		"&:hover":{
+			background: "white",
+		}
 	},
 	font:{
 		fontFamily: "'Italianno', cursive",
@@ -60,7 +62,7 @@ function Header() {
 						<Typography component="h2" variant="h5" color="inherit" gutterBottom>
 						Find your perfect date night
 						</Typography>
-						<Button className={classes.btn} href="/signup" size="large" color="inherit">Signup</Button>
+						<Button className={classes.btn} href="/signup" size="large">Signup</Button>
 					</Grid>
 				</Grid>
 			</Container>

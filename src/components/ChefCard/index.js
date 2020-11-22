@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
 		padding: theme.spacing(1),
-		width: "90%",
+		width: "80%",
 		display: "inline-table",
 		top: "40%",
 		bottom: "60%",
@@ -54,6 +54,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	jobTitle: {
 		fontWeight: "600"
+	},
+	colorBtn:{
+		background:"rgb(179, 180, 181)",
+		color: "black"
 	}
 }));
 
@@ -194,7 +198,8 @@ function ChefCard(props) {
 	}
 	let contact
 	if (props.chef.contactInfo) {
-		contact = "mailto:" + props.chef.contactInfo.email
+		contact = "mailto:" + props.chef.contactInfo.email + "?subject=Indulge%20Request&body=I'd%20like%20to%20book%20an%20appointment"
+
 	}
 	return (
 		<div>
@@ -241,7 +246,7 @@ function ChefCard(props) {
 					</Typography>
 				</CardContent>
 				<CardActions>
-					<Button variant="button" href={contact}>
+					<Button className={classes.colorBtn} variant="button" color="primary" href={contact}>
 						Contact Chef
 					</Button>
 					{editBtn}
