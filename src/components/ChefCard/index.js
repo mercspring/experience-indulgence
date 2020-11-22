@@ -49,7 +49,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 	disabled: {
 		color: "black !important"
+	},
+	jobTitle: {
+		fontWeight: "600"
 	}
+
 
 }));
 
@@ -71,7 +75,7 @@ function ChefCard(props) {
 			props.chef[type].forEach(elm => {
 				if (elm.name === name) {
 					obj[name] = { id: typeArr[i].id, checked: true }
-				} 
+				}
 			})
 		}
 		return obj;
@@ -176,14 +180,18 @@ function ChefCard(props) {
 
 	let chefRestaurant
 	if (props.chef.restaurants) {
-		chefRestaurant = props.chef.restaurants.map((restaurant) => (
+
+		chefRestaurant = JSON.parse(props.chef.restaurants).map((restaurant) => (
 			<Typography gutterBottom key={restaurant}>
-				{props.chef.restaurants}
+				<Typography className={classes.jobTitle} gutterBottom>
+					{restaurant.jobTitle}
+				</Typography>
+				{restaurant.workPlace} - {restaurant.duration}
 			</Typography>
 		))
 	}
 	let contact
-	if(!props.chef.contactInfo){
+	if (!props.chef.contactInfo) {
 		contact = "mailto:" + props.chef.contactInfo.email
 	}
 	return (
