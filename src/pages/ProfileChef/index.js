@@ -94,7 +94,7 @@ function ProfileChef() {
 
 	return (
 		<Grid container spacing={1}>
-			<Grid item xs={12} sm={12} md={4} lg={3} xl={2}>
+			<Grid item xs={12} sm={12} md={4} lg={4} xl={3}>
 				{chef.specialty ? <ChefCard 
 				openEdit={openEdit}
 				handleOpenEdit={handleOpenEdit}
@@ -111,7 +111,7 @@ function ProfileChef() {
 				uploadToCloudinary={uploadToCloudinary}
 				/>: <h1>loading</h1>}
 			</Grid>
-			<Grid item xs={12} sm={12} md={8} lg={9} xl={10}>
+			<Grid item xs={12} sm={12} md={8} lg={8} xl={9}>
 				<ChefImages chef={chef}/>
 			</Grid>
 		</Grid>
