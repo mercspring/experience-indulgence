@@ -21,10 +21,6 @@ const useStyles = makeStyles((theme) => ({
 		margin: "20px 0",
 		padding: "20px"
 	},
-	button: {
-		margin: "20px 0 20px 0",
-		display: "block"
-	},
 	grid: {
 		marginBottom: "20px"
 	}
@@ -180,90 +176,101 @@ function Signup() {
 	const classes = useStyles();
 	return (
 		<Paper className={classes.root}>
-			<Grid container spacing={2}>
+			<Grid container spacing={1}>
 				<Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
 					<Typography variant="h3" gutterBottom>
 						Sign Up
-						</Typography>
+					</Typography>
 				</Grid>
 			</Grid>
 			<form noValidate autoComplete="off">
-				<Grid container spacing={2}>
+				<Grid container spacing={1}>
 					<Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
-						<Grid container className={classes.grid}>
-							<Grid item xs={12} sm={12}>
-								<Typography variant="h5">
-									Account
-								</Typography>
+						<Typography variant="h5" gutterBottom>
+							Account
+						</Typography>
+						<Grid container spacing={1} className={classes.grid}>
+							<Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
 								<TextField fullWidth label="Username" name="username" value={info.username} onChange={onInfoChange} />
+							</Grid>
+							<Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
 								<TextField fullWidth type="password" label="Password" name="password" value={info.password} onChange={onInfoChange} />
 							</Grid>
 						</Grid>
-						<Grid container className={classes.grid}>
-							<Grid item xs={12}>
-								<Typography gutterBottom variant="h5" >
-									Photo
-								</Typography>
-								<Typography gutterBottom style={!uploadFlag ? {color:"gray"} : {color:"black"}}>{file ? file.name : "No File Selected"}</Typography>
+						<Typography gutterBottom variant="h5" >
+							Photo
+						</Typography>
+						<Grid container spacing={1} className={classes.grid}>
+							<Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+								<Typography style={!uploadFlag ? {color:"gray"} : {color:"black"}} gutterBottom>{file ? file.name : "No File Selected"}</Typography>
 								<Button variant="contained" component="label" startIcon={<CloudUploadIcon />} onChange={(event) => setFile(event.target.files[0])} val={file}>Select Profile Pic<input type="file" hidden /></Button>
-								{file ? <Button className={classes.button} variant="contained" color="secondary" onClick={() => {setUploadFlag(true); uploadToCloudinary(file)}}>Save Profile Pic</Button> : <span></span>}
+							</Grid>
+							<Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+								{file ? <Button variant="contained" color="secondary" onClick={() => {setUploadFlag(true); uploadToCloudinary(file)}}>Save Profile Pic</Button> : <span></span>}
 							</Grid>
 						</Grid>
-						<Grid container className={classes.grid}>
-							<Grid item xs={12}>
-								<Typography variant="h5">
-									Profile
-								</Typography>
+						<Typography variant="h5" gutterBottom>
+							Profile
+						</Typography>
+						<Grid container spacing={1} className={classes.grid}>
+							<Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
 								<TextField fullWidth label="First Name" name="first" value={info.first} onChange={onInfoChange} />
+							</Grid>
+							<Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
 								<TextField fullWidth label="Last Name" name="last" value={info.last} onChange={onInfoChange} />
+							</Grid>
+							<Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
 								<TextField fullWidth label="Email" name="email" value={info.email} onChange={onInfoChange} />
+							</Grid>
+							<Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
 								<TextField fullWidth label="Zip Code" name="zipcode" value={info.zipcode} onChange={onInfoChange} />
-								<TextField fullWidth label="Bio" name="bio" multiline rows={4} value={info.bio} onChange={onInfoChange} />
+							</Grid>
+							<Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+								<TextField fullWidth label="Bio" name="bio" multiline rows={2} value={info.bio} onChange={onInfoChange} />
 							</Grid>
 						</Grid>
 					</Grid>
 					<Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
-						<Grid container className={classes.grid}>
+						<Typography variant="h5" gutterBottom>
+							Experience
+						</Typography>
+						<Grid container spacing={1} className={classes.grid}>
 							<Grid item xs={12}>
-								<Typography variant="h5">
-									Experience
-								</Typography>
 								{highlightStore.map((elm, index) => {
 									return (<div key={index}>
-										<p> <strong>Place of Work: </strong> {elm.workPlace}</p>
-										<p> <strong>Job Title: </strong>{elm.jobTitle}</p>
-										<p> <strong>Duration: </strong>{elm.duration}</p>
+										<Typography variant="body1"><strong>Job Title: </strong>{elm.jobTitle}</Typography>
+										<Typography variant="body1"><strong>Place of Work: </strong> {elm.workPlace}</Typography>
+										<Typography variant="body1"><strong>Duration: </strong>{elm.duration}</Typography>
 									</div>)
 								})}
+							</Grid>
+							<Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
 								<TextField fullWidth label="Job title" name="jobTitle" onChange={onHightlightsChange} value={highlights.jobTitle} />
+							</Grid>
+							<Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
 								<TextField fullWidth label="Place of Work" name="workPlace" onChange={onHightlightsChange} value={highlights.workPlace} />
+							</Grid>
+							<Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
 								<TextField fullWidth label="Duration" name="duration" onChange={onHightlightsChange} value={highlights.duration} />
-								<Button className={classes.button} variant="contained" color="secondary" onClick={onAddHighlight}>Add Experience</Button>
+							</Grid>
+							<Grid item xs={12}>
+								<Button variant="contained" color="secondary" onClick={onAddHighlight}>Add Experience</Button>
 							</Grid>
 						</Grid>
+						<Typography variant="h5" gutterBottom>
+								Cusines & Specialties
+						</Typography>
 						<Grid container className={classes.grid}>
 							<Grid item xs={12}>
-								<Typography variant="h5" gutterBottom>
-									Dietary Specialties
-								</Typography>
 								<FormGroup row>
 									{generateSpecialitiesCheckBoxes()}
-								</FormGroup>
-							</Grid>
-						</Grid>
-						<Grid container className={classes.grid}>
-							<Grid item xs={12}>
-								<Typography variant="h5" gutterBottom>
-									Cusines
-								</Typography>
-								<FormGroup row>
 									{generateCuisinesCheckBoxes()}
 								</FormGroup>
 							</Grid>
 						</Grid>
 					</Grid>
 					<Grid item xs={12}>
-						<Button className={classes.button} variant="contained" color="primary" onClick={onSubmit}>Create Profile</Button>
+						<Button fullWidth variant="contained" color="primary" onClick={onSubmit}>Create Profile</Button>
 					</Grid>
 				</Grid>
 			</form>

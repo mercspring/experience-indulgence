@@ -73,8 +73,7 @@ function ProfileChef() {
 		console.log('Updating.....')
 		setOpenEdit(false);
 		setOpenAdd(false);
-
-		const payload = Object.assign(chef, {cuisine:chef.cuisine.map(elm => elm._id)}, {photos:[file]});
+		const payload = Object.assign(chef, {cuisine:chef.cuisine.map(elm => elm._id)});
 		console.log(payload)
 		const userToken = JSON.parse(localStorage.getItem("userData")).token
 		API.editChef(payload, userToken).then(chefData=>{

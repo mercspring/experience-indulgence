@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchCard(props) {
     const classes = useStyles();
+    console.log(props.sigDishImage);
     function onChefClick(){
 
     }
@@ -36,7 +37,7 @@ function SearchCard(props) {
                 >
                     <CardMedia
                         component="img"
-                        alt="chef signiture dish"
+                        alt="Chef Signiture Dish"
                         style={{ maxWidth:"300px", maxHeight: "200px" }}
                         image={props.sigDishImage}
                     />

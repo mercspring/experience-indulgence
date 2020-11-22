@@ -47,7 +47,7 @@ function EditChefModal(props) {
                                 <TextField fullWidth onChange={props.handleInputChange} value={props.chef.profilePic} type="text" name="profilePic" label="Profile Picture URL"/>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                                <TextField fullWidth onChange={props.handleInputChange} value={props.chef.bio} type="text" name="bio" label="Bio"/>
+                                <TextField fullWidth onChange={props.handleInputChange} multiline rows={2} value={props.chef.bio} type="text" name="bio" label="Bio"/>
                             </Grid>
                         </Grid>
                     </Grid>
