@@ -235,15 +235,15 @@ function Signup() {
 							Experience
 						</Typography>
 						<Grid container spacing={1} className={classes.grid}>
-							<Grid item xs={12}>
 								{highlightStore.map((elm, index) => {
-									return (<div key={index}>
-										<Typography variant="body1"><strong>Job Title: </strong>{elm.jobTitle}</Typography>
-										<Typography variant="body1"><strong>Place of Work: </strong> {elm.workPlace}</Typography>
-										<Typography variant="body1"><strong>Duration: </strong>{elm.duration}</Typography>
-									</div>)
+									return (
+										<Grid item key={index} xs={12} sm={12} md={12} lg={12} xl={12}>
+											<Typography variant="body1"><strong>Job Title: </strong>{elm.jobTitle}</Typography>
+											<Typography variant="body1"><strong>Place of Work: </strong> {elm.workPlace}</Typography>
+											<Typography variant="body1"><strong>Duration: </strong>{elm.duration}</Typography>
+										</Grid>
+									)
 								})}
-							</Grid>
 							<Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
 								<TextField fullWidth label="Job title" name="jobTitle" onChange={onHightlightsChange} value={highlights.jobTitle} />
 							</Grid>

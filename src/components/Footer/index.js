@@ -35,12 +35,12 @@ function Feature() {
         <Box color="primary">
             <Container maxWidth="lg">
                     <Grid container spacing={1} className={classes.container}>
-                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                            <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
                                 <Typography className={classes.font} variant="h4">
                                     Indulge
                                 </Typography>
                             </Grid>
-                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                            <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
                                 <Typography variant="h6">
                                     Chef
                                 </Typography>
@@ -48,15 +48,15 @@ function Feature() {
                                     <ListItemLink className={classes.contrast} href="/">
                                         <ListItemText primary="Home" />
                                     </ListItemLink>
-                                    <ListItemLink className={classes.contrast} href="/signup">
-                                        <ListItemText primary="Signup" />
-                                    </ListItemLink>
                                     <ListItemLink className={classes.contrast} href="/search">
                                         <ListItemText primary="Search" />
                                     </ListItemLink>
+                                    <ListItemLink className={classes.contrast} href="/signup">
+                                        <ListItemText primary="Signup" />
+                                    </ListItemLink>
                                 </List>
                             </Grid>
-                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                            <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
                                 <Typography variant="h6">
                                     Team
                                 </Typography>
@@ -76,13 +76,7 @@ function Feature() {
                                     <ListItemLink className={classes.contrast} href="https://github.com/ScottDancer">
                                         <ListItemText primary="Scott Dancer" />
                                     </ListItemLink>
-                                    
                                 </List>
-                            </Grid>
-                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                                <Typography variant="body2">
-                                © All Rights Reserved
-                                </Typography>
                             </Grid>
                     </Grid>
             </Container>
