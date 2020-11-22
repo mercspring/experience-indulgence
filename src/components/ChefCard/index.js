@@ -8,7 +8,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
+import { Typography, Fade } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -139,6 +139,8 @@ function ChefCard(props) {
 						label={speciality}
 						key={index}
 					/>)
+				} else {
+					return null;
 				}
 			})
 		}
@@ -161,6 +163,8 @@ function ChefCard(props) {
 						disabled
 						key={index}
 					/>)
+				} else {
+					return null;
 				}
 			}
 		})
@@ -181,14 +185,19 @@ function ChefCard(props) {
 	let chefRestaurant
 	if (props.chef.restaurants) {
 
-		chefRestaurant = JSON.parse(props.chef.restaurants).map((restaurant) => (
-			<Typography gutterBottom key={restaurant}>
-				<Typography className={classes.jobTitle} gutterBottom>
-					{restaurant.jobTitle}
-				</Typography>
-				{restaurant.workPlace} - {restaurant.duration}
-			</Typography>
-		))
+		chefRestaurant = JSON.parse(props.chef.restaurants).map((restaurant) => {
+			return  (
+					<React.Fragment key={restaurant}>
+						<Typography className={classes.jobTitle} gutterBottom>
+							{restaurant.jobTitle}
+						</Typography>
+						<Typography gutterBottom>
+							{restaurant.workPlace} - {restaurant.duration}
+						</Typography>
+					</React.Fragment>
+				)
+			
+			})
 	}
 	let contact
 	if (!props.chef.contactInfo) {
@@ -196,6 +205,7 @@ function ChefCard(props) {
 	}
 	return (
 		<div>
+			<Fade in={true} timeout={800}>
 			<Card className={classes.card}>
 				<CardMedia
 					className={classes.cardMedia}
@@ -209,7 +219,7 @@ function ChefCard(props) {
 					<Box className={classes.pads}>
 						<Typography variant="h6" gutterBottom>
 							Bio
-					</Typography>
+						</Typography>
 						<Typography>
 							{props.chef.bio}
 						</Typography>
@@ -217,7 +227,7 @@ function ChefCard(props) {
 					<Box className={classes.pads}>
 						<Typography variant="h6" gutterBottom>
 							Cuisine & Specialties
-					</Typography>
+						</Typography>
 						<FormGroup row>
 							{generateCuisinesCheckBoxes(false)}
 							{generateSpecialitiesCheckBoxes(false)}
@@ -226,14 +236,14 @@ function ChefCard(props) {
 					<Box className={classes.pads}>
 						<Typography variant="h6" gutterBottom>
 							Restaurant Experience
-					</Typography>
+						</Typography>
 						<FormGroup row>
 							{chefRestaurant}
 						</FormGroup>
 					</Box>
 					<Typography variant="h6" gutterBottom>
 						Zip Code
-				</Typography>
+					</Typography>
 					<Typography>
 						{props.chef.zipcode}
 					</Typography>
@@ -246,6 +256,8 @@ function ChefCard(props) {
 					{addBtn}
 				</CardActions>
 			</Card>
+			</Fade>
+			
 			<Modal
 				open={props.openEdit}
 				onClose={props.handleCloseEdit}

@@ -39,9 +39,9 @@ function isJson(arr) {
 
 
 function SearchBar(props) {
-    const [searchTerm, setSearchTerm] = useState();
-    const [zipCode, setZipCode] = useState();
-    const [typeOfSearch, setTypeOfSearch] = useState();
+    const [searchTerm, setSearchTerm] = useState("");
+    const [zipCode, setZipCode] = useState("");
+    const [typeOfSearch, setTypeOfSearch] = useState("");
 
     function onSearchSubmit(event) {
         props.setSearched(true);
@@ -129,6 +129,7 @@ function SearchBar(props) {
                     <FormControl className={classes.flex}>
                         <InputLabel>Select Option</InputLabel>
                         <Select
+                            defaultValue = ""
                             fullWidth
                             value={typeOfSearch}
                             onChange={onTypeChange}

@@ -1,6 +1,6 @@
 // React
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 // Styles
 import { makeStyles, IconButton, Drawer, Typography } from '@material-ui/core/';
 import AppBar from '@material-ui/core/AppBar';
@@ -103,9 +103,9 @@ function Navbar(props) {
 
 	const handleSignout = () => {
 		localStorage.removeItem("userData");
-		history.push("/");
 		setDrawerOpen(false);
 		setLoggedUser(false);
+		<Redirect to="/" />
 	}
 
 	const classes = useStyles();

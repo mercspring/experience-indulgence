@@ -65,11 +65,13 @@ function App() {
 					<NavBar />
 					<Switch>
 						<Route exact path="/" component={Home} />
+						<React.Fragment>
 						<Container className={classes.root} maxWidth="lg">
 							<Route exact path="/search" component={Search} />
 							<Route exact path="/signup" component={Signup} />
 							<Route exact path="/profile/:id" component={ProfileChef} />
 						</Container>
+						</React.Fragment>
 					</Switch>
 				</Router>
 			<Footer />

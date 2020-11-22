@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import { Fade } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -19,16 +20,22 @@ const useStyles = makeStyles((theme) => ({
 function ChefFood(props) {
 	let chefFoods
 	if(props.chef.photos){
-		chefFoods = props.chef.photos.map((photo,index) => (<GridListTile key={index} cols={1} rows={1}><img src={photo.url} alt={photo.title}/></GridListTile>))
+		chefFoods = props.chef.photos.map((photo) => (<GridListTile key={photo._id} cols={1} rows={1}><img src={photo.url} alt={photo.title}/></GridListTile>))
 	}
 	const classes = useStyles();
 	return (
 		<div className={classes.root}>
+			<Fade in={true} timeout={800}>
 			<Paper elevation={1}>
-				<GridList cellHeight={160} cols={3}>
-					{chefFoods}
-				</GridList>
+				{chefFoods ?
+					<GridList cellHeight={160} cols={3}>
+						{chefFoods}
+					</GridList>
+					:
+					null
+				}
 			</Paper>
+			</Fade>
 		</div>
 	);
 }
