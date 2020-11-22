@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom"
 // Styles
+import "./style.css"
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -39,134 +40,229 @@ const useStyles = makeStyles((theme) => ({
 		left: "50%",
 		transform: "translate(-50%, -40%)",
 	},
-	pads:{
+	pads: {
 		marginBottom: "10px"
+	},
+	disabled: {
+		color: "black !important"
 	}
+
 }));
 
 function ChefCard(props) {
 	const classes = useStyles();
-	let {id} = useParams();
+
+	let [cuisinesState, setCuisinesState] = useState({});
+	const [specialtiesState, setSpecialtiesState] = useState({});
+	let { id } = useParams();
 	let userId = JSON.parse(localStorage.getItem("userData"))._id
 	let editBtn
 	let addBtn
-	if(userId===id){
+
+	const generateObject = (typeArr, type) => {
+		let obj = {};
+		for (let i = 0; i < typeArr.length; i++) {
+			const name = typeArr[i].name
+			obj[name] = { id: typeArr[i].id, checked: false }
+			props.chef[type].forEach(elm => {
+				if (elm.name === name) {
+					obj[name] = { id: typeArr[i].id, checked: true }
+				} 
+			})
+		}
+		return obj;
+	}
+
+	useEffect(() => {
+		API.getAllCuisines()
+			.then(res => {
+				const cuisines = res.data.map(elm => { return { name: elm.name, id: elm._id } })
+				setCuisinesState(generateObject(cuisines, "cuisine"));
+			}).catch(err => console.log(err));
+
+		API.getAllSpecialties()
+			.then(res => {
+				const specialties = res.data.map(elm => { return { name: elm.name, id: elm._id } })
+				setSpecialtiesState(generateObject(specialties, "specialty"));
+			}).catch(err => console.log(err));
+	}, [])
+	useEffect(() => {
+		const chefsSpecialties = [];
+		Object.keys(specialtiesState).forEach(key => {
+			if (specialtiesState[key].checked) {
+				chefsSpecialties.push(specialtiesState[key].id)
+			}
+		})
+		props.setChef({ ...props.chef, specialty: chefsSpecialties })
+	}, [specialtiesState])
+
+	useEffect(() => {
+
+		const chefsCuisines = [];
+		Object.keys(cuisinesState).forEach(key => {
+			if (cuisinesState[key].checked) {
+				chefsCuisines.push({ _id: cuisinesState[key].id, name: key })
+			}
+		})
+
+		props.setChef({ ...props.chef, cuisine: chefsCuisines })
+
+	}, [cuisinesState])
+	if (userId === id) {
 		editBtn = <Button onClick={props.handleOpenEdit}>Edit Profile</Button>;
 		addBtn = <Button onClick={props.handleOpenAdd}>Add Food</Button>;
 	}
-	let chefCuisine
-	if(props.chef.cuisine){
-		chefCuisine = props.chef.cuisine.map((cuisine) => (<FormControlLabel control={<Checkbox checked={true} onChange={props.handleInputChange} name="checkedA" />} label={cuisine.name} />))
+
+	function generateSpecialitiesCheckBoxes(modalFlag) {
+		const keys = Object.keys(specialtiesState)
+		if (modalFlag) {
+			return keys.map((speciality, index) => {
+				return (<FormControlLabel
+					control={<Checkbox key={index} name={speciality} checked={specialtiesState[speciality].checked} onChange={onSpecialityChange} inputProps={{ 'aria-label': 'primary checkbox' }} />}
+					label={speciality}
+					key={index}
+				/>)
+			})
+		} else {
+			return keys.map((speciality, index) => {
+				if (specialtiesState[speciality].checked) {
+					return (<FormControlLabel
+						control={<Checkbox key={index} name={speciality} disabled checked={specialtiesState[speciality].checked} onChange={onSpecialityChange} inputProps={{ 'aria-label': 'primary checkbox' }} />}
+						label={speciality}
+						key={index}
+					/>)
+				}
+			})
+		}
 	}
-	let chefSpecialty
-	console.log(props.chef.specialty)
-	if(props.chef.specialty){
-		console.log(props.chef.specialty)
-		props.chef.specialty.map((hasSpecialty) => {
-			API.getAllSpecialties()
-			.then(res => {
-				chefSpecialty = res.data.map((specialty) => {
-						if(specialty.name === hasSpecialty.name){
-							<FormControlLabel control={<Checkbox checked={true} onChange={props.handleInputChange} name="checkedA" />} label={specialty.name} />
-						} else {
-							<FormControlLabel control={<Checkbox checked={false} onChange={props.handleInputChange} name="checkedA" />} label={specialty.name} />
-						}
-				})
-			}).catch(err => console.log(err));
+	function generateCuisinesCheckBoxes(modalFlag) {
+		const keys = Object.keys(cuisinesState)
+		return keys.map((cuisine, index) => {
+			if (modalFlag) {
+				return (<FormControlLabel
+					control={<Checkbox name={cuisine} checked={cuisinesState[cuisine].checked} onChange={onCuisinesChange} inputProps={{ 'aria-label': 'primary checkbox' }} />}
+					label={cuisine}
+					key={cuisinesState[cuisine].id}
+				/>)
+			} else {
+				if (cuisinesState[cuisine].checked) {
+					return (<FormControlLabel
+						control={<Checkbox className={classes.disabled} key={index} name={cuisine} disabled checked={cuisinesState[cuisine].checked} onChange={onCuisinesChange} inputProps={{ 'aria-label': 'primary checkbox' }} />}
+						label={cuisine}
+						className={classes.disabled}
+						disabled
+						key={index}
+					/>)
+				}
+			}
 		})
+	}
+	function onSpecialityChange(event) {
+		const { name, checked } = event.target;
+
+		setSpecialtiesState({ ...specialtiesState, [name]: { checked: checked, id: specialtiesState[name].id } })
+
 
 	}
+	function onCuisinesChange(event) {
+		const { name, checked } = event.target;
+
+		setCuisinesState({ ...cuisinesState, [name]: { checked: checked, id: cuisinesState[name].id } })
+	}
+
 	let chefRestaurant
-	if(props.chef.restaurants){
+	if (props.chef.restaurants) {
 		chefRestaurant = props.chef.restaurants.map((restaurant) => (
-			<Typography gutterBottom>
+			<Typography gutterBottom key={restaurant}>
 				{props.chef.restaurants}
 			</Typography>
 		))
 	}
 	let contact
-	if(props.chef.contactInfo != undefined){
+	if (props.chef.contactInfo != undefined) {
 		contact = "mailto:" + props.chef.contactInfo.email
 	}
 	return (
 		<div>
-		<Card className={classes.card}>
-			<CardMedia
-			className={classes.cardMedia}
-			image={props.chef.profilePic}
-			title="Image title"
-			/>
-			<CardContent className={classes.cardContent}>
-				<Typography variant="h5" component="h2" gutterBottom>
-					{props.chef.first} {props.chef.last}
-				</Typography>
-				<Box className={classes.pads}>
-					<Typography variant="h6" gutterBottom>
-						Bio
-					</Typography>
-					<Typography>
-						{props.chef.bio}
-					</Typography>
-				</Box>
-				<Box className={classes.pads}>
-					<Typography variant="h6" gutterBottom>
-						Cuisine & Specialties
-					</Typography>
-					<FormGroup row>
-					{chefCuisine}
-					{chefSpecialty}
-					</FormGroup>
-				</Box>
-				<Box className={classes.pads}>
-					<Typography variant="h6" gutterBottom>
-						Restaurant Experience
-					</Typography>
-					<FormGroup row>
-					{chefRestaurant}
-					</FormGroup>
-				</Box>
-				<Typography variant="h6" gutterBottom>
-					Zip Code
-				</Typography>
-				<Typography>
-					{props.chef.zipcode}
-				</Typography>
-			</CardContent>
-			<CardActions>
-				<Button href={contact}>
-					Book Chef
-				</Button>
-				{editBtn}
-				{addBtn}
-			</CardActions>
-		</Card>
-		<Modal
-		open={props.openEdit}
-		onClose={props.handleCloseEdit}
-		aria-labelledby="simple-modal-title"
-		aria-describedby="simple-modal-description"
-		>
-			<div className={classes.paper}>
-				<EditChefModal 
-				handleInputChange={props.handleInputChange} 
-				handleFormSubmit={props.handleFormSubmit} 
-				chef={props.chef}
-				file={props.file}
-				fileChange={props.fileChange}
-				uploadToCloudinary={props.uploadToCloudinary}
+			<Card className={classes.card}>
+				<CardMedia
+					className={classes.cardMedia}
+					image={props.chef.profilePic}
+					title="Image title"
 				/>
-			</div>
-		</Modal>
-		<Modal
-		open={props.openAdd}
-		onClose={props.handleCloseAdd}
-		aria-labelledby="simple-modal-title"
-		aria-describedby="simple-modal-description"
-		>
-			<div className={classes.paper}>
-				<h1>Add Photo</h1>
-			</div>
-		</Modal>
+				<CardContent className={classes.cardContent}>
+					<Typography variant="h5" component="h2" gutterBottom>
+						{props.chef.first} {props.chef.last}
+					</Typography>
+					<Box className={classes.pads}>
+						<Typography variant="h6" gutterBottom>
+							Bio
+					</Typography>
+						<Typography>
+							{props.chef.bio}
+						</Typography>
+					</Box>
+					<Box className={classes.pads}>
+						<Typography variant="h6" gutterBottom>
+							Cuisine & Specialties
+					</Typography>
+						<FormGroup row>
+							{generateCuisinesCheckBoxes(false)}
+							{generateSpecialitiesCheckBoxes(false)}
+						</FormGroup>
+					</Box>
+					<Box className={classes.pads}>
+						<Typography variant="h6" gutterBottom>
+							Restaurant Experience
+					</Typography>
+						<FormGroup row>
+							{chefRestaurant}
+						</FormGroup>
+					</Box>
+					<Typography variant="h6" gutterBottom>
+						Zip Code
+				</Typography>
+					<Typography>
+						{props.chef.zipcode}
+					</Typography>
+				</CardContent>
+				<CardActions>
+					<Button href={contact}>
+						Book Chef
+				</Button>
+					{editBtn}
+					{addBtn}
+				</CardActions>
+			</Card>
+			<Modal
+				open={props.openEdit}
+				onClose={props.handleCloseEdit}
+				aria-labelledby="simple-modal-title"
+				aria-describedby="simple-modal-description"
+			>
+				<div className={classes.paper}>
+					<EditChefModal
+						handleInputChange={props.handleInputChange}
+						handleFormSubmit={props.handleFormSubmit}
+						chef={props.chef}
+						file={props.file}
+						fileChange={props.fileChange}
+						uploadToCloudinary={props.uploadToCloudinary}
+						populateSpecialty={generateSpecialitiesCheckBoxes}
+						populateCuisine={generateCuisinesCheckBoxes}
+					/>
+				</div>
+			</Modal>
+			<Modal
+				open={props.openAdd}
+				onClose={props.handleCloseAdd}
+				aria-labelledby="simple-modal-title"
+				aria-describedby="simple-modal-description"
+			>
+				<div className={classes.paper}>
+					<h1>Add Photo</h1>
+				</div>
+			</Modal>
 		</div>
 	)
 }
