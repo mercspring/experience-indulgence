@@ -27,6 +27,30 @@ function ProfileChef() {
 		setOpenAdd(false);
 	};
 
+
+	let [file, setFile] = useState("");
+	function uploadToCloudinary() {
+		console.log(file);
+		reader(file).then( result => {
+		axios.post("https://api.cloudinary.com/v1_1/mercspring/upload", { upload_preset: 'ml_default', file: result })
+			.then(result => {
+			console.log(result.data)
+			console.log(result.data.secure_url)
+			setFile({ url: result.data.secure_url, title: file.name });
+			console.log(file)
+			}).catch(err => {
+			console.log(err);
+			})
+		})
+	}
+	const reader = (file) => {
+		return new Promise((resolve, reject) => {
+		const fileReader = new FileReader();
+		fileReader.onload = () => resolve(fileReader.result);
+		fileReader.readAsDataURL(file);
+		});
+	}
+
 	const [chef, setChef] = useState([])
 	const {id} = useParams();
 	async function loadChef() {
@@ -48,9 +72,9 @@ function ProfileChef() {
         event.preventDefault();
 		console.log('Updating.....')
 		setOpenEdit(false);
+		setOpenAdd(false);
 
-		const payload = Object.assign(chef, {cuisine:chef.cuisine.map(elm => elm._id)});
-
+		const payload = Object.assign(chef, {cuisine:chef.cuisine.map(elm => elm._id)}, {photos:[file]});
 		console.log(payload)
 		const userToken = JSON.parse(localStorage.getItem("userData")).token
 		API.editChef(payload, userToken).then(chefData=>{
@@ -65,31 +89,6 @@ function ProfileChef() {
 			console.log(res.data)
 		})
 		.catch(err => console.log(err));
-	}
-
-	let [file, setFile] = useState("");
-	function uploadToCloudinary() {
-		console.log(file);
-		reader(file).then( result => {
-		axios.post("https://api.cloudinary.com/v1_1/mercspring/upload", { upload_preset: 'ml_default', file: result })
-			.then(result => {
-			console.log(result.data)
-			console.log(result.data.secure_url)
-			let chefPhotos = [];
-			chefPhotos.push({ url: result.data.secure_url, title: file.name })
-			setFile(chefPhotos);
-			})
-			.catch(err => {
-			console.log(err);
-			})
-		})
-	}
-	const reader = (file) => {
-		return new Promise((resolve, reject) => {
-		const fileReader = new FileReader();
-		fileReader.onload = () => resolve(fileReader.result);
-		fileReader.readAsDataURL(file);
-		});
 	}
 
 	return (

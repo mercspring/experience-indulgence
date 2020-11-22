@@ -1,5 +1,6 @@
 // React
 import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 // Styles
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -137,6 +138,7 @@ function Signup() {
 		setCuisinesState({ ...cuisinesState, [name]: { checked: checked, id: cuisinesState[name].id } });
 	}
 
+	let history = useHistory();
 	function onSubmit(event) {
 		event.preventDefault();
 		console.log(Object.keys(cuisinesState));
@@ -159,6 +161,8 @@ function Signup() {
 		console.log(payload)
 		API.createProfile(payload)
 			.then(result => {
+				let userId = result.data._id
+				history.push(`/profile/${userId}`);
 				console.log(result);
 			}).catch(err => {
 				console.log(err);

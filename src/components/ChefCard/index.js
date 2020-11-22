@@ -15,8 +15,10 @@ import FormGroup from '@material-ui/core/FormGroup';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Modal from '@material-ui/core/Modal';
+import Link from '@material-ui/core/Link';
 // Components
 import EditChefModal from "../EditChefModal";
+import AddPhoto from "../AddPhoto";
 // API
 import API from '../../utils/API.js';
 
@@ -35,8 +37,8 @@ const useStyles = makeStyles((theme) => ({
 		position: 'absolute',
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
-		padding: theme.spacing(2),
-		width: "480px",
+		padding: theme.spacing(1),
+		width: "90%",
 		display: "inline-table",
 		top: "40%",
 		bottom: "60%",
@@ -53,8 +55,6 @@ const useStyles = makeStyles((theme) => ({
 	jobTitle: {
 		fontWeight: "600"
 	}
-
-
 }));
 
 function ChefCard(props) {
@@ -63,7 +63,10 @@ function ChefCard(props) {
 	let [cuisinesState, setCuisinesState] = useState({});
 	const [specialtiesState, setSpecialtiesState] = useState({});
 	let { id } = useParams();
-	let userId = JSON.parse(localStorage.getItem("userData"))._id
+	let userId 
+	if(localStorage.getItem("userData")){
+		userId = JSON.parse(localStorage.getItem("userData"))._id 
+	}
 	let editBtn
 	let addBtn
 
@@ -182,16 +185,18 @@ function ChefCard(props) {
 	if (props.chef.restaurants) {
 
 		chefRestaurant = JSON.parse(props.chef.restaurants).map((restaurant) => (
-			<Typography gutterBottom key={restaurant}>
-				<Typography className={classes.jobTitle} gutterBottom>
+			<Box key={restaurant}>
+				<Typography className={classes.jobTitle} variant="body1" gutterBottom>
 					{restaurant.jobTitle}
 				</Typography>
-				{restaurant.workPlace} - {restaurant.duration}
-			</Typography>
+				<Typography variant="subtitle1" gutterBottom>
+					{restaurant.workPlace} - {restaurant.duration} years
+				</Typography>
+			</Box>
 		))
 	}
 	let contact
-	if (!props.chef.contactInfo) {
+	if (props.chef.contactInfo) {
 		contact = "mailto:" + props.chef.contactInfo.email
 	}
 	return (
@@ -225,9 +230,9 @@ function ChefCard(props) {
 					</Box>
 					<Box className={classes.pads}>
 						<Typography variant="h6" gutterBottom>
-							Restaurant Experience
+							Experience
 					</Typography>
-						<FormGroup row>
+						<FormGroup>
 							{chefRestaurant}
 						</FormGroup>
 					</Box>
@@ -239,9 +244,9 @@ function ChefCard(props) {
 					</Typography>
 				</CardContent>
 				<CardActions>
-					<Button href={contact}>
-						Book Chef
-				</Button>
+					<Button variant="button" href={contact}>
+						Contact Chef
+					</Button>
 					{editBtn}
 					{addBtn}
 				</CardActions>
@@ -272,7 +277,14 @@ function ChefCard(props) {
 				aria-describedby="simple-modal-description"
 			>
 				<div className={classes.paper}>
-					<h1>Add Photo</h1>
+					<AddPhoto
+						handleInputChange={props.handleInputChange}
+						handleFormSubmit={props.handleFormSubmit}
+						chef={props.chef}
+						file={props.file}
+						fileChange={props.fileChange}
+						uploadToCloudinary={props.uploadToCloudinary}
+					/>
 				</div>
 			</Modal>
 		</div>

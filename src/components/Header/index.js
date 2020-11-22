@@ -33,12 +33,16 @@ const useStyles = makeStyles((theme) => ({
 		zIndex: "-1"
 	},
 	heroInner:{
-		padding: "180px 0"
+		padding: "140px 0"
 	},
 	btn:{
 		marginTop: "20px",
 		background: "#b3b4b5",
 		color: "black"
+	},
+	font:{
+		fontFamily: "'Italianno', cursive",
+		fontSize: "6em"
 	}
 }));
 
@@ -50,7 +54,7 @@ function Header() {
 				<div className={classes.overlay} />
 				<Grid container className={classes.heroInner}>
 					<Grid item xs={12}>
-						<Typography component="h1" variant="h2" color="" gutterBottom>
+						<Typography className={classes.font} component="h1" variant="h2" color="" gutterBottom>
 						Experience Elegance at Home
 						</Typography>
 						<Typography component="h2" variant="h5" color="inherit" gutterBottom>
