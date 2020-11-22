@@ -18,9 +18,10 @@ const useStyles = makeStyles((theme) => ({
                 flexShrink: "0",
                 minWidth: '100%',    
                 minHeight: "100%",
-                borderRadius: "10px",
+                borderRadius: "25px",
                 display: "inline",
                 alignItems: "center",
+                padding:"20px"
         },
         container:{
                 margin: "60px 0",
@@ -33,16 +34,14 @@ const useStyles = makeStyles((theme) => ({
         center:{
                 display: "flex",
                 alignItems: "center",
-                paddingRight: "20px",
-                paddingBottom: "20px"
         }
 }));
 
 function Feature(props) {
         const classes = useStyles();
 	return (
-                <Grid container spacing={0} className={classes.container}>
-                        <Grid className={classes.center} item xs={12} sm={12} md={6} lg={6} xl={6}>
+                <Grid container spacing={1} className={classes.container}>
+                        <Grid item className={classes.center} xs={12} sm={12} md={6} lg={6} xl={6}>
                                 <Box>
                                         <Typography variant="h3" align="center" gutterBottom>
                                                 {props.props.title}
