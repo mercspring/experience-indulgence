@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
 		flexWrap: 'wrap',
-		margin: '0 0 0 20px',
 		borderRadius: '4px',
 		overflow: "hidden",
 		backgroundColor: theme.palette.background.paper,

@@ -51,7 +51,7 @@ theme = createMuiTheme({
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-    paddingTop: "120px",
+    paddingTop: "90px",
 	},
 }));
 

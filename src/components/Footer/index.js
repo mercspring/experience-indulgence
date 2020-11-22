@@ -14,8 +14,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 const useStyles = makeStyles((theme) => ({
         container:{
-                height:"480px",
-                marginTop: "120px"
+                padding: "60px 0 120px 0"
         },
         contrast:{
             paddingLeft: "0"
@@ -32,12 +31,12 @@ function Feature() {
         <Box color="primary">
             <Container maxWidth="lg">
                     <Grid container spacing={1} className={classes.container}>
-                            <Grid item xs={3}>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
                                 <Typography variant="h4">
                                     Indulge
                                 </Typography>
                             </Grid>
-                            <Grid item xs={3}>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
                                 <Typography variant="h6">
                                     Chef
                                 </Typography>
@@ -53,7 +52,7 @@ function Feature() {
                                     </ListItemLink>
                                 </List>
                             </Grid>
-                            <Grid item xs={3}>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
                                 <Typography variant="h6">
                                     Team
                                 </Typography>
@@ -76,7 +75,7 @@ function Feature() {
                                     
                                 </List>
                             </Grid>
-                            <Grid item xs={3}>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
                                 <Typography variant="body2">
                                 © All Rights Reserved
                                 </Typography>

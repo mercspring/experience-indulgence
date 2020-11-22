@@ -7,7 +7,7 @@ import API from '../../utils/API.js'
 
 const useStyles = makeStyles((theme) => ({
     button:{
-        marginTop: "20px"
+        margin: "20px 0"
     },
     box: {
         backgroundColor: "rgba(244, 143, 177, 0.1)"
