@@ -33,10 +33,12 @@ const useStyles = makeStyles((theme) => ({
 		zIndex: "-1"
 	},
 	heroInner:{
-		padding: "160px 0"
+		padding: "180px 0"
 	},
-	box:{
-		marginTop: "20px"
+	btn:{
+		marginTop: "20px",
+		background: "#b3b4b5",
+		color: "black"
 	}
 }));
 
@@ -54,9 +56,7 @@ function Header() {
 						<Typography component="h2" variant="h5" color="inherit" gutterBottom>
 						Find your perfect date night
 						</Typography>
-						<Box className={classes.box}>
-							<Button href="/signup" size="large" color="inherit">Signup</Button>
-						</Box>
+						<Button className={classes.btn} href="/signup" size="large" color="inherit">Signup</Button>
 					</Grid>
 				</Grid>
 			</Container>

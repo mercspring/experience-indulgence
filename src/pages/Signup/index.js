@@ -176,7 +176,7 @@ function Signup() {
 	return (
 		<Paper className={classes.root}>
 				<Grid container spacing={2}>
-					<Grid item lg={12}>
+					<Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
 						<Typography variant="h3" gutterBottom>
 							Sign Up
 						</Typography>
@@ -184,9 +184,9 @@ function Signup() {
 				</Grid>
 			<form noValidate autoComplete="off">
 				<Grid container spacing={2}>
-					<Grid item lg={6}>
+					<Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
 						<Grid container className={classes.grid}>
-							<Grid item lg={12}>
+							<Grid item xs={12} sm={12}>
 								<Typography variant="h5">
 									Account
 								</Typography>
@@ -195,7 +195,7 @@ function Signup() {
 							</Grid>
 						</Grid>
 						<Grid container className={classes.grid}>
-							<Grid item lg={12}>
+							<Grid item xs={12}>
 								<Typography variant="h5" gutterBottom>
 									Photo
 								</Typography>
@@ -204,7 +204,7 @@ function Signup() {
 							</Grid>
 						</Grid>
 						<Grid container className={classes.grid}>
-							<Grid item lg={12}>
+							<Grid item xs={12}>
 								<Typography variant="h5">
 									Profile
 								</Typography>
@@ -215,11 +215,10 @@ function Signup() {
 								<TextField fullWidth label="Bio" name="bio" multiline rows={4} value={info.bio} onChange={onInfoChange} />
 							</Grid>
 						</Grid>
-						<Button className={classes.button} variant="contained" color="primary" onClick={onSubmit}>Create Profile</Button>
 					</Grid>
-					<Grid item lg={6}>
+					<Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
 						<Grid container className={classes.grid}>
-							<Grid item lg={12}>
+							<Grid item xs={12}>
 								<Typography variant="h5">
 									Experience
 								</Typography>
@@ -237,7 +236,7 @@ function Signup() {
 							</Grid>
 						</Grid>
 						<Grid container className={classes.grid}>
-							<Grid item lg={12}>
+							<Grid item xs={12}>
 								<Typography variant="h5" gutterBottom>
 									Dietary Specialties
 								</Typography>
@@ -247,7 +246,7 @@ function Signup() {
 							</Grid>
 						</Grid>
 						<Grid container className={classes.grid}>
-							<Grid item lg={12}>
+							<Grid item xs={12}>
 								<Typography variant="h5" gutterBottom>
 									Cusines
 								</Typography>
@@ -256,6 +255,9 @@ function Signup() {
 								</FormGroup>
 							</Grid>
 						</Grid>
+					</Grid>
+					<Grid item xs={12}>
+						<Button className={classes.button} variant="contained" color="primary" onClick={onSubmit}>Create Profile</Button>
 					</Grid>
 				</Grid>
 			</form>
