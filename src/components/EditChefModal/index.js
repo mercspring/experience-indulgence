@@ -32,18 +32,8 @@ function EditChefModal(props) {
                 <TextField fullWidth onChange={props.handleInputChange} value={props.chef.zipcode} type="text" name="zipcode" />
                 <TextField fullWidth onChange={props.handleInputChange} value={props.chef.profilePic} type="text" name="profilePic" />
                 <FormGroup row>
-                {props.chef.cuisine.map((cuisine) => (
-                    <FormControlLabel
-                    control={<Checkbox checked={true} onChange={props.handleInputChange} name="checkedA" />}
-                    label={cuisine.name}
-                    />
-                ))}
-                {props.chef.specialty.map((specialty) => (
-                    <FormControlLabel
-                    control={<Checkbox checked={true} onChange={props.handleInputChange} name="checkedA" />}
-                    label={specialty.name}
-                    />
-                ))}
+                {props.populateCuisine(true)}
+                {props.populateSpecialty(true)}
                 </FormGroup>
                 <Button className={classes.button} type="submit" variant="contained" color="secondary">Save Changes</Button>
             </form>
