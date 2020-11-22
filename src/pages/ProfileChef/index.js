@@ -93,9 +93,17 @@ function ProfileChef() {
 	}
 
 	return (
+<<<<<<< HEAD
 		<Grid container spacing={1}>
 			<Grid item xs={12} sm={12} md={4} lg={3} xl={2}>
 				{chef.specialty ? <ChefCard 
+=======
+
+		<Grid container spacing={1}>
+			<Grid item xs={12} sm={12} md={4} lg={3} xl={2}>
+				<ChefCard 
+
+>>>>>>> b8d9636ec66f24516bf8c680b7df0a6bce067669
 				openEdit={openEdit}
 				handleOpenEdit={handleOpenEdit}
 				handleCloseEdit={handleCloseEdit}
