@@ -29,16 +29,13 @@ function ProfileChef() {
 
 	const [chef, setChef] = useState([])
 	const {id} = useParams();
-	function loadChef() {
-		API.getChef(id)
-		.then(res => {
+	async function loadChef() {
+		const res = await API.getChef(id)
 			setChef(res.data)
 			console.log(res.data)
-		})
-		.catch(err => console.log(err));
 	}
-	useEffect(() => {
-		loadChef()
+	useEffect(async () => {
+		await loadChef()
 	}, [])
 	const handleInputChange = event=>{
         const {name,value}=event.target;
@@ -51,13 +48,15 @@ function ProfileChef() {
         event.preventDefault();
 		console.log('Updating.....')
 		setOpenEdit(false);
-		const payload = chef
-		// const payload = Object.assign(chef, { photos: file });
+
+		const payload = Object.assign(chef, {cuisine:chef.cuisine.map(elm => elm._id)});
+
 		console.log(payload)
 		const userToken = JSON.parse(localStorage.getItem("userData")).token
 		API.editChef(payload, userToken).then(chefData=>{
+			console.log(chefData)
 			loadChef()
-		})
+		}).catch(err => console.log(err))
 	}
 	function loadCuisines() {
 		API.getAllCuisines(id)
@@ -94,9 +93,11 @@ function ProfileChef() {
 	}
 
 	return (
+
 		<Grid container spacing={1}>
 			<Grid item xs={12} sm={12} md={4} lg={3} xl={2}>
 				<ChefCard 
+
 				openEdit={openEdit}
 				handleOpenEdit={handleOpenEdit}
 				handleCloseEdit={handleCloseEdit}
@@ -105,11 +106,12 @@ function ProfileChef() {
 				handleCloseAdd={handleCloseAdd}
 				handleInputChange={handleInputChange} 
 				handleFormSubmit={handleFormSubmit} 
+				setChef={setChef}
 				chef={chef}
 				file={file}
 				fileChange={(event) => setFile(event.target.files[0])}
 				uploadToCloudinary={uploadToCloudinary}
-				/>
+				/>: <h1>loading</h1>}
 			</Grid>
 			<Grid item xs={12} sm={12} md={8} lg={9} xl={10}>
 				<ChefImages chef={chef}/>
