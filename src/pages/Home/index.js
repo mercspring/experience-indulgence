@@ -8,6 +8,7 @@ import Feature from "../../components/Feature";
 import trupp from "../../assets/trupp.jpg";
 import spoons from "../../assets/spoons.jpg";
 import timeout from "../../assets/timeout.jpg";
+import { makeStyles } from "@material-ui/core";
 
 const content = [
   {
@@ -28,17 +29,24 @@ const content = [
   },
 ];
 
+const useStyles = makeStyles(() => ({
+	wrapper : {
+		alignItems : "center"
+	}
+}));
+
 function Home() {
-  return (
-    <div>
-      <Header />
-      <Container maxWidth="lg">
-        {content.map((content) => (
-          <Feature props={content} />
-        ))}
-      </Container>
-    </div>
-  );
+	const classes = useStyles();
+	return (
+		<div>
+		<Header />
+		<Container maxWidth="lg" className={classes.wrapper}>
+			{content.map((content) => (
+			<Feature props={content} />
+			))}
+		</Container>
+		</div>
+	);
 }
 
 export default Home;

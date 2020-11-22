@@ -51,8 +51,8 @@ function ProfileChef() {
         event.preventDefault();
 		console.log('Updating.....')
 		setOpenEdit(false);
-
-		const payload = Object.assign(chef, { photos: file });
+		const payload = chef
+		// const payload = Object.assign(chef, { photos: file });
 		console.log(payload)
 		const userToken = JSON.parse(localStorage.getItem("userData")).token
 		API.editChef(payload, userToken).then(chefData=>{
