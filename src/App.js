@@ -13,6 +13,8 @@ import Signup from "./pages/Signup";
 import ProfileChef from "./pages/ProfileChef";
 import Footer from "./components/Footer";
 
+import './App.css';
+
 let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
 
@@ -27,7 +29,7 @@ theme = createMuiTheme({
 		},
 		secondary: {
 			light: '#b3b4b5',
-			main: '#24292d',
+			main: '#eeeeee',
 			dark: '#5d646b',
 			contrastText: '#ae895d',
 		},
@@ -58,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 function App() {
 	const classes = useStyles();
 	return (
-		<div style={{background: "#b3b4b5"}}>
+		<div style={{background: "#b3b4b5", minHeight: "900px"}}>
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
 				<Router>

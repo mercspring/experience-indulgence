@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 // Styles
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import { LinearProgress } from '@material-ui/core';
 // Components
 import ChefCard from "../../components/ChefCard"
@@ -82,14 +81,6 @@ function ProfileChef() {
 			console.log(chefData)
 			loadChef()
 		}).catch(err => console.log(err))
-	}
-	function loadCuisines() {
-		API.getAllCuisines(id)
-		.then(res => {
-			setChef(res.data)
-			console.log(res.data)
-		})
-		.catch(err => console.log(err));
 	}
 
 	return (

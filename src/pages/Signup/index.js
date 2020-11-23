@@ -255,7 +255,7 @@ function Signup() {
 								<TextField fullWidth label="Duration" name="duration" onChange={onHightlightsChange} value={highlights.duration} />
 							</Grid>
 							<Grid item xs={12}>
-								<Button variant="contained" color="secondary" onClick={onAddHighlight}>Add Experience</Button>
+								<Button variant="contained" color="primary" onClick={onAddHighlight}>Add Experience</Button>
 							</Grid>
 						</Grid>
 						<Typography variant="h5" gutterBottom>

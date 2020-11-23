@@ -15,7 +15,6 @@ import FormGroup from '@material-ui/core/FormGroup';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Modal from '@material-ui/core/Modal';
-import Link from '@material-ui/core/Link';
 // Components
 import EditChefModal from "../EditChefModal";
 import AddPhoto from "../AddPhoto";
@@ -40,9 +39,11 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: '#3b4045',
 		boxShadow: theme.shadows[5],
 		maxWidth: "80vw",
+		minWidth: "40vw",
 		padding: theme.spacing(1),
-		width: "80%",
-		display: "inline-table",
+		bottom: "10%",
+		top: "10%",
+		display: "inline-table"
 	},
 	upload: {
 
@@ -60,10 +61,10 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex', 
 		alignItems: 'center',
 		justifyContent: 'center',
-		maxHeight: "80vh",
+		maxHeight: "90vh",
 		overflowY: "scroll"
 	},
-	colorBtn:{
+	colorBtn: {
 		background:"rgb(179, 180, 181)",
 		color: "black"
 	}

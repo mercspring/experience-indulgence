@@ -68,7 +68,7 @@ function EditChefModal(props) {
                         <Button className={classes.button} variant="contained" component="label" onChange={(event) => setFile(event.target.files[0])} val={file}>Upload<input type="file" hidden /></Button>
                     </Grid>
                     <Grid xs={12} sm={12} md={12} lg={12} xl={12} item>
-                        {file ? <Button className={classes.button} type="submit" variant="contained" color="secondary" onClick={() => uploadToCloudinary(file)}>Save Photo</Button> : <span></span>}
+                        {file ? <Button className={classes.button} type="submit" variant="contained" color="primary" onClick={() => uploadToCloudinary(file)}>Save Photo</Button> : <span></span>}
                     </Grid>
                 </Grid>
             </form>

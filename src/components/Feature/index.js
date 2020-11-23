@@ -16,12 +16,11 @@ const useStyles = makeStyles((theme) => ({
         },
         image: {
                 flexShrink: "0",
-                minWidth: '100%',    
+                width: '100%',    
                 minHeight: "100%",
-                borderRadius: "25px",
+                borderRadius: "5px",
                 display: "inline",
-                alignItems: "center",
-                padding:"20px"
+                alignItems: "center"
         },
         container:{
                 margin: "60px 0",
