@@ -34,12 +34,19 @@ const useStyles = makeStyles((theme) => ({
 		zIndex: "-1"
 	},
 	heroInner:{
-		padding: "180px 0"
+		paddingTop: "160px"
 	},
 	btn:{
 		marginTop: "20px",
-		background: "#b3b4b5",
-		color: "black"
+		background: "rgb(179, 180, 181)",
+		"&:hover":{
+			background: "white",
+		}
+	},
+	font:{
+		fontFamily: "'Italianno', cursive",
+		fontSize: "6em",
+		lineHeight: "1em"
 	}
 }));
 
@@ -52,13 +59,13 @@ function Header() {
 				<div className={classes.overlay} />
 				<Grid container className={classes.heroInner}>
 					<Grid item xs={12}>
-						<Typography component="h1" variant="h2" gutterBottom>
+						<Typography className={classes.font} component="h1" variant="h2" color="" gutterBottom>
 						Experience Elegance at Home
 						</Typography>
 						<Typography component="h2" variant="h5" color="inherit" gutterBottom>
 						Find your perfect date night
 						</Typography>
-						<Button className={classes.btn} href="/signup" size="large" color="inherit">Signup</Button>
+						<Button className={classes.btn} href="/signup" size="large">Signup</Button>
 					</Grid>
 				</Grid>
 			</Container>

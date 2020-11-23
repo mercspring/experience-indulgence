@@ -15,8 +15,10 @@ import FormGroup from '@material-ui/core/FormGroup';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Modal from '@material-ui/core/Modal';
+import Link from '@material-ui/core/Link';
 // Components
 import EditChefModal from "../EditChefModal";
+import AddPhoto from "../AddPhoto";
 // API
 import API from '../../utils/API.js';
 
@@ -37,9 +39,16 @@ const useStyles = makeStyles((theme) => ({
 		position: 'absolute',
 		backgroundColor: '#3b4045',
 		boxShadow: theme.shadows[5],
-		padding: theme.spacing(2),
-		maxWidth: "90vw"
-	  },
+		maxWidth: "90vw",
+		padding: theme.spacing(1),
+		width: "80%",
+		display: "inline-table",
+		top: "40%",
+		bottom: "60%",
+		left: "50%",
+		right: "50%",
+		transform: "translate(-50%, -40%)",
+	},
 	pads: {
 		marginBottom: "10px"
 	},
@@ -53,6 +62,10 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex', 
 		alignItems: 'center',
 		justifyContent: 'center',
+	},
+	colorBtn:{
+		background:"rgb(179, 180, 181)",
+		color: "black"
 	}
 }));
 
@@ -62,9 +75,9 @@ function ChefCard(props) {
 	let [cuisinesState, setCuisinesState] = useState({});
 	const [specialtiesState, setSpecialtiesState] = useState({});
 	let { id } = useParams();
-	let userId = JSON.parse(localStorage.getItem("userData"))._id
-	let editBtn
-	let addBtn
+	let userId = (localStorage.getItem("userData") != null) ? JSON.parse(localStorage.getItem("userData"))._id : null;
+	let editBtn;
+	let addBtn;
 
 	const generateObject = (typeArr, type) => {
 		let obj = {};
@@ -151,7 +164,7 @@ function ChefCard(props) {
 				return (<FormControlLabel
 					control={<Checkbox name={cuisine} checked={cuisinesState[cuisine].checked} onChange={onCuisinesChange} inputProps={{ 'aria-label': 'primary checkbox' }} />}
 					label={cuisine}
-					key={cuisinesState[cuisine].id}
+					key={index}
 				/>)
 			} else {
 				if (cuisinesState[cuisine].checked) {
@@ -184,23 +197,21 @@ function ChefCard(props) {
 	let chefRestaurant
 	if (props.chef.restaurants) {
 
-		chefRestaurant = JSON.parse(props.chef.restaurants).map((restaurant) => {
-			return  (
-					<React.Fragment key={restaurant}>
-						<Typography className={classes.jobTitle} gutterBottom>
-							{restaurant.jobTitle}
-						</Typography>
-						<Typography gutterBottom>
-							{restaurant.workPlace} - {restaurant.duration}
-						</Typography>
-					</React.Fragment>
-				)
-			
-			})
+		chefRestaurant = JSON.parse(props.chef.restaurants).map((restaurant, index) => (
+			<Box key={index}>
+				<Typography className={classes.jobTitle} variant="body1" gutterBottom>
+					{restaurant.jobTitle}
+				</Typography>
+				<Typography variant="subtitle1" gutterBottom>
+					{restaurant.workPlace} - {restaurant.duration} years
+				</Typography>
+			</Box>
+		))
 	}
 	let contact
-	if (!props.chef.contactInfo) {
-		contact = "mailto:" + props.chef.contactInfo.email
+	if (props.chef.contactInfo) {
+		contact = "mailto:" + props.chef.contactInfo.email + "?subject=Indulge%20Request&body=I'd%20like%20to%20book%20an%20appointment"
+
 	}
 	return (
 		<div>
@@ -234,9 +245,9 @@ function ChefCard(props) {
 					</Box>
 					<Box className={classes.pads}>
 						<Typography variant="h6" gutterBottom>
-							Restaurant Experience
-						</Typography>
-						<FormGroup row>
+							Experience
+					</Typography>
+						<FormGroup>
 							{chefRestaurant}
 						</FormGroup>
 					</Box>
@@ -248,9 +259,9 @@ function ChefCard(props) {
 					</Typography>
 				</CardContent>
 				<CardActions>
-					<Button href={contact}>
-						Book Chef
-				</Button>
+					<Button className={classes.colorBtn} variant="button" color="primary" href={contact}>
+						Contact Chef
+					</Button>
 					{editBtn}
 					{addBtn}
 				</CardActions>
@@ -289,7 +300,15 @@ function ChefCard(props) {
 			>
 				<Slide direction="down" in={props.openAdd}>		
 				<div className={classes.paper}>
-					<h1>Add Photo</h1>
+					<AddPhoto
+						handleInputChange={props.handleInputChange}
+						handleFormSubmit={props.handleFormSubmit}
+						chef={props.chef}
+						setChef={props.setChef}
+						file={props.file}
+						fileChange={props.fileChange}
+						uploadToCloudinary={props.uploadToCloudinary}
+					/>
 				</div>
 				</Slide>
 			</Modal>

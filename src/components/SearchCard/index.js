@@ -9,14 +9,22 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
-
+    align:{
+        display: "flex",
+        '& > *': {
+            alignSelf: "center",
+            marginRight: "10px"
+        },
+    }
 }));
 
 function SearchCard(props) {
     const classes = useStyles();
+    console.log(props.sigDishImage);
     function onChefClick(){
 
     }
@@ -29,28 +37,13 @@ function SearchCard(props) {
                 >
                     <CardMedia
                         component="img"
-                        alt="chef signiture dish"
+                        alt="Chef Signiture Dish"
                         style={{ maxWidth:"300px", maxHeight: "200px" }}
                         image={props.sigDishImage}
                     />
-                    <CardContent>
-                        <Grid container>
-                            <Grid item xs={5} style={{ width: "100px", height: "100px" }}>
-                                <CardMedia
-                                    component="img"
-                                    alt="Chef profile pic"
-                                    style={{ width: "100px", display: 'inline-block' }}
-                                    image={props.profilePic}
-                                />
-                            </Grid>
-                            <Grid style={{ display: "flex" }} item xs={7} alignItems='center' justify="center">
-                                <div className="search-card-name">
-                                        <span className="search-card-first-name" style={{fontSize: "15pt", paddingRight: "2ch"}}>{props.first} </span>
-                                        <br />
-                                    <span className="search-card-last-name" style={{fontSize: "15pt", paddingLeft: "2ch"}}>{props.last}</span>
-                                </div>
-                            </Grid>
-                        </Grid>
+                    <CardContent className={classes.align}>
+                        <Avatar alt="Chef profile pic" src={props.profilePic}/>
+                        <Typography variant="h6">{props.first} {props.last}</Typography>
                     </CardContent>
                 </CardActionArea>
             </Card>
