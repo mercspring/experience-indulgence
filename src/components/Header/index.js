@@ -33,10 +33,19 @@ const useStyles = makeStyles((theme) => ({
 		zIndex: "-1"
 	},
 	heroInner:{
-		padding: "160px 0"
+		paddingTop: "160px"
 	},
-	box:{
-		marginTop: "20px"
+	btn:{
+		marginTop: "20px",
+		background: "rgb(179, 180, 181)",
+		"&:hover":{
+			background: "white",
+		}
+	},
+	font:{
+		fontFamily: "'Italianno', cursive",
+		fontSize: "6em",
+		lineHeight: "1em"
 	}
 }));
 
@@ -47,16 +56,20 @@ function Header() {
 			<Container maxWidth="lg">
 				<div className={classes.overlay} />
 				<Grid container className={classes.heroInner}>
-					<Grid item md={12}>
-						<Typography component="h1" variant="h2" color="" gutterBottom>
+					<Grid item xs={12}>
+						<Typography className={classes.font} component="h1" variant="h2" color="" gutterBottom>
 						Experience Elegance at Home
 						</Typography>
 						<Typography component="h2" variant="h5" color="inherit" gutterBottom>
 						Find your perfect date night
 						</Typography>
+<<<<<<< HEAD
 						<Box className={classes.box}>
 							<Button href="/signup" size="large" variant="contained" color="primary">Signup</Button>
 						</Box>
+=======
+						<Button className={classes.btn} href="/signup" size="large">Signup</Button>
+>>>>>>> dev
 					</Grid>
 				</Grid>
 			</Container>

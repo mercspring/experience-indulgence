@@ -1,8 +1,9 @@
 // React
 import React, { useState, useEffect } from "react";
 // Styles
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 // Components
 import ChefCard from "../../components/ChefCard"
 import ChefImages from "../../components/ChefFood"
@@ -28,18 +29,39 @@ function ProfileChef() {
 		setOpenAdd(false);
 	};
 
+
+	let [file, setFile] = useState("");
+	function uploadToCloudinary() {
+		console.log(file);
+		reader(file).then( result => {
+		axios.post("https://api.cloudinary.com/v1_1/mercspring/upload", { upload_preset: 'ml_default', file: result })
+			.then(result => {
+			console.log(result.data)
+			console.log(result.data.secure_url)
+			setFile({ url: result.data.secure_url, title: file.name });
+			console.log(file)
+			}).catch(err => {
+			console.log(err);
+			})
+		})
+	}
+	const reader = (file) => {
+		return new Promise((resolve, reject) => {
+		const fileReader = new FileReader();
+		fileReader.onload = () => resolve(fileReader.result);
+		fileReader.readAsDataURL(file);
+		});
+	}
+
 	const [chef, setChef] = useState([])
 	const {id} = useParams();
-	function loadChef() {
-		API.getChef(id)
-		.then(res => {
+	async function loadChef() {
+		const res = await API.getChef(id)
 			setChef(res.data)
 			console.log(res.data)
-		})
-		.catch(err => console.log(err));
 	}
-	useEffect(() => {
-		loadChef()
+	useEffect(async () => {
+		await loadChef()
 	}, [])
 	const handleInputChange = event=>{
         const {name,value}=event.target;
@@ -52,13 +74,14 @@ function ProfileChef() {
         event.preventDefault();
 		console.log('Updating.....')
 		setOpenEdit(false);
-
-		const payload = Object.assign(chef, { photos: file });
+		setOpenAdd(false);
+		const payload = Object.assign(chef, {cuisine:chef.cuisine.map(elm => elm._id)});
 		console.log(payload)
 		const userToken = JSON.parse(localStorage.getItem("userData")).token
 		API.editChef(payload, userToken).then(chefData=>{
+			console.log(chefData)
 			loadChef()
-		})
+		}).catch(err => console.log(err))
 	}
 	function loadCuisines() {
 		API.getAllCuisines(id)
@@ -69,35 +92,10 @@ function ProfileChef() {
 		.catch(err => console.log(err));
 	}
 
-	let [file, setFile] = useState("");
-	function uploadToCloudinary() {
-		console.log(file);
-		reader(file).then( result => {
-		axios.post("https://api.cloudinary.com/v1_1/mercspring/upload", { upload_preset: 'ml_default', file: result })
-			.then(result => {
-			console.log(result.data)
-			console.log(result.data.secure_url)
-			let chefPhotos = [];
-			chefPhotos.push({ url: result.data.secure_url, title: file.name })
-			setFile(chefPhotos);
-			})
-			.catch(err => {
-			console.log(err);
-			})
-		})
-	}
-	const reader = (file) => {
-		return new Promise((resolve, reject) => {
-		const fileReader = new FileReader();
-		fileReader.onload = () => resolve(fileReader.result);
-		fileReader.readAsDataURL(file);
-		});
-	}
-	
 	return (
-		<Grid container xs={12}>
-			<Grid item xs={3}>
-				<ChefCard 
+		<Grid container spacing={1}>
+			<Grid item xs={12} sm={12} md={4} lg={4} xl={3}>
+				{chef.specialty ? <ChefCard 
 				openEdit={openEdit}
 				handleOpenEdit={handleOpenEdit}
 				handleCloseEdit={handleCloseEdit}
@@ -106,13 +104,14 @@ function ProfileChef() {
 				handleCloseAdd={handleCloseAdd}
 				handleInputChange={handleInputChange} 
 				handleFormSubmit={handleFormSubmit} 
+				setChef={setChef}
 				chef={chef}
 				file={file}
 				fileChange={(event) => setFile(event.target.files[0])}
 				uploadToCloudinary={uploadToCloudinary}
-				/>
+				/>: <CircularProgress />}
 			</Grid>
-			<Grid item xs={9}>
+			<Grid item xs={12} sm={12} md={8} lg={8} xl={9}>
 				<ChefImages chef={chef}/>
 			</Grid>
 		</Grid>

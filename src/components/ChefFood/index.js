@@ -10,27 +10,27 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
 		flexWrap: 'wrap',
-		margin: '0 0 0 20px',
 		borderRadius: '4px',
 		overflow: "hidden",
 		backgroundColor: theme.palette.background.paper,
-	}
+	},
+	gridList: {
+	  width: "100%",
+	},
 }));
 
 function ChefFood(props) {
 	let chefFoods
 	if(props.chef.photos){
-		chefFoods = props.chef.photos.map((photo) => (<GridListTile cols={1} rows={1}><img src={photo.url} alt={photo.title}/></GridListTile>))
+		chefFoods = props.chef.photos.map((photo,index) => (<GridListTile key={index} cols={1} rows={1}><img src={photo.url} alt={photo.title}/></GridListTile>))
 	}
 	const classes = useStyles();
 	return (
-		<div className={classes.root}>
-			<Paper elevation={1}>
-				<GridList cellHeight={160} cols={3}>
-					{chefFoods}
-				</GridList>
-			</Paper>
-		</div>
+		<Paper className={classes.root} elevation={1}>
+			<GridList className={classes.gridList} cellHeight={160} cols={3}>
+				{chefFoods}
+			</GridList>
+		</Paper>
 	);
 }
 

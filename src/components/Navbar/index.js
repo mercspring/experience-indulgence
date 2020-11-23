@@ -9,10 +9,9 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import SigninModal from "../SigninModal";
 import Modal from '@material-ui/core/Modal';
-import "./style.css"
 import { Slide, useScrollTrigger } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
-
+import "./style.css"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
 	width: "100%",
 	margin: "0 auto",
-	padding: "1vh 5vw"
+	padding: "1vh 9vw"
   },
   drawerItem: {
 	margin: "1vh 5vw",
@@ -57,6 +56,10 @@ const useStyles = makeStyles((theme) => ({
 	[theme.breakpoints.down('sm')]: {
 		display: "block"
 	}
+  },
+  font:{
+	fontFamily: "'Italianno', cursive",
+	fontSize: "3em"
   }
 }));
 
@@ -117,7 +120,7 @@ function Navbar(props) {
 					<AppBar position="fixed" elevation={1}>
 						<Toolbar className={classes.toolbar}>
 								<Link underline="none" color="inherit" href="/" >
-									<Typography variant="h5">
+									<Typography className={classes.font} variant="h5">
 										Indulge
 									</Typography>
 								</Link>
