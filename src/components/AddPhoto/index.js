@@ -11,9 +11,7 @@ import API from '../../utils/API'
 import ChefCard from '../ChefCard';
 
 const useStyles = makeStyles((theme) => ({
-    button: {
-        marginTop: "20px"
-    }
+
 }));
 
 function EditChefModal(props) {
@@ -63,16 +61,15 @@ function EditChefModal(props) {
             <form onSubmit={props.handleFormSubmit}>
                 <Grid container spacing={1}>
                     <Grid xs={12} sm={12} md={12} lg={12} xl={12} item>
-                        <Typography variant="h6">
-                            Upload
+                        <Typography variant="h6" gutterBottom>
+                            Food
                         </Typography>
                         <Typography gutterBottom style={!uploadFlag ? {color:"gray"} : {color:"black"}}>{file ? file.name : "No File Selected"}</Typography>
                         <Button className={classes.button} variant="contained" component="label" onChange={(event) => setFile(event.target.files[0])} val={file}>Upload<input type="file" hidden /></Button>
+                    </Grid>
+                    <Grid xs={12} sm={12} md={12} lg={12} xl={12} item>
                         {file ? <Button className={classes.button} type="submit" variant="contained" color="secondary" onClick={() => uploadToCloudinary(file)}>Save Photo</Button> : <span></span>}
                     </Grid>
-                    {/* <Grid xs={12} sm={12} md={12} lg={12} xl={12} item>
-                        <Button className={classes.button} type="submit" variant="contained" color="secondary">Save Changes</Button>
-                    </Grid> */}
                 </Grid>
             </form>
         </div>

@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 // Styles
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 // Components
 import ChefCard from "../../components/ChefCard"
 import ChefImages from "../../components/ChefFood"
@@ -73,7 +75,6 @@ function ProfileChef() {
 		console.log('Updating.....')
 		setOpenEdit(false);
 		setOpenAdd(false);
-
 		const payload = Object.assign(chef, {cuisine:chef.cuisine.map(elm => elm._id)});
 		console.log(payload)
 		const userToken = JSON.parse(localStorage.getItem("userData")).token
@@ -108,7 +109,7 @@ function ProfileChef() {
 				file={file}
 				fileChange={(event) => setFile(event.target.files[0])}
 				uploadToCloudinary={uploadToCloudinary}
-				/>: <h1>loading</h1>}
+				/>: <CircularProgress />}
 			</Grid>
 			<Grid item xs={12} sm={12} md={8} lg={8} xl={9}>
 				<ChefImages chef={chef}/>

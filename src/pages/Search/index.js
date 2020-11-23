@@ -10,6 +10,7 @@ import SearchBar from '../../components/SearchBar'
 function Search() {
     const [searchResults, setSearchResults] = useState([]);
     const [searched, setSearched] = useState()
+    
     return (
         <div>
             <SearchBar setSearched = {setSearched} setSearchResults={setSearchResults} />

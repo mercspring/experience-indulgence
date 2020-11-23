@@ -13,7 +13,10 @@ const useStyles = makeStyles((theme) => ({
 		borderRadius: '4px',
 		overflow: "hidden",
 		backgroundColor: theme.palette.background.paper,
-	}
+	},
+	gridList: {
+	  width: "100%",
+	},
 }));
 
 function ChefFood(props) {
@@ -23,13 +26,11 @@ function ChefFood(props) {
 	}
 	const classes = useStyles();
 	return (
-		<div className={classes.root}>
-			<Paper elevation={1}>
-				<GridList cellHeight={160} cols={3}>
-					{chefFoods}
-				</GridList>
-			</Paper>
-		</div>
+		<Paper className={classes.root} elevation={1}>
+			<GridList className={classes.gridList} cellHeight={160} cols={3}>
+				{chefFoods}
+			</GridList>
+		</Paper>
 	);
 }
 
