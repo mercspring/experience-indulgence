@@ -4,57 +4,48 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import { Grid, Fade } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
-
+    align:{
+        display: "flex",
+        '& > *': {
+            alignSelf: "center",
+            marginRight: "10px"
+        },
+    }
 }));
 
 function SearchCard(props) {
     const classes = useStyles();
-    function onChefClick(){
-
-    }
+    console.log(props.sigDishImage);
+    
     return (
-        <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-            <Card>
-                <CardActionArea 
-                href={"/profile/" + props.id}
-                // onClick={onChefClick}
-                >
-                    <CardMedia
-                        component="img"
-                        alt="chef signiture dish"
-                        style={{ maxWidth:"300px", maxHeight: "200px" }}
-                        image={props.sigDishImage}
-                    />
-                    <CardContent>
-                        <Grid container>
-                            <Grid item xs={5} style={{ width: "100px", height: "100px" }}>
-                                <CardMedia
-                                    component="img"
-                                    alt="Chef profile pic"
-                                    style={{ width: "100px", display: 'inline-block' }}
-                                    image={props.profilePic}
-                                />
-                            </Grid>
-                            <Grid style={{ display: "flex" }} item xs={7} alignItems='center' justify="center">
-                                <div className="search-card-name">
-                                        <span className="search-card-first-name" style={{fontSize: "15pt", paddingRight: "2ch"}}>{props.first} </span>
-                                        <br />
-                                    <span className="search-card-last-name" style={{fontSize: "15pt", paddingLeft: "2ch"}}>{props.last}</span>
-                                </div>
-                            </Grid>
-                        </Grid>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-        </Grid>
+        <Fade in={true} timeout={500}>
+            <Grid item xs={12} sm={6} md={4} lg={3} xl={2}> 
+                <Card>
+                    <CardActionArea 
+                    href={"/profile/" + props.id}
+                    // onClick={onChefClick}
+                    >
+                        <CardMedia
+                            component="img"
+                            alt="Chef Signiture Dish"
+                            style={{ width:"100%", height: "200px" }}
+                            image={props.sigDishImage}
+                        />
+                        <CardContent className={classes.align}>
+                            <Avatar alt="Chef profile pic" src={props.profilePic}/>
+                            <Typography variant="h6">{props.first} {props.last}</Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+            </Grid>
+        </Fade>
         // <Card>
         //     <CardActionArea>
         //     <CardMedia

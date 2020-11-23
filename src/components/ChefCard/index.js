@@ -8,15 +8,16 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
+import { Typography, Fade, Slide } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Modal from '@material-ui/core/Modal';
+import { Modal, Popover } from '@material-ui/core/';
 // Components
 import EditChefModal from "../EditChefModal";
+import AddPhoto from "../AddPhoto";
 // API
 import API from '../../utils/API.js';
 
@@ -32,17 +33,20 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 	},
 	paper: {
+		color: '#D4AF37',
+		outline: 'none',
 		position: 'absolute',
-		backgroundColor: theme.palette.background.paper,
+		backgroundColor: '#3b4045',
 		boxShadow: theme.shadows[5],
-		padding: theme.spacing(2),
-		width: "480px",
-		display: "inline-table",
-		top: "40%",
-		bottom: "60%",
-		left: "50%",
-		right: "50%",
-		transform: "translate(-50%, -40%)",
+		maxWidth: "80vw",
+		minWidth: "40vw",
+		padding: theme.spacing(1),
+		bottom: "10%",
+		top: "10%",
+		display: "inline-table"
+	},
+	upload: {
+
 	},
 	pads: {
 		marginBottom: "10px"
@@ -52,9 +56,18 @@ const useStyles = makeStyles((theme) => ({
 	},
 	jobTitle: {
 		fontWeight: "600"
+	},
+	modal: {
+		display: 'flex', 
+		alignItems: 'center',
+		justifyContent: 'center',
+		maxHeight: "90vh",
+		overflowY: "scroll"
+	},
+	colorBtn: {
+		background:"rgb(179, 180, 181)",
+		color: "black"
 	}
-
-
 }));
 
 function ChefCard(props) {
@@ -66,6 +79,7 @@ function ChefCard(props) {
 	let userId = (localStorage.getItem("userData") != null) ? JSON.parse(localStorage.getItem("userData"))._id : null;
 	let editBtn;
 	let addBtn;
+	let contactBtn;
 
 	const generateObject = (typeArr, type) => {
 		let obj = {};
@@ -116,10 +130,7 @@ function ChefCard(props) {
 		props.setChef({ ...props.chef, cuisine: chefsCuisines })
 
 	}, [cuisinesState])
-	if (userId === id) {
-		editBtn = <Button onClick={props.handleOpenEdit}>Edit Profile</Button>;
-		addBtn = <Button onClick={props.handleOpenAdd}>Add Food</Button>;
-	}
+	
 
 	function generateSpecialitiesCheckBoxes(modalFlag) {
 		const keys = Object.keys(specialtiesState)
@@ -139,6 +150,8 @@ function ChefCard(props) {
 						label={speciality}
 						key={index}
 					/>)
+				} else {
+					return null;
 				}
 			})
 		}
@@ -150,7 +163,7 @@ function ChefCard(props) {
 				return (<FormControlLabel
 					control={<Checkbox name={cuisine} checked={cuisinesState[cuisine].checked} onChange={onCuisinesChange} inputProps={{ 'aria-label': 'primary checkbox' }} />}
 					label={cuisine}
-					key={cuisinesState[cuisine].id}
+					key={index}
 				/>)
 			} else {
 				if (cuisinesState[cuisine].checked) {
@@ -161,6 +174,8 @@ function ChefCard(props) {
 						disabled
 						key={index}
 					/>)
+				} else {
+					return null;
 				}
 			}
 		})
@@ -181,21 +196,77 @@ function ChefCard(props) {
 	let chefRestaurant
 	if (props.chef.restaurants) {
 
-		chefRestaurant = JSON.parse(props.chef.restaurants).map((restaurant) => (
-			<Typography gutterBottom key={restaurant}>
-				<Typography className={classes.jobTitle} gutterBottom>
+		chefRestaurant = JSON.parse(props.chef.restaurants).map((restaurant, index) => (
+			<Box key={index}>
+				<Typography className={classes.jobTitle} variant="body1" gutterBottom>
 					{restaurant.jobTitle}
 				</Typography>
-				{restaurant.workPlace} - {restaurant.duration}
-			</Typography>
+				<Typography variant="subtitle1" gutterBottom>
+					{restaurant.workPlace} - {restaurant.duration} years
+				</Typography>
+			</Box>
 		))
 	}
 	let contact
-	if (!props.chef.contactInfo) {
-		contact = "mailto:" + props.chef.contactInfo.email
+	if (props.chef.contactInfo) {
+		contact = "mailto:" + props.chef.contactInfo.email + "?subject=Indulge%20Request&body=I'd%20like%20to%20book%20an%20appointment"
+
 	}
+
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+	
+	const handleClose = () => {
+	setAnchorEl(null);
+	};
+
+	const [anchorEl, setAnchorEl] = React.useState(null);
+	
+	const open = Boolean(anchorEl);
+	const popId = open ? 'simple-popover' : undefined;
+
+	if (userId === id) {
+		editBtn = <Button onClick={props.handleOpenEdit}>Edit Profile</Button>;
+		addBtn = <Button onClick={props.handleOpenAdd}>Add Food</Button>;
+	} else {
+		contactBtn = 
+		// <Button className={classes.colorBtn} variant="contained" color="primary" href={contact}>
+		// Contact Chef
+		// </Button>;
+		<React.Fragment>
+			<Button fullWidth aria-describedby={popId} variant="contained" color="primary" onClick={handleClick}>
+				Contact Chef
+			</Button>
+			<Popover
+
+				id={popId}
+				open={open}
+				anchorEl={anchorEl}
+				onClose={handleClose}
+				anchorOrigin={{
+				vertical: 'top',
+				horizontal: 'center',
+				}}
+				transformOrigin={{
+				vertical: 'bottom',
+				horizontal: 'center',
+				}}
+			>	
+			<Box p={0.8}>
+					{Object.keys(props.chef.contactInfo).map(key => {
+						return <Typography variant="body1">{key.charAt(0).toUpperCase() + key.substring(1).toLowerCase()}: {props.chef.contactInfo[key]}</Typography>
+					})}
+				</Box>
+			</Popover>
+		</React.Fragment>
+	}
+
+	
+
 	return (
 		<div>
+			<Fade in={true} timeout={800}>
 			<Card className={classes.card}>
 				<CardMedia
 					className={classes.cardMedia}
@@ -209,7 +280,7 @@ function ChefCard(props) {
 					<Box className={classes.pads}>
 						<Typography variant="h6" gutterBottom>
 							Bio
-					</Typography>
+						</Typography>
 						<Typography>
 							{props.chef.bio}
 						</Typography>
@@ -217,7 +288,7 @@ function ChefCard(props) {
 					<Box className={classes.pads}>
 						<Typography variant="h6" gutterBottom>
 							Cuisine & Specialties
-					</Typography>
+						</Typography>
 						<FormGroup row>
 							{generateCuisinesCheckBoxes(false)}
 							{generateSpecialitiesCheckBoxes(false)}
@@ -225,33 +296,35 @@ function ChefCard(props) {
 					</Box>
 					<Box className={classes.pads}>
 						<Typography variant="h6" gutterBottom>
-							Restaurant Experience
+							Experience
 					</Typography>
-						<FormGroup row>
+						<FormGroup>
 							{chefRestaurant}
 						</FormGroup>
 					</Box>
 					<Typography variant="h6" gutterBottom>
 						Zip Code
-				</Typography>
+					</Typography>
 					<Typography>
 						{props.chef.zipcode}
 					</Typography>
 				</CardContent>
 				<CardActions>
-					<Button href={contact}>
-						Book Chef
-				</Button>
+					{contactBtn}
 					{editBtn}
 					{addBtn}
 				</CardActions>
 			</Card>
+			</Fade>
+			
 			<Modal
+				className={classes.modal}
 				open={props.openEdit}
 				onClose={props.handleCloseEdit}
 				aria-labelledby="simple-modal-title"
 				aria-describedby="simple-modal-description"
 			>
+				<Slide direction="down" in={props.openEdit}>	
 				<div className={classes.paper}>
 					<EditChefModal
 						handleInputChange={props.handleInputChange}
@@ -264,16 +337,30 @@ function ChefCard(props) {
 						populateCuisine={generateCuisinesCheckBoxes}
 					/>
 				</div>
+				</Slide>
 			</Modal>
 			<Modal
+				className={classes.modal}
 				open={props.openAdd}
 				onClose={props.handleCloseAdd}
 				aria-labelledby="simple-modal-title"
 				aria-describedby="simple-modal-description"
+				closeAfterTransition
 			>
+				<Slide direction="down" in={props.openAdd}>		
 				<div className={classes.paper}>
-					<h1>Add Photo</h1>
+					<AddPhoto
+						handleInputChange={props.handleInputChange}
+						handleFormSubmit={props.handleFormSubmit}
+						chef={props.chef}
+						setChef={props.setChef}
+						file={props.file}
+						fileChange={props.fileChange}
+						uploadToCloudinary={props.uploadToCloudinary}
+						userId={userId}
+					/>
 				</div>
+				</Slide>
 			</Modal>
 		</div>
 	)

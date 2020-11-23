@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
         margin: "20px 0"
     },
     box: {
-        backgroundColor: "rgba(244, 143, 177, 0.1)"
+        backgroundColor: "rgba(244, 143, 177, 0)"
     },
     inputText: {
         color: "#f5f5f5"
@@ -50,15 +50,14 @@ function SigninModal(props) {
     return (
         <div>
             <Box>
-                <Typography variant="h4" gutterBottom>
+                <Typography variant="h4" color="inherit" gutterBottom>
                     Login
                 </Typography>
             </Box>
-            
             <form autoComplete="off" onSubmit={onSubmit}>
-                <TextField InputProps={{className : classes.inputText}} fullWidth error={!validUser} label="username" name="username" value={userInfo.username} onChange={onInfoChange} />
-                <TextField fullWidth error={!validUser} type="password" label="password" name="password" value={userInfo.password} onChange={onInfoChange} />
-                <Button className={classes.button} variant="contained" type="submit" color="secondary">Login</Button>
+                <TextField color="secondary" InputProps={{className : classes.inputText}} fullWidth error={!validUser} label="username" name="username" value={userInfo.username} onChange={onInfoChange} />
+                <TextField color="secondary" InputProps={{className : classes.inputText}} fullWidth error={!validUser} type="password" label="password" name="password" value={userInfo.password} onChange={onInfoChange} />
+                <Button className={classes.button} variant="contained" type="submit" color="primary">Login</Button>
             </form>
             <Grow in={!validUser}>
                 <Box p={0.15} mb={0.5} border={1} borderRadius={2} className={classes.box} borderColor="error.main" color="error.main">

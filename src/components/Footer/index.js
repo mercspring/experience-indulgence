@@ -18,6 +18,10 @@ const useStyles = makeStyles((theme) => ({
         },
         contrast:{
             paddingLeft: "0"
+        },
+        font:{
+            fontFamily: "'Italianno', cursive",
+            fontSize: "3em"
         }
 }));
 
@@ -31,12 +35,12 @@ function Feature() {
         <Box color="primary">
             <Container maxWidth="lg">
                     <Grid container spacing={1} className={classes.container}>
-                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                                <Typography variant="h4">
+                            <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+                                <Typography className={classes.font} variant="h4">
                                     Indulge
                                 </Typography>
                             </Grid>
-                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                            <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
                                 <Typography variant="h6">
                                     Chef
                                 </Typography>
@@ -44,15 +48,15 @@ function Feature() {
                                     <ListItemLink className={classes.contrast} href="/">
                                         <ListItemText primary="Home" />
                                     </ListItemLink>
-                                    <ListItemLink className={classes.contrast} href="/signup">
-                                        <ListItemText primary="Signup" />
-                                    </ListItemLink>
                                     <ListItemLink className={classes.contrast} href="/search">
                                         <ListItemText primary="Search" />
                                     </ListItemLink>
+                                    <ListItemLink className={classes.contrast} href="/signup">
+                                        <ListItemText primary="Signup" />
+                                    </ListItemLink>
                                 </List>
                             </Grid>
-                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                            <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
                                 <Typography variant="h6">
                                     Team
                                 </Typography>
@@ -61,24 +65,18 @@ function Feature() {
                                         <ListItemText primary="Mercury Springberry" />
                                     </ListItemLink>
                                     <ListItemLink className={classes.contrast} href="https://github.com/artuis">
-                                        <ListItemText primary="Thomas" />
+                                        <ListItemText primary="Thomas An" />
                                     </ListItemLink>
                                     <ListItemLink className={classes.contrast} href="https://github.com/magedabdelsalam">
                                         <ListItemText primary="Maged Abdelsalam" />
                                     </ListItemLink>
                                     <ListItemLink className={classes.contrast} href="https://github.com/devtown425">
-                                        <ListItemText primary="Hao" />
+                                        <ListItemText primary="Hao Guan" />
                                     </ListItemLink>
                                     <ListItemLink className={classes.contrast} href="https://github.com/ScottDancer">
                                         <ListItemText primary="Scott Dancer" />
                                     </ListItemLink>
-                                    
                                 </List>
-                            </Grid>
-                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                                <Typography variant="body2">
-                                © All Rights Reserved
-                                </Typography>
                             </Grid>
                     </Grid>
             </Container>

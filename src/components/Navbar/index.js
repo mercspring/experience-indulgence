@@ -1,8 +1,8 @@
 // React
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 // Styles
-import { makeStyles, IconButton, Drawer, Typography } from '@material-ui/core/';
+import { makeStyles, IconButton, Drawer, Typography, Container } from '@material-ui/core/';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
@@ -39,8 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
 	width: "100%",
-	margin: "0 auto",
-	padding: "1vh 5vw"
+	margin: "0 auto"
   },
   drawerItem: {
 	margin: "1vh 5vw",
@@ -56,13 +55,17 @@ const useStyles = makeStyles((theme) => ({
 	[theme.breakpoints.down('sm')]: {
 		display: "block"
 	}
+  },
+  font:{
+	fontFamily: "'Italianno', cursive",
+	fontSize: "3em"
   }
 }));
 
 function HideOnScroll(props) {
 	const { children } = props;
 	const trigger = useScrollTrigger();
-  
+	
 	return (
 	  <Slide appear={false} direction="down" in={!trigger}>
 		{children}
@@ -103,9 +106,9 @@ function Navbar(props) {
 
 	const handleSignout = () => {
 		localStorage.removeItem("userData");
-		history.push("/");
 		setDrawerOpen(false);
 		setLoggedUser(false);
+		<Redirect to="/" />
 	}
 
 	const classes = useStyles();
@@ -114,38 +117,40 @@ function Navbar(props) {
 			<div className={classes.root}>
 				<HideOnScroll {...props}>
 					<AppBar position="fixed" elevation={1}>
-						<Toolbar className={classes.toolbar}>
-								<Link underline="none" color="inherit" href="/" >
-									<Typography variant="h5">
-										Indulge
-									</Typography>
-								</Link>
-								<div className={classes.space}></div>
-							<span className={classes.mobileHidden}>
-							<Button href="/search" color="inherit">Search</Button>
-							{
-								loggedUser ?
-								
-								<React.Fragment>
-									<Button href={`/profile/${JSON.parse(localStorage.getItem("userData"))._id}`} color="inherit">Profile</Button>
-									<Button href="/" color="inherit" onClick={handleSignout}>Signout</Button>
-								</React.Fragment>
-								:
-								<React.Fragment>
-									<Button href="/signup" color="inherit">Signup</Button>
-									<Button onClick={handleOpen} color="inherit">Login</Button>
-								</React.Fragment>
-							}
-							</span>
-								<IconButton
-									color="inherit"
-									edge="end"
-									onClick={handleDrawerOpen}
-									className={classes.mobileMenu}
-								>
-									<MenuIcon />
-								</IconButton>
-						</Toolbar>
+						<Container maxWidth="lg">
+							<Toolbar className={classes.toolbar} disableGutters>
+									<Link underline="none" color="inherit" href="/" >
+										<Typography className={classes.font} variant="h5">
+											Indulge
+										</Typography>
+									</Link>
+									<div className={classes.space}></div>
+								<span className={classes.mobileHidden}>
+								<Button href="/search" color="inherit">Search</Button>
+								{
+									loggedUser ?
+									
+									<React.Fragment>
+										<Button href={`/profile/${JSON.parse(localStorage.getItem("userData"))._id}`} color="inherit">Profile</Button>
+										<Button href="/" color="inherit" onClick={handleSignout}>Signout</Button>
+									</React.Fragment>
+									:
+									<React.Fragment>
+										<Button href="/signup" color="inherit">Signup</Button>
+										<Button onClick={handleOpen} color="inherit">Login</Button>
+									</React.Fragment>
+								}
+								</span>
+									<IconButton
+										color="inherit"
+										edge="end"
+										onClick={handleDrawerOpen}
+										className={classes.mobileMenu}
+									>
+										<MenuIcon />
+									</IconButton>
+							</Toolbar>
+						</Container>
 					</AppBar>
 				</HideOnScroll>
 				<Drawer

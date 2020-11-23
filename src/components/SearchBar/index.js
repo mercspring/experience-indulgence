@@ -13,6 +13,7 @@ import Select from '@material-ui/core/Select';
 import Box from '@material-ui/core/Box';
 import InputLabel from '@material-ui/core/InputLabel';
 import API from '../../utils/API.js';
+import { Fade } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -39,9 +40,15 @@ function isJson(arr) {
 
 
 function SearchBar(props) {
-    const [searchTerm, setSearchTerm] = useState();
-    const [zipCode, setZipCode] = useState();
-    const [typeOfSearch, setTypeOfSearch] = useState();
+    const [searchTerm, setSearchTerm] = useState("");
+    const [zipCode, setZipCode] = useState("");
+    const [typeOfSearch, setTypeOfSearch] = useState("");
+
+    useEffect(() => {
+        API.getAllChefs().then(result => {
+            processResults(result)
+        });
+    }, [])
 
     function onSearchSubmit(event) {
         props.setSearched(true);
@@ -54,7 +61,6 @@ function SearchBar(props) {
             API.getAllChefs().then(result => {
                 processResults(result)
             })
-
         }
     }
     function onZipChange(event) {
@@ -123,41 +129,44 @@ function SearchBar(props) {
 
     const classes = useStyles();
     return (
-        <Paper className={classes.card} elevation={1}>
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                    <FormControl className={classes.flex}>
-                        <InputLabel>Select Option</InputLabel>
-                        <Select
-                            fullWidth
-                            value={typeOfSearch}
-                            onChange={onTypeChange}
-                            inputProps={{
-                                name: 'age',
-                                id: 'age-native-simple',
-                            }}
-                        >
-                            <MenuItem value={"cuisine"}>Cuisine</MenuItem>
-                            <MenuItem value={"restaurant"}>Restaurant</MenuItem>
-                            <MenuItem value={"chef"}>Chef</MenuItem>
-                        </Select>
-                    </FormControl>
+        <Fade in={true} timeout={500}>
+            <Paper className={classes.card} elevation={1}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                        <FormControl className={classes.flex}>
+                            <InputLabel>Select Option</InputLabel>
+                            <Select
+                                defaultValue = ""
+                                fullWidth
+                                value={typeOfSearch}
+                                onChange={onTypeChange}
+                                inputProps={{
+                                    name: 'age',
+                                    id: 'age-native-simple',
+                                }}
+                            >
+                                <MenuItem value={"cuisine"}>Cuisine</MenuItem>
+                                <MenuItem value={"restaurant"}>Restaurant</MenuItem>
+                                <MenuItem value={"chef"}>Chef</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                        <FormControl className={classes.flex}>
+                            <TextField fullWidth label="Zip Code" name="zipcode" value={zipCode} onChange={onZipChange} />
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={4} lg={3} xl={2}>
+                        <FormControl className={classes.flex}>
+                            <TextField fullWidth label="Search" name="search" value={searchTerm} onChange={onSearchChange} />
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12} lg={3} xl={2}>
+                        <Button className={classes.button} fullWidth color="primary" variant="contained" size="large" onClick={onSearchSubmit}> Search </Button>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                    <FormControl className={classes.flex}>
-                        <TextField fullWidth label="Zip Code" name="zipcode" value={zipCode} onChange={onZipChange} />
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={12} md={4} lg={3} xl={2}>
-                    <FormControl className={classes.flex}>
-                        <TextField fullWidth label="Search" name="search" value={searchTerm} onChange={onSearchChange} />
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={12} md={12} lg={3} xl={2}>
-                    <Button className={classes.button} fullWidth color="primary" variant="contained" size="large" onClick={onSearchSubmit}> Search </Button>
-                </Grid>
-            </Grid>
-        </Paper>
+            </Paper>
+        </Fade>
     )
 }
 

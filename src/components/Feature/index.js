@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 // Styles
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid"
-import { Typography, Box} from "@material-ui/core";
+import { Typography, Box, Fade, Slide } from "@material-ui/core";
 import { FilterNone, HowToVote, ViewHeadline } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,19 +16,29 @@ const useStyles = makeStyles((theme) => ({
         },
         image: {
                 flexShrink: "0",
-                minWidth: '100%',    
-                minHeight: "100%",
-                borderRadius: "25px",
+                width: '100%',   
                 display: "inline",
                 alignItems: "center",
-                padding:"20px"
+                position: "absolute",
+                top: "75%",
+                marginTop: "-50%"
         },
-        container:{
-                margin: "60px 0",
+        imgBox: {
+                position: "relative",
+                height:"300px",
+                width: "100%",
+                overflow: "hidden",
+                borderRadius: "5px",
+        },
+        container: {
+                marginTop: "80px",
                 width: "100%",
                 display: "flex",
                 '&:nth-of-type(2)': {
-                        flexDirection: "row-reverse",
+                        flexDirection: "row-reverse"
+                },
+                '&:last-of-type': {
+                        marginBottom : "80px"
                 }
         },
         center:{
@@ -40,21 +50,27 @@ const useStyles = makeStyles((theme) => ({
 function Feature(props) {
         const classes = useStyles();
 	return (
-                <Grid container spacing={1} className={classes.container}>
-                        <Grid item className={classes.center} xs={12} sm={12} md={6} lg={6} xl={6}>
-                                <Box>
-                                        <Typography variant="h3" align="center" gutterBottom>
-                                                {props.props.title}
-                                        </Typography>
-                                        <Typography variant="subtitle1" align="justify"  gutterBottom>
-                                                {props.props.description}
-                                        </Typography> 
-                                </Box>
+                <Slide direction="up" in={true}>
+                        <Grid container spacing={2} className={classes.container}>                            
+                                <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+                                        <Box className={classes.imgBox}>
+                                                <img className={classes.image}src={props.props.imageUrl} alt={props.props.title}/>
+                                        </Box>
+                                </Grid>
+                                <Grid item className={classes.center} xs={12} sm={12} md={6} lg={6} xl={6}>
+                                        <Fade in={true} timeout={500}>
+                                                <Box>
+                                                        <Typography variant="h3" align="center" gutterBottom>
+                                                                {props.props.title}
+                                                        </Typography>
+                                                        <Typography variant="subtitle1" align="justify"  gutterBottom>
+                                                                {props.props.description}
+                                                        </Typography> 
+                                                </Box>
+                                        </Fade>
+                                </Grid>                               
                         </Grid>
-                        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                                <img className={classes.image}src={props.props.imageUrl} alt={props.props.title}/>
-                        </Grid>
-                </Grid>
+                </Slide>
 	);
 }
 

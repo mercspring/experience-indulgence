@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 // Styles
 import Grid from '@material-ui/core/Grid';
+import { LinearProgress } from '@material-ui/core';
 // Components
 import ChefCard from "../../components/ChefCard"
 import ChefImages from "../../components/ChefFood"
@@ -27,6 +28,30 @@ function ProfileChef() {
 		setOpenAdd(false);
 	};
 
+
+	let [file, setFile] = useState("");
+	function uploadToCloudinary() {
+		console.log(file);
+		reader(file).then( result => {
+		axios.post("https://api.cloudinary.com/v1_1/mercspring/upload", { upload_preset: 'ml_default', file: result })
+			.then(result => {
+			console.log(result.data)
+			console.log(result.data.secure_url)
+			setFile({ url: result.data.secure_url, title: file.name });
+			console.log(file)
+			}).catch(err => {
+			console.log(err);
+			})
+		})
+	}
+	const reader = (file) => {
+		return new Promise((resolve, reject) => {
+		const fileReader = new FileReader();
+		fileReader.onload = () => resolve(fileReader.result);
+		fileReader.readAsDataURL(file);
+		});
+	}
+
 	const [chef, setChef] = useState([])
 	const {id} = useParams();
 	async function loadChef() {
@@ -48,48 +73,14 @@ function ProfileChef() {
         event.preventDefault();
 		console.log('Updating.....')
 		setOpenEdit(false);
-
+		setOpenAdd(false);
 		const payload = Object.assign(chef, {cuisine:chef.cuisine.map(elm => elm._id)});
-
 		console.log(payload)
 		const userToken = JSON.parse(localStorage.getItem("userData")).token
 		API.editChef(payload, userToken).then(chefData=>{
 			console.log(chefData)
 			loadChef()
 		}).catch(err => console.log(err))
-	}
-	function loadCuisines() {
-		API.getAllCuisines(id)
-		.then(res => {
-			setChef(res.data)
-			console.log(res.data)
-		})
-		.catch(err => console.log(err));
-	}
-
-	let [file, setFile] = useState("");
-	function uploadToCloudinary() {
-		console.log(file);
-		reader(file).then( result => {
-		axios.post("https://api.cloudinary.com/v1_1/mercspring/upload", { upload_preset: 'ml_default', file: result })
-			.then(result => {
-			console.log(result.data)
-			console.log(result.data.secure_url)
-			let chefPhotos = [];
-			chefPhotos.push({ url: result.data.secure_url, title: file.name })
-			setFile(chefPhotos);
-			})
-			.catch(err => {
-			console.log(err);
-			})
-		})
-	}
-	const reader = (file) => {
-		return new Promise((resolve, reject) => {
-		const fileReader = new FileReader();
-		fileReader.onload = () => resolve(fileReader.result);
-		fileReader.readAsDataURL(file);
-		});
 	}
 
 	return (
@@ -109,10 +100,13 @@ function ProfileChef() {
 				file={file}
 				fileChange={(event) => setFile(event.target.files[0])}
 				uploadToCloudinary={uploadToCloudinary}
-				/>: <h1>loading</h1>}
+				/>: <LinearProgress />}
 			</Grid>
 			<Grid item xs={12} sm={12} md={8} lg={8} xl={9}>
-				<ChefImages chef={chef}/>
+				{chef.photos ? 
+					<ChefImages chef={chef} setChef={setChef}/>
+					: <LinearProgress />
+				}
 			</Grid>
 		</Grid>
 	);

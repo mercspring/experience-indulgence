@@ -1,7 +1,7 @@
 // React
 import React, { useEffect, useState } from 'react';
 // Styles
-import Grid from "@material-ui/core/Grid"
+import { Grid, CircularProgress } from "@material-ui/core"
 import Typography from '@material-ui/core/Typography';
 // Components
 import SearchCard from '../../components/SearchCard'
@@ -10,6 +10,7 @@ import SearchBar from '../../components/SearchBar'
 function Search() {
     const [searchResults, setSearchResults] = useState([]);
     const [searched, setSearched] = useState()
+    
     return (
         <div>
             <SearchBar setSearched = {setSearched} setSearchResults={setSearchResults} />
@@ -25,7 +26,8 @@ function Search() {
                             key={elm._id}
                             id={elm._id}
                             />)
-                    }) : searched ? <Grid item xs={12}><Typography variant="h5">No Results</Typography></Grid> : <Grid item xs={12}><Typography variant="h5">Search for a chef by chef name, restaurant or cusine</Typography></Grid>}
+                    }) : <CircularProgress style={{margin : "0 auto"}}/>
+                }
                 {/* <Grid item xs={4}>
                     <SearchCard />
                 </Grid>
