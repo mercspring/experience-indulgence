@@ -104,8 +104,8 @@ function ProfileChef() {
 			</Grid>
 			<Grid item xs={12} sm={12} md={8} lg={8} xl={9}>
 				{chef.photos ? 
-				<ChefImages chef={chef}/>
-				: <LinearProgress />
+					<ChefImages chef={chef} setChef={setChef}/>
+					: <LinearProgress />
 				}
 			</Grid>
 		</Grid>

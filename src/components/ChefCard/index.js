@@ -309,6 +309,7 @@ function ChefCard(props) {
 						file={props.file}
 						fileChange={props.fileChange}
 						uploadToCloudinary={props.uploadToCloudinary}
+						userId={userId}
 					/>
 				</div>
 				</Slide>
