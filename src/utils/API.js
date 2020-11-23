@@ -38,7 +38,7 @@ const API = {
     },
     // id is PHOTO ID not CHEF ID for api/photo routes
     deletePhoto: function(id, token) {
-        return axios.post(this.api + "/api/photo/" + id, {}, { headers: { Authorization : `Bearer ${token}`}});
+        return axios.delete(this.api + "/api/photo/" + id, { headers: { Authorization : `Bearer ${token}`}});
     },
     updatePhoto: function(id, data, token) {
         return axios.post(this.api + "/api/photo/" + id, data, { headers: { Authorization : `Bearer ${token}`}});
