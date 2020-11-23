@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
         },
         font:{
             fontFamily: "'Italianno', cursive",
-            fontSize: "4em"
+            fontSize: "3em"
         }
 }));
 
@@ -65,13 +65,13 @@ function Feature() {
                                         <ListItemText primary="Mercury Springberry" />
                                     </ListItemLink>
                                     <ListItemLink className={classes.contrast} href="https://github.com/artuis">
-                                        <ListItemText primary="Thomas" />
+                                        <ListItemText primary="Thomas An" />
                                     </ListItemLink>
                                     <ListItemLink className={classes.contrast} href="https://github.com/magedabdelsalam">
                                         <ListItemText primary="Maged Abdelsalam" />
                                     </ListItemLink>
                                     <ListItemLink className={classes.contrast} href="https://github.com/devtown425">
-                                        <ListItemText primary="Hao" />
+                                        <ListItemText primary="Hao Guan" />
                                     </ListItemLink>
                                     <ListItemLink className={classes.contrast} href="https://github.com/ScottDancer">
                                         <ListItemText primary="Scott Dancer" />

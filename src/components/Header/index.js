@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import hero from  "../../assets/herothree.jpg"
+import { Fade } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
 	hero: {
@@ -52,22 +53,24 @@ const useStyles = makeStyles((theme) => ({
 function Header() {
 	const classes = useStyles();
 	return (
+		<Fade in={true} timeout={700}>
 		<Box className={classes.hero}>
 			<Container maxWidth="lg">
 				<div className={classes.overlay} />
 				<Grid container className={classes.heroInner}>
 					<Grid item xs={12}>
-						<Typography className={classes.font} component="h1" variant="h2" color="" gutterBottom>
+						<Typography className={classes.font} component="h1" variant="h2" gutterBottom>
 						Experience Elegance at Home
 						</Typography>
 						<Typography component="h2" variant="h5" color="inherit" gutterBottom>
 						Find your perfect date night
 						</Typography>
-						<Button className={classes.btn} href="/signup" size="large">Signup</Button>
+						<Button className={classes.btn} href="/search" size="large">Search</Button>
 					</Grid>
 				</Grid>
 			</Container>
 		</Box>
+		</Fade>
 	);
 }
 

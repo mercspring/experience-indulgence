@@ -26,7 +26,7 @@ function Search() {
                             key={elm._id}
                             id={elm._id}
                             />)
-                    }) : searched ? <Grid item xs={12}><Typography variant="h5">No Results</Typography></Grid> : <Grid item xs={12}><Typography variant="h5">Search for a chef by chef name, restaurant or cusine</Typography></Grid>}
+                    }) : searched ? <Grid item xs={12}><Typography variant="h5">No Results</Typography></Grid> : <Grid item xs={12}><Typography variant="h5">Search for a chef by chef name, restaurant or cuisine</Typography></Grid>}
                 {/* <Grid item xs={4}>
                     <SearchCard />
                 </Grid>

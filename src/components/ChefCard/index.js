@@ -8,14 +8,13 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
+import { Typography, Fade, Slide } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Modal from '@material-ui/core/Modal';
-import Link from '@material-ui/core/Link';
 // Components
 import EditChefModal from "../EditChefModal";
 import AddPhoto from "../AddPhoto";
@@ -34,17 +33,20 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 	},
 	paper: {
+		color: '#D4AF37',
+		outline: 'none',
 		position: 'absolute',
-		backgroundColor: theme.palette.background.paper,
+		backgroundColor: '#3b4045',
 		boxShadow: theme.shadows[5],
+		maxWidth: "80vw",
+		minWidth: "40vw",
 		padding: theme.spacing(1),
-		width: "80%",
-		display: "inline-table",
-		top: "40%",
-		bottom: "60%",
-		left: "50%",
-		right: "50%",
-		transform: "translate(-50%, -40%)",
+		bottom: "10%",
+		top: "10%",
+		display: "inline-table"
+	},
+	upload: {
+
 	},
 	pads: {
 		marginBottom: "10px"
@@ -55,7 +57,14 @@ const useStyles = makeStyles((theme) => ({
 	jobTitle: {
 		fontWeight: "600"
 	},
-	colorBtn:{
+	modal: {
+		display: 'flex', 
+		alignItems: 'center',
+		justifyContent: 'center',
+		maxHeight: "90vh",
+		overflowY: "scroll"
+	},
+	colorBtn: {
 		background:"rgb(179, 180, 181)",
 		color: "black"
 	}
@@ -143,6 +152,8 @@ function ChefCard(props) {
 						label={speciality}
 						key={index}
 					/>)
+				} else {
+					return null;
 				}
 			})
 		}
@@ -165,6 +176,8 @@ function ChefCard(props) {
 						disabled
 						key={index}
 					/>)
+				} else {
+					return null;
 				}
 			}
 		})
@@ -203,6 +216,7 @@ function ChefCard(props) {
 	}
 	return (
 		<div>
+			<Fade in={true} timeout={800}>
 			<Card className={classes.card}>
 				<CardMedia
 					className={classes.cardMedia}
@@ -216,7 +230,7 @@ function ChefCard(props) {
 					<Box className={classes.pads}>
 						<Typography variant="h6" gutterBottom>
 							Bio
-					</Typography>
+						</Typography>
 						<Typography>
 							{props.chef.bio}
 						</Typography>
@@ -224,7 +238,7 @@ function ChefCard(props) {
 					<Box className={classes.pads}>
 						<Typography variant="h6" gutterBottom>
 							Cuisine & Specialties
-					</Typography>
+						</Typography>
 						<FormGroup row>
 							{generateCuisinesCheckBoxes(false)}
 							{generateSpecialitiesCheckBoxes(false)}
@@ -240,25 +254,29 @@ function ChefCard(props) {
 					</Box>
 					<Typography variant="h6" gutterBottom>
 						Zip Code
-				</Typography>
+					</Typography>
 					<Typography>
 						{props.chef.zipcode}
 					</Typography>
 				</CardContent>
 				<CardActions>
-					<Button className={classes.colorBtn} variant="button" color="primary" href={contact}>
+					<Button className={classes.colorBtn} variant="contained" color="primary" href={contact}>
 						Contact Chef
 					</Button>
 					{editBtn}
 					{addBtn}
 				</CardActions>
 			</Card>
+			</Fade>
+			
 			<Modal
+				className={classes.modal}
 				open={props.openEdit}
 				onClose={props.handleCloseEdit}
 				aria-labelledby="simple-modal-title"
 				aria-describedby="simple-modal-description"
 			>
+				<Slide direction="down" in={props.openEdit}>	
 				<div className={classes.paper}>
 					<EditChefModal
 						handleInputChange={props.handleInputChange}
@@ -271,13 +289,17 @@ function ChefCard(props) {
 						populateCuisine={generateCuisinesCheckBoxes}
 					/>
 				</div>
+				</Slide>
 			</Modal>
 			<Modal
+				className={classes.modal}
 				open={props.openAdd}
 				onClose={props.handleCloseAdd}
 				aria-labelledby="simple-modal-title"
 				aria-describedby="simple-modal-description"
+				closeAfterTransition
 			>
+				<Slide direction="down" in={props.openAdd}>		
 				<div className={classes.paper}>
 					<AddPhoto
 						handleInputChange={props.handleInputChange}
@@ -290,6 +312,7 @@ function ChefCard(props) {
 						userId={userId}
 					/>
 				</div>
+				</Slide>
 			</Modal>
 		</div>
 	)

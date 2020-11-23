@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from 'react-router-dom';
 // Styles
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import { Typography, Fade } from '@material-ui/core/';
 import TextField from '@material-ui/core/TextField';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Grid from "@material-ui/core/Grid"
@@ -175,6 +175,7 @@ function Signup() {
 	}
 	const classes = useStyles();
 	return (
+		<Fade in={true}>
 		<Paper className={classes.root}>
 			<Grid container spacing={1}>
 				<Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -254,7 +255,7 @@ function Signup() {
 								<TextField fullWidth label="Duration" name="duration" onChange={onHightlightsChange} value={highlights.duration} />
 							</Grid>
 							<Grid item xs={12}>
-								<Button variant="contained" color="secondary" onClick={onAddHighlight}>Add Experience</Button>
+								<Button variant="contained" color="primary" onClick={onAddHighlight}>Add Experience</Button>
 							</Grid>
 						</Grid>
 						<Typography variant="h5" gutterBottom>
@@ -275,6 +276,7 @@ function Signup() {
 				</Grid>
 			</form>
 		</Paper>
+		</Fade>
 	);
 }
 

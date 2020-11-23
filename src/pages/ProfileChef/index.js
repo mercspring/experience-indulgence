@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from "react";
 // Styles
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { LinearProgress } from '@material-ui/core';
 // Components
 import ChefCard from "../../components/ChefCard"
 import ChefImages from "../../components/ChefFood"
@@ -83,14 +82,6 @@ function ProfileChef() {
 			loadChef()
 		}).catch(err => console.log(err))
 	}
-	function loadCuisines() {
-		API.getAllCuisines(id)
-		.then(res => {
-			setChef(res.data)
-			console.log(res.data)
-		})
-		.catch(err => console.log(err));
-	}
 
 	return (
 		<Grid container spacing={1}>
@@ -109,10 +100,13 @@ function ProfileChef() {
 				file={file}
 				fileChange={(event) => setFile(event.target.files[0])}
 				uploadToCloudinary={uploadToCloudinary}
-				/>: <CircularProgress />}
+				/>: <LinearProgress />}
 			</Grid>
 			<Grid item xs={12} sm={12} md={8} lg={8} xl={9}>
-				<ChefImages chef={chef} setChef={setChef}/>
+				{chef.photos ? 
+					<ChefImages chef={chef} setChef={setChef}/>
+					: <LinearProgress />
+				}
 			</Grid>
 		</Grid>
 	);
