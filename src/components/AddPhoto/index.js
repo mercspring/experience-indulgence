@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import API from '../../utils/API'
 import ChefCard from '../ChefCard';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -65,10 +67,10 @@ function EditChefModal(props) {
                             Food
                         </Typography>
                         <Typography gutterBottom style={!uploadFlag ? {color:"gray"} : {color:"black"}}>{file ? file.name : "No File Selected"}</Typography>
-                        <Button className={classes.button} variant="contained" component="label" onChange={(event) => setFile(event.target.files[0])} val={file}>Upload<input type="file" hidden /></Button>
+                        <Button className={classes.button} variant="contained" component="label" onChange={(event) => setFile(event.target.files[0])} val={file} startIcon={<CloudUploadIcon />}> Upload<input type="file" hidden /></Button>
                     </Grid>
                     <Grid xs={12} sm={12} md={12} lg={12} xl={12} item>
-                        {file ? <Button className={classes.button} type="submit" variant="contained" color="primary" onClick={() => uploadToCloudinary(file)}>Save Photo</Button> : <span></span>}
+                        {file ? <Button startIcon={<SaveAltIcon />} className={classes.button} type="submit" variant="contained" color="primary" onClick={() => uploadToCloudinary(file)}>Save Photo</Button> : <span></span>}
                     </Grid>
                 </Grid>
             </form>

@@ -37,25 +37,25 @@ function EditChefModal(props) {
                         </Typography>
                         <Grid container spacing={1}>
                             <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                                <TextField fullWidth InputProps={{className : classes.inputText}} InputLabelProps={{className : classes.inputLabel}} onChange={props.handleInputChange} value={props.chef.first} type="text" name="first" label="First Name"/>
+                                <TextField color="secondary"  fullWidth InputProps={{className : classes.inputText}} InputLabelProps={{className : classes.inputLabel}} onChange={props.handleInputChange} value={props.chef.first} type="text" name="first" label="First Name"/>
                             </Grid>
                             <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                                <TextField fullWidth InputProps={{className : classes.inputText}} InputLabelProps={{className : classes.inputLabel}} onChange={props.handleInputChange} value={props.chef.last} type="text" name="last" label="Last Name"/>
+                                <TextField color="secondary" fullWidth InputProps={{className : classes.inputText}} InputLabelProps={{className : classes.inputLabel}} onChange={props.handleInputChange} value={props.chef.last} type="text" name="last" label="Last Name"/>
                             </Grid>
                             <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                                <TextField fullWidth InputProps={{className : classes.inputText}} InputLabelProps={{className : classes.inputLabel}} onChange={props.handleInputChange} value={props.chef.username} type="text" name="username" label="Username"/>
+                                <TextField color="secondary" fullWidth InputProps={{className : classes.inputText}} InputLabelProps={{className : classes.inputLabel}} onChange={props.handleInputChange} value={props.chef.username} type="text" name="username" label="Username"/>
                             </Grid>
                             <Grid item xs={6} sm={6} InputProps={{className : classes.inputText}} md={6} lg={6} xl={6}>
-                                <TextField fullWidth InputProps={{className : classes.inputText}} InputLabelProps={{className : classes.inputLabel}} onChange={props.handleInputChange} value={props.chef.contactInfo.email} type="text" name="email" label="Email"/>
+                                <TextField color="secondary" fullWidth InputProps={{className : classes.inputText}} InputLabelProps={{className : classes.inputLabel}} onChange={props.handleInputChange} value={props.chef.contactInfo.email} type="text" name="email" label="Email"/>
                             </Grid>
                             <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                                <TextField fullWidth InputProps={{className : classes.inputText}} InputLabelProps={{className : classes.inputLabel}} onChange={props.handleInputChange} value={props.chef.zipcode} type="text" name="zipcode" label="Zipcode"/>
+                                <TextField color="secondary" fullWidth InputProps={{className : classes.inputText}} InputLabelProps={{className : classes.inputLabel}} onChange={props.handleInputChange} value={props.chef.zipcode} type="text" name="zipcode" label="Zipcode"/>
                             </Grid>
                             <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                                <TextField fullWidth InputProps={{className : classes.inputText}} InputLabelProps={{className : classes.inputLabel}} onChange={props.handleInputChange} value={props.chef.profilePic} type="text" name="profilePic" label="Profile Picture URL"/>
+                                <TextField color="secondary" fullWidth InputProps={{className : classes.inputText}} InputLabelProps={{className : classes.inputLabel}} onChange={props.handleInputChange} value={props.chef.profilePic} type="text" name="profilePic" label="Profile Picture URL"/>
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                                <TextField fullWidth InputProps={{className : classes.inputText}} InputLabelProps={{className : classes.inputLabel}} onChange={props.handleInputChange} multiline rows={2} value={props.chef.bio} type="text" name="bio" label="Bio"/>
+                                <TextField color="secondary" fullWidth InputProps={{className : classes.inputText}} InputLabelProps={{className : classes.inputLabel}} onChange={props.handleInputChange} multiline rows={2} value={props.chef.bio} type="text" name="bio" label="Bio"/>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -69,7 +69,7 @@ function EditChefModal(props) {
                         </FormGroup>
                     </Grid>
                     <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                        <Button className={classes.button} type="submit" variant="contained" color="primary">Save Changes</Button>
+                        <Button className={classes.button} fullWidth type="submit" variant="contained" color="primary">Save Changes</Button>
                     </Grid>
                 </Grid>
             </form>

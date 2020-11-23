@@ -6,9 +6,9 @@ import { ThemeProvider, createMuiTheme, makeStyles, responsiveFontSizes } from '
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 // Components
-import NavBar from "./components/navbar";
+import NavBar from "./components/Navbar";
 import Home from "./pages/Home";
-import Search from "./pages/search";
+import Search from "./pages/Search";
 import Signup from "./pages/Signup";
 import ProfileChef from "./pages/ProfileChef";
 import Footer from "./components/Footer";

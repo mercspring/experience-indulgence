@@ -55,8 +55,8 @@ function SigninModal(props) {
                 </Typography>
             </Box>
             <form autoComplete="off" onSubmit={onSubmit}>
-                <TextField InputProps={{className : classes.inputText}} fullWidth error={!validUser} label="username" name="username" value={userInfo.username} onChange={onInfoChange} />
-                <TextField fullWidth error={!validUser} type="password" label="password" name="password" value={userInfo.password} onChange={onInfoChange} />
+                <TextField color="secondary" InputProps={{className : classes.inputText}} fullWidth error={!validUser} label="username" name="username" value={userInfo.username} onChange={onInfoChange} />
+                <TextField color="secondary" InputProps={{className : classes.inputText}} fullWidth error={!validUser} type="password" label="password" name="password" value={userInfo.password} onChange={onInfoChange} />
                 <Button className={classes.button} variant="contained" type="submit" color="primary">Login</Button>
             </form>
             <Grow in={!validUser}>

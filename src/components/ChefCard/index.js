@@ -14,7 +14,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Modal from '@material-ui/core/Modal';
+import { Modal, Popover } from '@material-ui/core/';
 // Components
 import EditChefModal from "../EditChefModal";
 import AddPhoto from "../AddPhoto";
@@ -79,6 +79,7 @@ function ChefCard(props) {
 	let userId = (localStorage.getItem("userData") != null) ? JSON.parse(localStorage.getItem("userData"))._id : null;
 	let editBtn;
 	let addBtn;
+	let contactBtn;
 
 	const generateObject = (typeArr, type) => {
 		let obj = {};
@@ -129,10 +130,7 @@ function ChefCard(props) {
 		props.setChef({ ...props.chef, cuisine: chefsCuisines })
 
 	}, [cuisinesState])
-	if (userId === id) {
-		editBtn = <Button onClick={props.handleOpenEdit}>Edit Profile</Button>;
-		addBtn = <Button onClick={props.handleOpenAdd}>Add Food</Button>;
-	}
+	
 
 	function generateSpecialitiesCheckBoxes(modalFlag) {
 		const keys = Object.keys(specialtiesState)
@@ -214,6 +212,58 @@ function ChefCard(props) {
 		contact = "mailto:" + props.chef.contactInfo.email + "?subject=Indulge%20Request&body=I'd%20like%20to%20book%20an%20appointment"
 
 	}
+
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+	
+	const handleClose = () => {
+	setAnchorEl(null);
+	};
+
+	const [anchorEl, setAnchorEl] = React.useState(null);
+	
+	const open = Boolean(anchorEl);
+	const popId = open ? 'simple-popover' : undefined;
+
+	if (userId === id) {
+		editBtn = <Button onClick={props.handleOpenEdit}>Edit Profile</Button>;
+		addBtn = <Button onClick={props.handleOpenAdd}>Add Food</Button>;
+	} else {
+		contactBtn = 
+		// <Button className={classes.colorBtn} variant="contained" color="primary" href={contact}>
+		// Contact Chef
+		// </Button>;
+		<React.Fragment>
+			<Button fullWidth aria-describedby={popId} variant="contained" color="primary" onClick={handleClick}>
+				Contact Chef
+			</Button>
+			<Popover
+
+				id={popId}
+				open={open}
+				anchorEl={anchorEl}
+				onClose={handleClose}
+				anchorOrigin={{
+				vertical: 'top',
+				horizontal: 'center',
+				}}
+				transformOrigin={{
+				vertical: 'bottom',
+				horizontal: 'center',
+				}}
+			>	
+			<Box p={0.8}>
+					{Object.keys(props.chef.contactInfo).map(key => {
+						return <Typography variant="body1">{key.charAt(0).toUpperCase() + key.substring(1).toLowerCase()}: {props.chef.contactInfo[key]}</Typography>
+					})}
+				</Box>
+			</Popover>
+		</React.Fragment>
+	}
+
+	
+
 	return (
 		<div>
 			<Fade in={true} timeout={800}>
@@ -260,9 +310,7 @@ function ChefCard(props) {
 					</Typography>
 				</CardContent>
 				<CardActions>
-					<Button className={classes.colorBtn} variant="contained" color="primary" href={contact}>
-						Contact Chef
-					</Button>
+					{contactBtn}
 					{editBtn}
 					{addBtn}
 				</CardActions>
