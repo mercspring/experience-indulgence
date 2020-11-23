@@ -112,7 +112,7 @@ function ProfileChef() {
 				/>: <CircularProgress />}
 			</Grid>
 			<Grid item xs={12} sm={12} md={8} lg={8} xl={9}>
-				<ChefImages chef={chef}/>
+				<ChefImages chef={chef} setChef={setChef}/>
 			</Grid>
 		</Grid>
 	);
