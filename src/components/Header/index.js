@@ -63,13 +63,7 @@ function Header() {
 						<Typography component="h2" variant="h5" color="inherit" gutterBottom>
 						Find your perfect date night
 						</Typography>
-<<<<<<< HEAD
-						<Box className={classes.box}>
-							<Button href="/signup" size="large" variant="contained" color="primary">Signup</Button>
-						</Box>
-=======
 						<Button className={classes.btn} href="/signup" size="large">Signup</Button>
->>>>>>> dev
 					</Grid>
 				</Grid>
 			</Container>
