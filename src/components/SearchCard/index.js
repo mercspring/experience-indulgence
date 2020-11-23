@@ -38,7 +38,7 @@ function SearchCard(props) {
                     <CardMedia
                         component="img"
                         alt="Chef Signiture Dish"
-                        style={{ maxWidth:"300px", maxHeight: "200px" }}
+                        style={{ maxWidth:"300px", height: "200px" }}
                         image={props.sigDishImage}
                     />
                     <CardContent className={classes.align}>
