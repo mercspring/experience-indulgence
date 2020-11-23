@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const API = {
-    // api : "https://fast-waters-05843.herokuapp.com",
-    api : "http://localhost:8080",
+    api : "https://fast-waters-05843.herokuapp.com",
+    //api : "http://localhost:8080",
     getChef: function(id) {
         return axios.get(this.api + "/api/chef/" + id);
     },

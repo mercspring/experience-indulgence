@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
 	width: "100%",
 	margin: "0 auto",
-	padding: "1vh 5vw"
+	padding: "1vh 9vw"
   },
   drawerItem: {
 	margin: "1vh 5vw",

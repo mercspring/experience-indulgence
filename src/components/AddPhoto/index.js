@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 function EditChefModal(props) {
 
-    const [file, setFile] = useState({});
+    const [file, setFile] = useState();
     const [uploadFlag, setUploadFlag] = useState(false);
     // const [photo, setPhoto] = useState();
     const classes = useStyles();
@@ -65,10 +65,10 @@ function EditChefModal(props) {
                             Food
                         </Typography>
                         <Typography gutterBottom style={!uploadFlag ? {color:"gray"} : {color:"black"}}>{file ? file.name : "No File Selected"}</Typography>
-                        <Button variant="contained" component="label" onChange={(event) => setFile(event.target.files[0])} val={file}>Upload<input type="file" hidden /></Button>
+                        <Button className={classes.button} variant="contained" component="label" onChange={(event) => setFile(event.target.files[0])} val={file}>Upload<input type="file" hidden /></Button>
                     </Grid>
                     <Grid xs={12} sm={12} md={12} lg={12} xl={12} item>
-                        <Button type="submit" variant="contained" color="secondary" onClick={() => uploadToCloudinary(file)}>Save Photo</Button>
+                        {file ? <Button className={classes.button} type="submit" variant="contained" color="secondary" onClick={() => uploadToCloudinary(file)}>Save Photo</Button> : <span></span>}
                     </Grid>
                 </Grid>
             </form>

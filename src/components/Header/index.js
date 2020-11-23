@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 		zIndex: "-1"
 	},
 	heroInner:{
-		padding: "140px 0"
+		paddingTop: "160px"
 	},
 	btn:{
 		marginTop: "20px",
@@ -44,7 +44,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	font:{
 		fontFamily: "'Italianno', cursive",
-		fontSize: "6em"
+		fontSize: "6em",
+		lineHeight: "1em"
 	}
 }));
 

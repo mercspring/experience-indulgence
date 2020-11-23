@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
         margin: "20px 0"
     },
     box: {
-        backgroundColor: "rgba(244, 143, 177, 0.1)"
+        backgroundColor: "rgba(244, 143, 177, 0)"
     },
     inputText: {
         color: "#f5f5f5"
@@ -50,7 +50,7 @@ function SigninModal(props) {
     return (
         <div>
             <Box>
-                <Typography variant="h4" gutterBottom>
+                <Typography variant="h4" color="inherit" gutterBottom>
                     Login
                 </Typography>
             </Box>
