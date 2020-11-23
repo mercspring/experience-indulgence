@@ -8,7 +8,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import { Typography, Fade } from '@material-ui/core';
+import { Typography, Fade, Slide } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -32,18 +32,14 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 	},
 	paper: {
+		color: '#D4AF37',
+		outline: 'none',
 		position: 'absolute',
-		backgroundColor: theme.palette.background.paper,
+		backgroundColor: '#3b4045',
 		boxShadow: theme.shadows[5],
 		padding: theme.spacing(2),
-		width: "480px",
-		display: "inline-table",
-		top: "40%",
-		bottom: "60%",
-		left: "50%",
-		right: "50%",
-		transform: "translate(-50%, -40%)",
-	},
+		maxWidth: "90vw"
+	  },
 	pads: {
 		marginBottom: "10px"
 	},
@@ -52,9 +48,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 	jobTitle: {
 		fontWeight: "600"
+	},
+	modal: {
+		display: 'flex', 
+		alignItems: 'center',
+		justifyContent: 'center',
 	}
-
-
 }));
 
 function ChefCard(props) {
@@ -259,11 +258,13 @@ function ChefCard(props) {
 			</Fade>
 			
 			<Modal
+				className={classes.modal}
 				open={props.openEdit}
 				onClose={props.handleCloseEdit}
 				aria-labelledby="simple-modal-title"
 				aria-describedby="simple-modal-description"
 			>
+				<Slide direction="down" in={props.openEdit}>	
 				<div className={classes.paper}>
 					<EditChefModal
 						handleInputChange={props.handleInputChange}
@@ -276,16 +277,21 @@ function ChefCard(props) {
 						populateCuisine={generateCuisinesCheckBoxes}
 					/>
 				</div>
+				</Slide>
 			</Modal>
 			<Modal
+				className={classes.modal}
 				open={props.openAdd}
 				onClose={props.handleCloseAdd}
 				aria-labelledby="simple-modal-title"
 				aria-describedby="simple-modal-description"
+				closeAfterTransition
 			>
+				<Slide direction="down" in={props.openAdd}>		
 				<div className={classes.paper}>
 					<h1>Add Photo</h1>
 				</div>
+				</Slide>
 			</Modal>
 		</div>
 	)

@@ -12,6 +12,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 const useStyles = makeStyles((theme) => ({
     button:{
         marginTop: "20px"
+    },
+	inputText: {
+        color: "#f5f5f5"
     }
 }));
 
@@ -23,14 +26,14 @@ function EditChefModal(props) {
             Edit Profile
             </Typography>
             <form onSubmit={props.handleFormSubmit}>
-                <TextField fullWidth onChange={props.handleInputChange} value={props.chef.username} type="text" name="username" />
-                <TextField fullWidth onChange={props.handleInputChange} value={props.chef.first} type="text" name="first" />
-                <TextField fullWidth onChange={props.handleInputChange} value={props.chef.last} type="text" name="last" />
-                <TextField fullWidth onChange={props.handleInputChange} value={props.chef.bio} type="text" name="bio" />
+                <TextField InputProps={{className : classes.inputText}} fullWidth onChange={props.handleInputChange} value={props.chef.username} type="text" name="username" />
+                <TextField InputProps={{className : classes.inputText}} fullWidth onChange={props.handleInputChange} value={props.chef.first} type="text" name="first" />
+                <TextField InputProps={{className : classes.inputText}} fullWidth onChange={props.handleInputChange} value={props.chef.last} type="text" name="last" />
+                <TextField InputProps={{className : classes.inputText}} fullWidth onChange={props.handleInputChange} value={props.chef.bio} type="text" name="bio" />
                 <Button variant="contained" component="label" onChange={props.fileChange} val={props.file}>Upload<input type="file" hidden /></Button>
 				<Button className={classes.button} variant="contained" color="secondary" onClick={() => props.uploadToCloudinary(props.file)}>Add Photo</Button>	
-                <TextField fullWidth onChange={props.handleInputChange} value={props.chef.zipcode} type="text" name="zipcode" />
-                <TextField fullWidth onChange={props.handleInputChange} value={props.chef.profilePic} type="text" name="profilePic" />
+                <TextField InputProps={{className : classes.inputText}} fullWidth onChange={props.handleInputChange} value={props.chef.zipcode} type="text" name="zipcode" />
+                <TextField InputProps={{className : classes.inputText}} fullWidth onChange={props.handleInputChange} value={props.chef.profilePic} type="text" name="profilePic" />
                 <FormGroup row>
                 {props.populateCuisine(true)}
                 {props.populateSpecialty(true)}
