@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
         },
         container: {
                 marginTop: "80px",
-                width: "100%",
                 display: "flex",
                 '&:nth-of-type(2)': {
                         flexDirection: "row-reverse"
