@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 		backgroundSize: 'cover',
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center',
-		height: '540px',
+		height: '580px',
 		zIndex: "1"
 	},
 	overlay: {
@@ -55,7 +55,7 @@ function Header() {
 						Find your perfect date night
 						</Typography>
 						<Box className={classes.box}>
-							<Button href="/signup" size="large" variant="inherit" color="primary">Signup</Button>
+							<Button href="/signup" size="large" variant="contained" color="primary">Signup</Button>
 						</Box>
 					</Grid>
 				</Grid>
