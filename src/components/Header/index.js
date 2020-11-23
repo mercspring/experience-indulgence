@@ -53,13 +53,13 @@ const useStyles = makeStyles((theme) => ({
 function Header() {
 	const classes = useStyles();
 	return (
-		<Fade in={true}>
+		<Fade in={true} timeout={700}>
 		<Box className={classes.hero}>
 			<Container maxWidth="lg">
 				<div className={classes.overlay} />
 				<Grid container className={classes.heroInner}>
 					<Grid item xs={12}>
-						<Typography className={classes.font} component="h1" variant="h2" color="" gutterBottom>
+						<Typography className={classes.font} component="h1" variant="h2" gutterBottom>
 						Experience Elegance at Home
 						</Typography>
 						<Typography component="h2" variant="h5" color="inherit" gutterBottom>

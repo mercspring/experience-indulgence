@@ -39,15 +39,13 @@ const useStyles = makeStyles((theme) => ({
 		position: 'absolute',
 		backgroundColor: '#3b4045',
 		boxShadow: theme.shadows[5],
-		maxWidth: "90vw",
+		maxWidth: "80vw",
 		padding: theme.spacing(1),
 		width: "80%",
 		display: "inline-table",
-		top: "40%",
-		bottom: "60%",
-		left: "50%",
-		right: "50%",
-		transform: "translate(-50%, -40%)",
+	},
+	upload: {
+
 	},
 	pads: {
 		marginBottom: "10px"
@@ -62,6 +60,8 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex', 
 		alignItems: 'center',
 		justifyContent: 'center',
+		maxHeight: "80vh",
+		overflowY: "scroll"
 	},
 	colorBtn:{
 		background:"rgb(179, 180, 181)",
@@ -259,7 +259,7 @@ function ChefCard(props) {
 					</Typography>
 				</CardContent>
 				<CardActions>
-					<Button className={classes.colorBtn} variant="button" color="primary" href={contact}>
+					<Button className={classes.colorBtn} variant="contained" color="primary" href={contact}>
 						Contact Chef
 					</Button>
 					{editBtn}
