@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
 function HideOnScroll(props) {
 	const { children } = props;
 	const trigger = useScrollTrigger();
-  
+	
 	return (
 	  <Slide appear={false} direction="down" in={!trigger}>
 		{children}

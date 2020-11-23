@@ -27,12 +27,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Signup() {
+	let [disableSubmit, setDisableSubmit] = useState(true);
 	let [info, setInfo] = useState({ first: "", last: "", email: "", bio: "", zipcode: "", password: "", username: "" });
 	let [highlights, setHighlights] = useState({ workPlace: "", jobTitle: "", duration: "" });
 	let [highlightStore, setHighlightStore] = useState([]);
 	let [cuisinesState, setCuisinesState] = useState({});
 	let [specialitiesState, setSpecialitiesState] = useState([]);
-	let [services, setServicesState] = useState({});
+	// let [services, setServicesState] = useState({});
 	let [profilePicture, setProfilePicture] = useState('');
 	let [file, setFile] = useState("");
 	let [uploadFlag, setUploadFlag] = useState(false);
@@ -49,7 +50,7 @@ function Signup() {
 		const keys = Object.keys(specialitiesState)
 		return keys.map((speciality, index) => {
 			return (<FormControlLabel
-				control={<Checkbox name={speciality} checked={specialitiesState[speciality].checked} onChange={onSpecialityChange} inputProps={{ 'aria-label': 'primary checkbox' }} />}
+				control={<Checkbox color="primary" name={speciality} checked={specialitiesState[speciality].checked} onChange={onSpecialityChange} inputProps={{ 'aria-label': 'secondary checkbox' }} />}
 				label={speciality}
 				key={index}
 			/>)
@@ -59,7 +60,7 @@ function Signup() {
 		const keys = Object.keys(cuisinesState)
 		return keys.map((cuisine, index) => {
 			return (<FormControlLabel
-				control={<Checkbox name={cuisine} checked={cuisinesState[cuisine].checked} onChange={onCuisinesChange} inputProps={{ 'aria-label': 'primary checkbox' }} />}
+				control={<Checkbox color="primary" name={cuisine} checked={cuisinesState[cuisine].checked} onChange={onCuisinesChange} inputProps={{ 'aria-label': 'secondary checkbox' }} />}
 				label={cuisine}
 				key={index}
 			/>)
@@ -69,10 +70,16 @@ function Signup() {
 	function onInfoChange(event) {
 		const { name, value } = event.target;
 		setInfo({ ...info, [name]: value });
+		if (info.first && info.last && info.email && info.bio && (highlightStore.length > 0)) {
+			setDisableSubmit(false);
+		} else {
+			setDisableSubmit(true);
+		}
 	}
 	function onHightlightsChange(event) {
 		const { name, value } = event.target;
 		setHighlights({ ...highlights, [name]: value });
+
 	}
 	function onAddHighlight(event) {
 		event.preventDefault();
@@ -82,6 +89,7 @@ function Signup() {
 		} else {
 			return
 		}
+		
 	}
 
 	function uploadToCloudinary() {
@@ -105,6 +113,14 @@ function Signup() {
 		});
 	}
 
+	useEffect(()=>{
+		if (info.first && info.last && info.email && info.bio && info.username && info.password && (highlightStore.length > 0)) {
+			setDisableSubmit(false);
+		} else {
+			setDisableSubmit(true);
+		}
+	},[info,highlightStore])
+
 	useEffect(() => {
 		API.getAllCuisines()
 			.then(res => {
@@ -120,9 +136,9 @@ function Signup() {
 				setSpecialitiesState(generateObject(specialities));
 			}).catch(err => console.log(err));
 
-		API.getAllServices()
-			.then(res => setServicesState(res.data)
-			).catch(err => console.log(err));
+		// API.getAllServices()
+		// 	.then(res => setServicesState(res.data)
+		// 	).catch(err => console.log(err));
 	}, [])
 
 	function onSpecialityChange(event) {
@@ -171,7 +187,7 @@ function Signup() {
 		setProfilePicture("")
 		setCuisinesState({});
 		setSpecialitiesState([]);
-		setServicesState({});
+		// setServicesState({});
 	}
 	const classes = useStyles();
 	return (
@@ -259,7 +275,7 @@ function Signup() {
 							</Grid>
 						</Grid>
 						<Typography variant="h5" gutterBottom>
-								Cusines & Specialties
+								Cuisines & Specialties
 						</Typography>
 						<Grid container className={classes.grid}>
 							<Grid item xs={12}>
@@ -271,8 +287,10 @@ function Signup() {
 						</Grid>
 					</Grid>
 					<Grid item xs={12}>
-						<Button fullWidth variant="contained" color="primary" onClick={onSubmit}>Create Profile</Button>
+						<Button disabled={disableSubmit} fullWidth variant="contained" color="primary" onClick={onSubmit}>Create Profile</Button>
 					</Grid>
+					{/* let [info, setInfo] = useState({ first: "", last: "", email: "", bio: "", zipcode: "", password: "", username: "" });
+	let [highlights, setHighlights] = useState({ workPlace: "", jobTitle: "", duration: "" }); */}
 				</Grid>
 			</form>
 		</Paper>

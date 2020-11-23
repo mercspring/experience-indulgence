@@ -16,18 +16,29 @@ const useStyles = makeStyles((theme) => ({
         },
         image: {
                 flexShrink: "0",
-                width: '100%',    
-                minHeight: "100%",
-                borderRadius: "5px",
+                width: '100%',   
                 display: "inline",
-                alignItems: "center"
+                alignItems: "center",
+                position: "absolute",
+                top: "75%",
+                marginTop: "-50%"
         },
-        container:{
-                margin: "60px 0",
+        imgBox: {
+                position: "relative",
+                height:"300px",
+                width: "100%",
+                overflow: "hidden",
+                borderRadius: "5px",
+        },
+        container: {
+                marginTop: "80px",
                 width: "100%",
                 display: "flex",
                 '&:nth-of-type(2)': {
-                        flexDirection: "row-reverse",
+                        flexDirection: "row-reverse"
+                },
+                '&:last-of-type': {
+                        marginBottom : "80px"
                 }
         },
         center:{
@@ -40,8 +51,12 @@ function Feature(props) {
         const classes = useStyles();
 	return (
                 <Slide direction="up" in={true}>
-                        <Grid container spacing={1} className={classes.container}>
-                                
+                        <Grid container spacing={2} className={classes.container}>                            
+                                <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+                                        <Box className={classes.imgBox}>
+                                                <img className={classes.image}src={props.props.imageUrl} alt={props.props.title}/>
+                                        </Box>
+                                </Grid>
                                 <Grid item className={classes.center} xs={12} sm={12} md={6} lg={6} xl={6}>
                                         <Fade in={true} timeout={500}>
                                                 <Box>
@@ -53,11 +68,7 @@ function Feature(props) {
                                                         </Typography> 
                                                 </Box>
                                         </Fade>
-                                </Grid>
-                                <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                                        <img className={classes.image}src={props.props.imageUrl} alt={props.props.title}/>
-                                </Grid>
-                                
+                                </Grid>                               
                         </Grid>
                 </Slide>
 	);
