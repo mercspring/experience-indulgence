@@ -43,6 +43,21 @@ const API = {
     updatePhoto: function(id, data, token) {
         return axios.post(this.api + "/api/photo/" + id, data, { headers: { Authorization : `Bearer ${token}`}});
     },
+    createClient: function(payload) {
+        return axios.post(this.api + "/api/client")
+    },
+    getCurrentClient: function(token) {
+        return axios.get(this.api + "/api/client", {}, { headers: { Authorization : `Bearer ${token}`}})
+    },
+    updateClient: function(token) {
+        return axios.put(this.api + "/api/client", {}, { headers: { Authorization : `Bearer ${token}`}})
+    },
+    loginClient: function(payload) {
+        return axios.post(this.api + "/api/client/login", payload)
+    },
+    getClient: function(id) {
+        return axios.get(this.api + "/api/client/" + id);
+    },
 }
 
 export default API;
