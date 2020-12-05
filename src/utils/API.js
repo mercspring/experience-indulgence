@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const API = {
-    api : "https://fast-waters-05843.herokuapp.com",
-    //api : "http://localhost:8080",
+    // api : "https://fast-waters-05843.herokuapp.com",
+    api : "http://localhost:8080",
     getChef: function(id) {
         return axios.get(this.api + "/api/chef/" + id);
     },
@@ -42,6 +42,21 @@ const API = {
     },
     updatePhoto: function(id, data, token) {
         return axios.post(this.api + "/api/photo/" + id, data, { headers: { Authorization : `Bearer ${token}`}});
+    },
+    createClient: function(payload) {
+        return axios.post(this.api + "/api/client")
+    },
+    getCurrentClient: function(token) {
+        return axios.get(this.api + "/api/client", {}, { headers: { Authorization : `Bearer ${token}`}})
+    },
+    updateClient: function(token) {
+        return axios.put(this.api + "/api/client", {}, { headers: { Authorization : `Bearer ${token}`}})
+    },
+    loginClient: function(payload) {
+        return axios.post(this.api + "/api/client/login", payload)
+    },
+    getClient: function(id) {
+        return axios.get(this.api + "/api/client/" + id);
     },
 }
 
