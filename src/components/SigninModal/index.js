@@ -41,13 +41,15 @@ function SigninModal(props) {
 
     function onSubmitClient(event) {
         event.preventDefault();
-        API.clientLogin(clientInfo).then(res => {
+        API.loginClient(clientInfo).then(res => {
             console.log(res.data);
+            res.data.userType = "client"
             localStorage.setItem("userData", JSON.stringify(res.data));
             setClientInfo({ username: "", password: "", _id: "" });
             console.log(res.data._id);
             let userId = res.data._id
-            props.history.push(`/profile/${userId}`);
+            props.history.push(`/client-profile/${userId}`);
+            props.setUserType("client");
             props.setLoggedUser(true);
             props.handleClose(false);
             props.setDrawerOpen(false);
@@ -59,11 +61,13 @@ function SigninModal(props) {
         event.preventDefault();
         API.login(chefInfo).then(res => {
             console.log(res.data);
+            res.data.userType = "chef"
             localStorage.setItem("userData", JSON.stringify(res.data));
             setChefInfo({ username: "", password: "", _id: "" });
             console.log(res.data._id);
             let userId = res.data._id
             props.history.push(`/profile/${userId}`);
+            props.setUserType("chef");
             props.setLoggedUser(true);
             props.handleClose(false);
             props.setDrawerOpen(false);
