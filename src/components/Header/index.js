@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 function Header() {
 	const classes = useStyles();
 	return (
-		<Fade in={true} timeout={700}>
+		<Fade in={true} timeout={600}>
 		<Box className={classes.hero}>
 			<Container maxWidth="lg">
 				<div className={classes.overlay} />

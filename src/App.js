@@ -10,7 +10,10 @@ import NavBar from "./components/Navbar";
 import Home from "./pages/Home";
 import Search from "./pages/Search";
 import Signup from "./pages/Signup";
+import ClientSignup from "./pages/ClientSignup";
 import ProfileChef from "./pages/ProfileChef";
+import ProfileClient from "./pages/ProfileClient";
+
 import Footer from "./components/Footer";
 
 import './App.css';
@@ -71,7 +74,9 @@ function App() {
 						<Container className={classes.root} maxWidth="lg">
 							<Route exact path="/search" component={Search} />
 							<Route exact path="/signup" component={Signup} />
+							<Route exact path="/client-signup" component={ClientSignup} />
 							<Route exact path="/profile/:id" component={ProfileChef} />
+							<Route exact path="/client-profile/:id" component={ProfileClient} />
 						</Container>
 						</React.Fragment>
 					</Switch>
