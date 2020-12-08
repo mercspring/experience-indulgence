@@ -17,7 +17,6 @@ export default function SignupModal() {
     const classes = useStyles();
     return (
         <div>
-
             <Typography variant="h4" color="inherit" gutterBottom>
                 Signup
                 </Typography>
