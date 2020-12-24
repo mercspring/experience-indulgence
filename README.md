@@ -26,3 +26,5 @@ We would like to add user login, event scheduling and in-app messaging in future
 
 ## Questions and Contrubutions
 If you have any questiosn about the app or would like to contribute please contact me at: mspringberry＠gmail.com.
+
+## Deployed Site
